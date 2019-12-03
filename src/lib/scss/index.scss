@@ -1,7 +1,8 @@
 // Vendor
 // Site
-@import './variables/colors';
-@import './variables/buttons';
-@import './variables/common';
+@import './framework';
 @import './styles/index.scss';
-@import './components/index.scss';
+@import './background/index.scss';
+@import './divider/index.scss';
+@import './image/index.scss';
+@import './slate/index.scss';

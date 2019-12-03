@@ -1,0 +1,13 @@
+@import '../../lib/scss/framework.scss';
+// Vendor
+// @import '~react-datepicker/dist/react-datepicker.css';
+// Site
+@import '~guestbell-forms/build/scss/variables/colors';
+@import '~guestbell-forms/build/scss/variables/buttons';
+$success-color: $brand-green;
+$error-color: $brand-important;
+@import '~guestbell-forms/build/scss/variables/common';
+$link-color: $brand-primary;
+$input-validation-color: $brand-important;
+@import '~guestbell-forms/build/scss/styles/index.scss';
+@import '~guestbell-forms/build/scss/components/index.scss';

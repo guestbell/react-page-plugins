@@ -1,0 +1,28 @@
+const defaultTheme = {
+  primary: '#10bdc7',
+  secondary: '#A8DADC',
+  green: '#52BE93',
+  yellow: '#f9d469',
+  background: '#F6F6F6',
+  light: '#fff',
+  dark: '#0E2729',
+  important: '#ec4454',
+  grayDarker: '#222222',
+  grayDark: '#333333',
+  gray: '#555555',
+  grayLight: '#999999',
+  grayLighter: '#eeeeee',
+  grayLightest: '#f8f8f8',
+  servicesScreenColor: '#52BE93',
+  myStayScreenColor: '#555555',
+  chatScreenColor: '#5097CC',
+  myProfileScreenColor: '#10bdc7',
+  containerWidth: 920,
+  headerHeight: 56,
+  bottomNavigationHeight: 56,
+  warningColor: '#fff3cd',
+  warningText: '#856404',
+  fontFamily: 'MontSerrat',
+};
+
+export default defaultTheme;

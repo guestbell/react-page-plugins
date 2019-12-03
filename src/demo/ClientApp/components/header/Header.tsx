@@ -13,7 +13,7 @@ export default class Header extends React.PureComponent<HeaderCustomProps, {}> {
           className="navbar__logo text-center p-3"
         >
           <img src={logo} className="navbar__logo text-left" alt="Logo" />
-          <span className="navbar__text"> Forms</span>
+          <span className="navbar__text"> react-page plugins</span>
         </a>
         <a
           href="https://github.com/PeterKottas/guestbell-react-page-plugins"

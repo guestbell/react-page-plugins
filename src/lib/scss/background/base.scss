@@ -1,0 +1,20 @@
+.ory-plugins-layout-background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  padding: 12px;
+  position: relative;
+}
+
+.ory-plugins-layout-background > .ory-row {
+  position: relative;
+}
+
+.ory-plugins-layout-background__backstretch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

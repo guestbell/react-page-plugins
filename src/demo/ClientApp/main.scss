@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:200,400');
+@import './guestbell-forms.scss';
 body,
 button,
 input,
 optgroup,
 select,
 textarea {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+label {
+  margin-bottom: 0;
 }
 
 .material-icons {

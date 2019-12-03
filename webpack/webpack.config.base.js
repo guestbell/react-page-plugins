@@ -1,7 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
-var isLocalBuild = process.env && process.env.NODE_ENV && process.env.NODE_ENV.trim().toString() == 'local';
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var isLocalBuild =
+  process.env &&
+  process.env.NODE_ENV &&
+  process.env.NODE_ENV.trim().toString() == 'local';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   resolve: {
@@ -17,26 +20,26 @@ module.exports = {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             cacheDirectory: true,
             babelrc: false,
             presets: [
               [
-                "@babel/preset-env",
-                { targets: { browsers: "last 2 versions" } } // or whatever your project requires
+                '@babel/preset-env',
+                { targets: { browsers: 'last 2 versions' } }, // or whatever your project requires
               ],
-              "@babel/preset-typescript",
-              "@babel/preset-react"
+              '@babel/preset-typescript',
+              '@babel/preset-react',
             ],
             plugins: [
               // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
               // ["@babel/plugin-proposal-decorators", { legacy: true }],
-              ["@babel/plugin-proposal-class-properties", { loose: true }],
-              "react-hot-loader/babel"
-            ]
-          }
-        }
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+              'react-hot-loader/babel',
+            ],
+          },
+        },
       },
       /*{
           test: /\.tsx?$/,
@@ -52,29 +55,34 @@ module.exports = {
       },*/
       {
         test: /\.(scss|css)$/,
-        use: [(isLocalBuild ? {
-          loader: "style-loader",
-        } : {
-            loader: MiniCssExtractPlugin.loader
-          }), {
-          loader: "css-loader",
-          options: {
-            sourceMap: true,
-          }
-        }, {
-          loader: "postcss-loader",
-          options: {
-            sourceMap: true,
-            plugins: (loader) => [
-              require('autoprefixer')()
-            ]
-          }
-        }, {
-          loader: "sass-loader",
-          options: {
-            sourceMap: true,
-          }
-        }]
+        use: [
+          isLocalBuild
+            ? {
+                loader: 'style-loader',
+              }
+            : {
+                loader: MiniCssExtractPlugin.loader,
+              },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: loader => [require('autoprefixer')()],
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(svg)$/,
@@ -82,39 +90,37 @@ module.exports = {
           loader: 'svg-react-loader',
           query: {
             props: {
-              className: 'material-design-icon'
-            }
-          }
+              className: 'material-design-icon',
+            },
+          },
         },
-        include: /material-design-icons/
+        include: /material-design-icons/,
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
         use: 'url-loader?limit=8192&name=images/[name]-[hash].[ext]',
-        exclude: /material-design-icons/
-      }
-    ]
+        exclude: /material-design-icons/,
+      },
+    ],
   },
-  output:
-  {
+  output: {
     path: path.join(__dirname, '../build/dist'),
     filename: '[name].js',
     publicPath: '../build/', // Webpack dev middleware, if enabled, handles requests for this URL prefix
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: '[name].css',
     }),
     // new ForkTsCheckerWebpackPlugin(),
     //new DtsBundlePlugin()
-  ]
+  ],
 };
 
-
-function DtsBundlePlugin() { }
-DtsBundlePlugin.prototype.apply = function (compiler) {
-  compiler.plugin('done', function () {
+function DtsBundlePlugin() {}
+DtsBundlePlugin.prototype.apply = function(compiler) {
+  compiler.plugin('done', function() {
     var dts = require('dts-bundle');
 
     dts.bundle({
@@ -122,7 +128,7 @@ DtsBundlePlugin.prototype.apply = function (compiler) {
       main: 'src/lib/index.d.ts',
       out: '../index.d.ts',
       //removeSource: true,
-      outputAsModuleFolder: true // to use npm in-package typings
+      outputAsModuleFolder: true, // to use npm in-package typings
     });
   });
 };
