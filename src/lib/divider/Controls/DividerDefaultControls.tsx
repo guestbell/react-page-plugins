@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { BottomToolbar } from '@react-page/ui';
 import { DividerControlsProps as DividerControlsCustomProps } from '../types/controls';
+import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 
 type DividerControlsProps = DividerControlsCustomProps;
 
 const DividerDefaultControls: React.SFC<DividerControlsProps> = props => {
-  const { Renderer, readOnly, focused, remove, translations } = props;
+  const { Renderer, readOnly, focused, remove } = props;
   return (
     <div className="dividerControls ory-prevent-blur">
       <Renderer {...props} />
@@ -18,9 +18,7 @@ const DividerDefaultControls: React.SFC<DividerControlsProps> = props => {
           onDelete={remove}
           {...props}
           theme={props.theme}
-        >
-          {translations.pluginDescription}
-        </BottomToolbar>
+        />
       )}
     </div>
   );

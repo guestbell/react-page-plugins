@@ -1,5 +1,7 @@
 import { SlateProps } from './component';
 
-export interface SlateRendererExtraProps {}
+export interface SlateRendererExtraProps {
+  controls?: JSX.Element;
+}
 
-export type SlateRendererProps = SlateProps & SlateRendererExtraProps;
+export type SlateRendererProps = SlateProps & Partial<SlateRendererExtraProps>;

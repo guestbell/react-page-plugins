@@ -1,4 +1,4 @@
-import slate from '../../../../lib/slate-new';
+import slate from '../../../../lib/slate';
 import { muiTheme } from '../../theme/theme';
 
 export const defaultSlate = slate({

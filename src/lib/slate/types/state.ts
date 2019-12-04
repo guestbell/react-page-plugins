@@ -1,6 +1,6 @@
-import { Value, ValueJSON } from 'slate';
+import { Node } from 'slate';
+
 export interface SlateState {
-  importFromHtml?: string;
-  serialized?: ValueJSON;
-  editorState?: Value;
+  slateState: Node[];
+  slateStateTimestamp: number;
 }

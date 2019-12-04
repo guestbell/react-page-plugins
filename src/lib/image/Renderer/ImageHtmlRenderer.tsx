@@ -19,20 +19,13 @@ const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
   const Image = (
     <img
       className="ory-plugins-content-image"
-      alt={state.caption}
       src={state.image.src}
       srcSet={state.image.srcSet}
     />
   );
   return (
     <div>
-      {state.href && !isEditMode ? (
-        <a href={state.href} target={state.target} rel={state.rel}>
-          {Image}
-        </a>
-      ) : (
-        Image
-      )}
+      {state.href && !isEditMode ? <a href={state.href}>{Image}</a> : Image}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import * as React from 'react';
 // The content state
 import contents from './contents';
 import { plugins } from './plugins';
-import './styles.css';
+import './styles.scss';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -30,7 +30,7 @@ export class Basic extends React.PureComponent<BasicProps, BasicState> {
       <div className="container">
         <KeepStateEditor
           plugins={plugins}
-          value={contents[0]}
+          value={contents}
           // onChange={s => console.log('on change, new state', s)}
         />
       </div>

@@ -28,16 +28,13 @@ import native from '@react-page/plugins-default-native';
 // The divider plugin
 import divider from '../../../../lib/divider';
 // The html5-video plugin
-import html5video from '@react-page/plugins-html5-video';
-import '@react-page/plugins-html5-video/lib/index.css';
+import htmlVideo from '../../../../lib/htmlVideo/index';
 // The image plugin
 import { imagePlugin } from '../../../../lib/image/index';
 // The spacer plugin
-import spacer from '@react-page/plugins-spacer';
-import '@react-page/plugins-spacer/lib/index.css';
+import spacer from '../../../../lib/spacer/index';
 // The video plugin
-import video from '@react-page/plugins-video';
-import '@react-page/plugins-video/lib/index.css';
+import video from '../../../../lib/video/index';
 import { defaultSlate } from './slate';
 import { muiTheme } from '../../theme/theme';
 
@@ -46,11 +43,11 @@ import { muiTheme } from '../../theme/theme';
 export const plugins: Plugins = {
   content: [
     defaultSlate,
-    spacer,
+    spacer({ theme: muiTheme }),
     imagePlugin({ theme: muiTheme }),
-    video,
+    video({ theme: muiTheme }),
     divider({ theme: muiTheme }),
-    html5video,
+    htmlVideo({ theme: muiTheme }),
   ],
   layout: [
     background({

@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-import { BottomToolbar } from '@react-page/ui';
 import { ImageControlsProps as ImageControlsCustomProps } from '../types/controls';
-import Checkbox from 'guestbell-forms/build/components/checkbox/Checkbox';
-import Text from 'guestbell-forms/build/components/text/Text';
+import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 
 type ImageControlsProps = ImageControlsCustomProps;
 
@@ -36,18 +34,6 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
               }}
             />
           </div>
-          <Text
-            label="Link (e.g. http://example.com)"
-            value={props.state.href}
-            onChange={e => onChange({ href: e.target.value })}
-          />
-          <Checkbox
-            label="Open in new window"
-            checked={props.state.target === '_blank'}
-            onChecked={e =>
-              onChange({ target: e.target.checked ? '_blank' : '' })
-            }
-          />
         </BottomToolbar>
       )}
     </div>

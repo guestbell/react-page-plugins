@@ -4,7 +4,6 @@ import Switch from '@material-ui/core/Switch';
 import ColorComponent from './sub/Color';
 import LinearGradientComponent from './sub/LinearGradient';
 import ImageComponent from './sub/Image';
-import { BottomToolbar } from '@react-page/ui';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ImageIcon from '@material-ui/icons/Landscape';
@@ -14,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundControlsProps } from '../types/controls';
 import Slider from '@material-ui/core/Slider';
+import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 
 export interface BackgroundControlsState {
   mode: ModeEnum;

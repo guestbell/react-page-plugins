@@ -1,7 +1,7 @@
 import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
 import { Gradient } from './gradient';
 import { ModeEnum } from './ModeEnum';
-import { Image } from 'types/image/Image';
+import { Image } from '../../common/types/image/Image';
 
 export interface BackgroundState {
   bgImageId?: number;
