@@ -4,6 +4,7 @@ import {
   HeadingPluginOptions,
   getActiveHeadings,
   isHeadingActive,
+  HeadingCommands,
 } from './withHeadings';
 import MenuItem from '@material-ui/core/MenuItem';
 import { lazyLoad } from '@react-page/core';
@@ -43,7 +44,7 @@ const HeadingButtonRaw: React.FC<HeadingButtonProps> = props => {
   const handleMenuItemClick = (level: number) => (
     event: React.MouseEvent<HTMLElement>
   ) => {
-    editor.exec({ type: 'toggle_heading', level });
+    editor.exec({ type: HeadingCommands.ToggleHeading, level });
     handleClose();
   };
   return (

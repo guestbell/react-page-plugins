@@ -1,6 +1,6 @@
 import { Editor } from 'slate';
 
-export enum HeadingTypes {
+export enum HeadingLevels {
   H1 = 1,
   H2 = 2,
   H3 = 3,
@@ -9,14 +9,22 @@ export enum HeadingTypes {
   H6 = 6,
 }
 
-export const isHeadingActive = (editor: Editor, level: HeadingTypes) => {
-  const [heading] = Editor.nodes(editor, { match: { type: 'heading', level } });
+export const HeadingType = 'HEADING';
+
+export const HeadingCommands = {
+  ToggleHeading: 'toggle_heading',
+};
+
+export const isHeadingActive = (editor: Editor, level: HeadingLevels) => {
+  const [heading] = Editor.nodes(editor, {
+    match: { type: HeadingType, level },
+  });
   return !!heading;
 };
 
-export const getActiveHeadings = (editor: Editor): HeadingTypes[] => {
+export const getActiveHeadings = (editor: Editor): HeadingLevels[] => {
   const nodes = Editor.nodes(editor, {
-    match: { type: 'heading' },
+    match: { type: HeadingType },
     mode: 'all',
   });
   let headings = [];
@@ -32,19 +40,19 @@ const unwrapHeading = (editor: Editor) => {
   Editor.setNodes(editor, { type: 'paragraph' });
 };
 
-const wrapHeading = (editor: Editor, level: HeadingTypes) => {
+const wrapHeading = (editor: Editor, level: HeadingLevels) => {
   if (isHeadingActive(editor, level)) {
     unwrapHeading(editor);
     return;
   }
 
-  const heading = { type: 'heading', level };
+  const heading = { type: HeadingType, level };
   Editor.setNodes(editor, heading);
   // Editor.collapse(editor, { edge: 'end' });
 };
 
 export interface HeadingPluginOptions {
-  allowedHeadings?: HeadingTypes[];
+  allowedHeadings?: HeadingLevels[];
   headingsNames?: { [key: number]: string };
 }
 
@@ -60,7 +68,7 @@ export const withHeadings = (options?: HeadingPluginOptions) => (
   const { exec } = editor;
 
   editor.exec = command => {
-    if (command.type === 'toggle_heading') {
+    if (command.type === HeadingCommands.ToggleHeading) {
       const { level } = command;
 
       if (editor.selection) {

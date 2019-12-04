@@ -12,8 +12,12 @@ import {
 import { createEditor, Node } from 'slate';
 import debounce from 'lodash/debounce';
 import { HoveringToolbar } from './hoveringToolbar/HoveringToolbar';
-import { withMarks, MARK_HOTKEYS } from '../plugins/marks/withMarks';
-import { Mark } from '../plugins/marks/Mark';
+import {
+  withEmphasize,
+  MARK_HOTKEYS,
+  EmphasizeCommands,
+} from '../plugins/emphasize/withEmphasize';
+import { Emphasize } from '../plugins/emphasize/Emphasize';
 import { withLinks } from '../plugins/links/withLinks';
 import { Link } from '../plugins/links/Link';
 import isHotkey from 'is-hotkey';
@@ -43,8 +47,8 @@ import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 import { withHtml } from '../plugins/htmlPaste/withHtmlPaste';
 import { LinkButton } from '../plugins/links/LinkButton';
 import HeadingButtonCompact from '../plugins/heading/HeadingButtonCompact';
-import { MarkButton } from '../plugins/marks/MarkButton';
-import { MarkTypes } from '../plugins/marks/withMarks';
+import { EmphasizeButton } from '../plugins/emphasize/EmphasizeButton';
+import { EmphasizeTypes } from '../plugins/emphasize/withEmphasize';
 import { slateEmptyValue } from '../../common/components/slateEditor/slateEmptyValue';
 import { withHistory } from 'slate-history';
 
@@ -66,7 +70,7 @@ export const renderElement: React.FC<RenderElementProps> = props => {
 };
 
 export const renderMark: React.FC<RenderMarkProps> = props => {
-  const comp = Mark(props);
+  const comp = Emphasize(props);
   return comp;
 };
 
@@ -77,13 +81,13 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   const editor = React.useRef(
     withHistory(
       withHtml(
-        withQuotes(
+        withQuotes()(
           withColors(
             withFontSizes()(
               withLists(
                 withHeadings()(
                   withAlignments(
-                    withLinks(withMarks(withReact(createEditor())))
+                    withLinks(withEmphasize(withReact(createEditor())))
                   )
                 )
               )
@@ -129,7 +133,7 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
               if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
                 event.preventDefault();
                 editor.exec({
-                  type: 'toggle_mark',
+                  type: EmphasizeCommands.ToggleEmphasize,
                   mark: { type: MARK_HOTKEYS[hotkey] },
                 });
               }
@@ -146,9 +150,9 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
         {!readOnly && focused && (
           <>
             <HoveringToolbar>
-              <MarkButton type={MarkTypes.Bold} />
-              <MarkButton type={MarkTypes.Italic} />
-              <MarkButton type={MarkTypes.Underline} />
+              <EmphasizeButton type={EmphasizeTypes.Bold} />
+              <EmphasizeButton type={EmphasizeTypes.Italic} />
+              <EmphasizeButton type={EmphasizeTypes.Underline} />
               <LinkButton />
               <ColorButton />
             </HoveringToolbar>

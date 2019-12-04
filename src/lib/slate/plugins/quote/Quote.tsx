@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
+import { QuoteType } from './withQuotes';
 
 export const Quote: React.FC<RenderElementProps> = ({
   attributes,
@@ -7,7 +8,7 @@ export const Quote: React.FC<RenderElementProps> = ({
   element,
 }) => {
   switch (element.type) {
-    case 'quote':
+    case QuoteType:
       return <blockquote {...attributes}>{children}</blockquote>;
     default:
       return null;

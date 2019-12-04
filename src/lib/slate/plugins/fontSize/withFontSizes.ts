@@ -38,6 +38,11 @@ export interface FontSizePluginOptions {
   fontSizesStyle?: { [key: number]: string };
 }
 
+export const FontSizeCommands = {
+  ChangeFontSize: 'change_fontsize',
+  ClearFontSize: 'clear_fontsize',
+};
+
 export const defaultOptions: FontSizePluginOptions = {
   allowedFontSizes: [1, 2, 4, 5],
   fontSizesNames: { 1: 'Smaller', 2: 'Small', 4: 'Large', 5: 'Larger' },
@@ -56,7 +61,7 @@ export const withFontSizes = (options?: FontSizePluginOptions) => (
   const { exec } = editor;
 
   editor.exec = command => {
-    if (command.type === 'change_fontsize') {
+    if (command.type === FontSizeCommands.ChangeFontSize) {
       const { fontSize } = command;
 
       if (editor.selection) {
@@ -65,7 +70,7 @@ export const withFontSizes = (options?: FontSizePluginOptions) => (
 
       return;
     }
-    if (command.type === 'clear_fontsize') {
+    if (command.type === FontSizeCommands.ClearFontSize) {
       if (editor.selection) {
         clearFontSize(editor);
       }

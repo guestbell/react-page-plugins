@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
+import { LinkType } from './withLinks';
 
 export const Link: React.FC<RenderElementProps> = ({
   attributes,
@@ -7,7 +8,7 @@ export const Link: React.FC<RenderElementProps> = ({
   element,
 }) => {
   switch (element.type) {
-    case 'link':
+    case LinkType:
       return (
         <a {...attributes} href={element.url}>
           {children}

@@ -6,10 +6,11 @@ import { withHeadings } from '../../../slate/plugins/heading/withHeadings';
 import { withAlignments } from '../../../slate/plugins/alignment/withAlignments';
 import { withLinks } from '../../../slate/plugins/links/withLinks';
 import {
-  withMarks,
+  withEmphasize,
   MARK_HOTKEYS,
-  MarkTypes,
-} from '../../../slate/plugins/marks/withMarks';
+  EmphasizeTypes,
+  EmphasizeCommands,
+} from '../../../slate/plugins/emphasize/withEmphasize';
 import { withReact, Slate, Editable } from 'slate-react';
 import isHotkey from 'is-hotkey';
 import {
@@ -22,7 +23,7 @@ import FontSizeButton from '../../../slate/plugins/fontSize/FontSizeButton';
 import { AlignmentButtons } from '../../../slate/plugins/alignment/AlignmentButtons';
 import { ListButtons } from '../../../slate/plugins/lists/ListButtons';
 import { LinkButton } from '../../../slate/plugins/links/LinkButton';
-import { MarkButton } from '../../../slate/plugins/marks/MarkButton';
+import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButton';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
 import classNames from 'classnames';
@@ -98,7 +99,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
       withFontSizes()(
         withLists(
           withHeadings()(
-            withAlignments(withLinks(withMarks(withReact(createEditor()))))
+            withAlignments(withLinks(withEmphasize(withReact(createEditor()))))
           )
         )
       )
@@ -167,7 +168,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
                 if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
                   event.preventDefault();
                   editor.exec({
-                    type: 'toggle_mark',
+                    type: EmphasizeCommands.ToggleEmphasize,
                     mark: { type: MARK_HOTKEYS[hotkey] },
                   });
                 }
@@ -204,9 +205,9 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
           {editor.selection && (
             <>
               <HoveringToolbar>
-                <MarkButton type={MarkTypes.Bold} />
-                <MarkButton type={MarkTypes.Italic} />
-                <MarkButton type={MarkTypes.Underline} />
+                <EmphasizeButton type={EmphasizeTypes.Bold} />
+                <EmphasizeButton type={EmphasizeTypes.Italic} />
+                <EmphasizeButton type={EmphasizeTypes.Underline} />
                 <LinkButton />
               </HoveringToolbar>
             </>

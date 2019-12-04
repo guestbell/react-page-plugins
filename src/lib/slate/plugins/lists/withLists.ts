@@ -6,6 +6,10 @@ export enum ListTypes {
   LI = 'list-item',
 }
 
+export const ListCommands = {
+  ToggleList: 'toggle_list',
+};
+
 export const isListActive = (editor: Editor, type: ListTypes) => {
   const [list] = Editor.nodes(editor, { match: { type } });
   return !!list;
@@ -15,7 +19,7 @@ export const withLists = (editor: Editor) => {
   const { exec } = editor;
 
   editor.exec = command => {
-    if (command.type === 'toggle_list') {
+    if (command.type === ListCommands.ToggleList) {
       const {
         list: { type },
       } = command;

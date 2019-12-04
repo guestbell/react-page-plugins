@@ -9,6 +9,10 @@ export enum AlignmentTypes {
   Justify = 'justify',
 }
 
+export const AlignmentCommands = {
+  ToggleAlignment: 'toggle_alignment',
+};
+
 export const isAlignmentActive = (
   editor: Editor,
   alignment: AlignmentTypes
@@ -32,7 +36,7 @@ export const withAlignments = (editor: Editor) => {
   const { exec } = editor;
 
   editor.exec = command => {
-    if (command.type === 'toggle_alignment') {
+    if (command.type === AlignmentCommands.ToggleAlignment) {
       const { alignment } = command;
 
       if (editor.selection) {

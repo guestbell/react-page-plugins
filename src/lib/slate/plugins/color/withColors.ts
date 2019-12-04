@@ -4,20 +4,27 @@ import { RGBColor } from 'react-color';
 
 export const isColorActive = (editor: Editor) => {
   const [node] = Editor.elements(editor, {
-    match: { type: 'color' },
+    match: { type: ColorType },
     mode: 'all',
   });
   return !!node;
 };
 
+export const ColorType = 'COLOR';
+
+export const ColorCommands = {
+  SetColor: 'set_color',
+  ClearColor: 'clear_color',
+};
+
 const unwrapColor = (editor: Editor) => {
-  Editor.unwrapNodes(editor, { match: { type: 'color' } });
+  Editor.unwrapNodes(editor, { match: { type: ColorType } });
 };
 
 const wrapColor = (editor: Editor, color: RGBColor) => {
   const isActive = isColorActive(editor);
 
-  const c = { type: 'color', color, children: [] };
+  const c = { type: ColorType, color, children: [] };
   // Wrap no matter what because if it's active, it splits the inline correctly
   Editor.wrapNodes(editor, c, { split: true });
   if (isActive) {
@@ -35,11 +42,11 @@ export const withColors = (editor: Editor) => {
   const { exec, isInline } = editor;
 
   editor.isInline = element => {
-    return element.type === 'color' ? true : isInline(element);
+    return element.type === ColorType ? true : isInline(element);
   };
 
   editor.exec = command => {
-    if (command.type === 'set_color') {
+    if (command.type === ColorCommands.SetColor) {
       const { color } = command;
 
       if (editor.selection) {
@@ -49,7 +56,7 @@ export const withColors = (editor: Editor) => {
       return;
     }
 
-    if (command.type === 'clear_color') {
+    if (command.type === ColorCommands.ClearColor) {
       if (editor.selection) {
         unwrapColor(editor);
       }

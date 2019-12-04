@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../Controls/buttons/SlateButton';
-import { isColorActive } from './withColors';
+import { isColorActive, ColorCommands } from './withColors';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -50,13 +50,13 @@ export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
 
   const clearColor = () => {
     Editor.setSelection(editor, selection);
-    editor.exec({ type: 'clear_color' });
+    editor.exec({ type: ColorCommands.ClearColor });
     handleClose();
   };
 
   const commitColor = () => {
     Editor.setSelection(editor, selection);
-    editor.exec({ type: 'set_color', color: color });
+    editor.exec({ type: ColorCommands.SetColor, color: color });
     handleClose();
   };
 

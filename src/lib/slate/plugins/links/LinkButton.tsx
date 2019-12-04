@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../Controls/buttons/SlateButton';
-import { isLinkActive, getLinkUrl } from './withLinks';
+import { isLinkActive, getLinkUrl, LinkCommands } from './withLinks';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -36,14 +36,14 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
 
   const clearLink = () => {
     Editor.setSelection(editor, selection);
-    editor.exec({ type: 'remove_link' });
+    editor.exec({ type: LinkCommands.RemoveLink });
     handleClose();
   };
 
   const commitLink = () => {
     if (url) {
       Editor.setSelection(editor, selection);
-      editor.exec({ type: 'insert_link', url });
+      editor.exec({ type: LinkCommands.InsertLink, url });
     }
     handleClose();
   };

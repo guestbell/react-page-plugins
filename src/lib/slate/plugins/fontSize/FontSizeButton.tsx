@@ -4,6 +4,7 @@ import {
   FontSizePluginOptions,
   getActiveFontSizes,
   isFontSizeActive,
+  FontSizeCommands,
 } from './withFontSizes';
 import MenuItem from '@material-ui/core/MenuItem';
 import { lazyLoad } from '@react-page/core';
@@ -43,7 +44,7 @@ const FontSizeButtonRaw: React.FC<FontSizeButtonProps> = props => {
   const handleMenuItemClick = (fontSize: number) => (
     event: React.MouseEvent<HTMLElement>
   ) => {
-    editor.exec({ type: 'change_fontsize', fontSize });
+    editor.exec({ type: FontSizeCommands.ChangeFontSize, fontSize });
     handleClose();
   };
   return (
