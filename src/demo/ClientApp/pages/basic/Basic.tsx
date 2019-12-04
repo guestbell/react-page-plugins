@@ -6,8 +6,11 @@ import * as React from 'react';
 import contents from './contents';
 import { plugins } from './plugins';
 import './styles.scss';
-import SlateEditor from '../../../../lib/common/components/slateEditor/SlateEditor';
+import SlateEditor, {
+  SlateEditorOnChangeHandler,
+} from '../../../../lib/common/components/slateEditor/SlateEditor';
 import { Node } from 'slate';
+import { slateEmptyValue } from '../../../../lib/common/components/slateEditor/slateEmptyValue';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -27,18 +30,8 @@ export interface BasicProps {}
 export interface BasicState {}
 
 export const Basic: React.FC<BasicProps> = props => {
-  const [value, setValue] = React.useState<Node[]>([
-    {
-      type: 'paragraph',
-      children: [
-        {
-          text: '',
-          marks: [],
-        },
-      ],
-    },
-  ]);
-  const onChange = (val: Node[]) => setValue(val);
+  const [value, setValue] = React.useState<Node[]>(slateEmptyValue);
+  const onChange: SlateEditorOnChangeHandler = val => setValue(val.value);
   return (
     <div className="container">
       <SlateEditor

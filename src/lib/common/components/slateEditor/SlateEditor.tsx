@@ -31,14 +31,16 @@ import InputGroup from 'guestbell-forms/build/components/inputGroup';
 import yellow from '@material-ui/core/colors/yellow';
 import red from '@material-ui/core/colors/red';
 
+export type SlateEditorOnChangeHandler = (val: {
+  value: Node[];
+  isDirty: boolean;
+  isValid: boolean;
+}) => void;
+
 export interface SlateEditorCustomProps {
   value: Node[];
   initialValue?: Node[];
-  onChange: (val: {
-    value: Node[];
-    isDirty: boolean;
-    isValid: boolean;
-  }) => void;
+  onChange: SlateEditorOnChangeHandler;
   placeholder?: string;
   label?: JSX.Element | string;
   title?: JSX.Element | string;
