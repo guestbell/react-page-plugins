@@ -84,7 +84,7 @@ export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={clearColor} color="secondary" disabled={!isActive}>
+          <Button onClick={clearColor} disabled={!isActive}>
             Clear
           </Button>
           <Button onClick={commitColor} color="primary">
