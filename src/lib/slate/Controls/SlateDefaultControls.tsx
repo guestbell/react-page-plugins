@@ -70,7 +70,7 @@ export const renderMark: React.FC<RenderMarkProps> = props => {
 };
 
 const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
-  const defaultValue = props.state.slateState || slateEmptyValue;
+  const defaultValue = props.state.slateState || slateEmptyValue();
 
   const { readOnly, focused, remove, translations, onChange } = props;
   const editor = React.useRef(

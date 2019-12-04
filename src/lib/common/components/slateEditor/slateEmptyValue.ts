@@ -1,5 +1,5 @@
 import { Node } from 'slate';
-export const slateEmptyValue: Node[] = [
+export const slateEmptyValue: () => Node[] = () => [
   {
     type: 'paragraph',
     children: [
