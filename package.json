@@ -1,5 +1,5 @@
 {
-  "version": "2.0.94",
+  "version": "1.0.0",
   "description": "Plugins we use in GuestBell for working with amazing react-page package",
   "keywords": [
     "react",
@@ -17,6 +17,7 @@
     "kefir": "3.8.6",
     "kefir-bus": "2.3.1"
   },
+  "private": false,
   "devDependencies": {
     "@babel/cli": "7.5.5",
     "@babel/core": "7.5.5",
