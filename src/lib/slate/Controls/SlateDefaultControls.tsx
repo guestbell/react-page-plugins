@@ -43,12 +43,14 @@ import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 import { withHtml } from '../plugins/htmlPaste/withHtmlPaste';
 import { LinkButton } from '../plugins/links/LinkButton';
 import HeadingButtonCompact from '../plugins/heading/HeadingButtonCompact';
+import { MarkButton } from '../plugins/marks/MarkButton';
+import { MarkTypes } from '../plugins/marks/withMarks';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
 const allHotkeys = { ...MARK_HOTKEYS };
 
-const renderElement: React.FC<RenderElementProps> = props => {
+export const renderElement: React.FC<RenderElementProps> = props => {
   const { element } = props;
   const editor = useEditor();
   const comp =
@@ -61,7 +63,7 @@ const renderElement: React.FC<RenderElementProps> = props => {
   return addFontSizeStyles(editor, element, addAlignmentStyles(element, comp));
 };
 
-const renderMark: React.FC<RenderMarkProps> = props => {
+export const renderMark: React.FC<RenderMarkProps> = props => {
   const comp = Mark(props);
   return comp;
 };
@@ -147,7 +149,13 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
         />
         {!readOnly && focused && (
           <>
-            <HoveringToolbar />
+            <HoveringToolbar>
+              <MarkButton type={MarkTypes.Bold} />
+              <MarkButton type={MarkTypes.Italic} />
+              <MarkButton type={MarkTypes.Underline} />
+              <LinkButton />
+              <ColorButton />
+            </HoveringToolbar>
             <BottomToolbar
               icon={props.IconComponent}
               open={props.focused}

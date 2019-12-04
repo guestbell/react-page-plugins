@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { lazyLoad } from '@react-page/core';
 import { WithTheme, withTheme } from '@material-ui/core/styles';
-
-const IconButton = lazyLoad(() => import('@material-ui/core/IconButton'));
+import Button from 'guestbell-forms/build/components/button';
 
 interface ToolbarButtonCustomProps {
-  icon: JSX.Element | string;
+  icon: JSX.Element;
   isActive: boolean;
   disabled?: boolean;
   onClick: React.MouseEventHandler;
@@ -22,14 +20,19 @@ const SlateButton: React.FC<ToolbarButtonProps> = ({
   theme,
   title,
 }) => (
-  <IconButton
-    onMouseDown={onClick}
-    style={isActive ? { color: theme.palette.primary.main } : {}}
+  <Button
+    style={
+      isActive
+        ? { color: theme.palette.primary.main }
+        : { color: theme.palette.action.active }
+    }
+    buttonProps={{ onMouseDown: onClick }}
     disabled={disabled}
-    title={title}
+    tooltip={title}
+    noShadow={true}
   >
     {icon}
-  </IconButton>
+  </Button>
 );
 
 export default withTheme(SlateButton) as React.ComponentType<

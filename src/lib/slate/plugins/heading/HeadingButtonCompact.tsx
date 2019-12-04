@@ -37,6 +37,7 @@ const HeadingButtonRaw: React.FC<HeadingButtonProps> = props => {
     setAnchor(null);
   }
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
     setAnchor(event.currentTarget);
   }
   const handleMenuItemClick = (level: number) => (

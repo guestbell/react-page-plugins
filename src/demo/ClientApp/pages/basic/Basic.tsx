@@ -6,6 +6,8 @@ import * as React from 'react';
 import contents from './contents';
 import { plugins } from './plugins';
 import './styles.scss';
+import SlateEditor from '../../../../lib/common/components/slateEditor/SlateEditor';
+import { Node } from 'slate';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -24,18 +26,34 @@ export interface BasicProps {}
 
 export interface BasicState {}
 
-export class Basic extends React.PureComponent<BasicProps, BasicState> {
-  public render() {
-    return (
-      <div className="container">
-        <KeepStateEditor
-          plugins={plugins}
-          value={contents}
-          // onChange={s => console.log('on change, new state', s)}
-        />
-      </div>
-    );
-  }
-}
+export const Basic: React.FC<BasicProps> = props => {
+  const [value, setValue] = React.useState<Node[]>([
+    {
+      type: 'paragraph',
+      children: [
+        {
+          text: '',
+          marks: [],
+        },
+      ],
+    },
+  ]);
+  const onChange = (val: Node[]) => setValue(val);
+  return (
+    <div className="container">
+      <SlateEditor
+        value={value}
+        onChange={onChange}
+        placeholder="Custom placeholder"
+        label="Slate editor"
+      />
+      <KeepStateEditor
+        plugins={plugins}
+        value={contents}
+        // onChange={s => console.log('on change, new state', s)}
+      />
+    </div>
+  );
+};
 
 export default Basic;

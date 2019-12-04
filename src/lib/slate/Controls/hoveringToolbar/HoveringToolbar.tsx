@@ -2,19 +2,8 @@ import * as React from 'react';
 import { Portal, Paper } from '@material-ui/core';
 import { useSlate, ReactEditor } from 'slate-react';
 import { Editor, Range } from 'slate';
-import { lazyLoad } from '@react-page/core';
-import { MarkButton } from '../../plugins/marks/MarkButton';
-import { MarkTypes } from '../../plugins/marks/withMarks';
-import { LinkButton } from '../../plugins/links/LinkButton';
-import ColorButton from '../../plugins/color/ColorButton';
 
-const ItalicIcon = lazyLoad(() => import('@material-ui/icons/FormatItalic'));
-const FormatBold = lazyLoad(() => import('@material-ui/icons/FormatBold'));
-const FormatUnderlined = lazyLoad(() =>
-  import('@material-ui/icons/FormatUnderlined')
-);
-
-export const HoveringToolbar: React.FC = () => {
+export const HoveringToolbar: React.FC = props => {
   const ref = React.useRef<HTMLDivElement>();
   const editor = useSlate();
 
@@ -51,13 +40,7 @@ export const HoveringToolbar: React.FC = () => {
   return (
     <Portal>
       <div ref={ref} className={'ory-plugins-content-slate-inline-toolbar'}>
-        <Paper style={{ padding: 0 }}>
-          <MarkButton type={MarkTypes.Bold} icon={<FormatBold />} />
-          <MarkButton type={MarkTypes.Italic} icon={<ItalicIcon />} />
-          <MarkButton type={MarkTypes.Underline} icon={<FormatUnderlined />} />
-          <LinkButton />
-          <ColorButton />
-        </Paper>
+        <Paper style={{ padding: 0 }}>{props.children}</Paper>
       </div>
     </Portal>
   );
