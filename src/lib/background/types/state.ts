@@ -6,6 +6,7 @@ import { Image } from '../../common/types/image/Image';
 export interface BackgroundState {
   bgImageId?: number;
   bgImage?: Image;
+  bgSrc?: string;
   backgroundColor: RGBColor;
   isParallax: boolean;
   modeFlag: ModeEnum;

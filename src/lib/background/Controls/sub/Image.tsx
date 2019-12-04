@@ -2,6 +2,9 @@ import * as React from 'react';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { BackgroundProps } from '../../types/component';
+import ImageOrSrc, {
+  ImageOrSrcOryState,
+} from '../../../common/components/imageOrSrc/ImageOrSrc';
 
 export interface ImageComponentProps {
   ensureModeOn: () => void;
@@ -22,29 +25,31 @@ class ImageComponent extends React.Component<BgImageComponentProps> {
     });
   };
 
+  imageOrSrcOnChange = (state: ImageOrSrcOryState) => {
+    this.props.onChange({
+      bgImage: state.image,
+      bgImageId: state.imageId,
+      bgSrc: state.src,
+    });
+  };
+
   render() {
     const {
-      state: { isParallax = true, bgImageId, bgImage },
+      state: { isParallax = true },
     } = this.props;
     return (
       <div>
+        <br />
         <div className="w-100 fg--light">
-          <this.props.UploadImageField
-            className="d-flex"
-            onChange={(bgImgIdChanged, bgImageChange) =>
-              this.props.onChange({
-                bgImageId: bgImgIdChanged,
-                bgImage: bgImageChange,
-              })
-            }
-            imageId={bgImageId}
-            existingImage={bgImage}
-            chooseImageButtonProps={{
-              className: 'ory-prevent-blur',
+          <ImageOrSrc
+            onChange={this.imageOrSrcOnChange}
+            state={{
+              imageId: this.props.state.bgImageId,
+              image: this.props.state.bgImage,
+              src: this.props.state.bgSrc,
             }}
-            uploadImageButtonProps={{
-              className: 'ory-prevent-blur',
-            }}
+            UploadImageField={this.props.UploadImageField}
+            hideSrcSetField={true}
           />
         </div>
         <br />

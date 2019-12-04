@@ -7,7 +7,7 @@ const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
 const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
   const { isEditMode, state } = props;
-  if (!state.image) {
+  if (!state.image && !state.src) {
     return (
       <div>
         <div className="ory-plugins-content-image-placeholder">
@@ -16,13 +16,24 @@ const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
       </div>
     );
   }
-  const Image = (
-    <img
-      className="ory-plugins-content-image"
-      src={state.image.src}
-      srcSet={state.image.srcSet}
-    />
-  );
+  let Image: JSX.Element;
+  if (state.image) {
+    Image = (
+      <img
+        className="ory-plugins-content-image"
+        src={state.image.src}
+        srcSet={state.image.srcSet}
+      />
+    );
+  } else {
+    Image = (
+      <img
+        className="ory-plugins-content-image"
+        src={state.src}
+        srcSet={state.srcSet}
+      />
+    );
+  }
   return (
     <div>
       {state.href && !isEditMode ? <a href={state.href}>{Image}</a> : Image}

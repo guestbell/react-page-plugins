@@ -282,7 +282,7 @@ const contents: EditableType = {
                   version: '0.0.1',
                 },
                 state: {
-                  src: '/images/front.png',
+                  src: 'http://lorempixel.com/640/360',
                 },
               },
             },
@@ -643,7 +643,7 @@ const contents: EditableType = {
                   version: '0.0.1',
                 },
                 state: {
-                  src: '/images/create-content.png',
+                  src: 'http://lorempixel.com/640/360',
                 },
               },
             },
@@ -662,7 +662,7 @@ const contents: EditableType = {
                   version: '0.0.1',
                 },
                 state: {
-                  src: '/images/responsive.png',
+                  src: 'http://lorempixel.com/640/360',
                 },
               },
             },
@@ -751,7 +751,7 @@ const contents: EditableType = {
                   version: '0.0.1',
                 },
                 state: {
-                  src: '/images/sane-markup.png',
+                  src: 'http://lorempixel.com/640/360',
                 },
               },
             },
@@ -770,7 +770,7 @@ const contents: EditableType = {
                   version: '0.0.1',
                 },
                 state: {
-                  background: '/images/sea-bg.jpg',
+                  bgSrc: 'http://lorempixel.com/640/360',
                 },
               },
               rows: [
@@ -787,7 +787,7 @@ const contents: EditableType = {
                           version: '0.0.1',
                         },
                         state: {
-                          src: '/images/react.png',
+                          src: 'http://lorempixel.com/640/360',
                         },
                       },
                     },

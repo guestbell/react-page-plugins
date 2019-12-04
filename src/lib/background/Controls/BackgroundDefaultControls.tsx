@@ -188,18 +188,20 @@ class BackgroundControls extends React.Component<
         break;
     }
     return (
-      <FormControlLabel
-        control={
-          <Switch
-            onChange={this.props.handleChangeModeSwitch(
-              this.state.mode,
-              modeFlag
-            )}
-            checked={Boolean(modeFlag & this.state.mode)}
-          />
-        }
-        label={label}
-      />
+      <>
+        <FormControlLabel
+          control={
+            <Switch
+              onChange={this.props.handleChangeModeSwitch(
+                this.state.mode,
+                modeFlag
+              )}
+              checked={Boolean(modeFlag & this.state.mode)}
+            />
+          }
+          label={label}
+        />
+      </>
     );
   };
 

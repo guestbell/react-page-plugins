@@ -74,9 +74,7 @@ const getStyles = (props: BackgroundRendererProps) => {
     };
   }
   if (modeFlag & ModeEnum.IMAGE_MODE_FLAG) {
-    const backgroundFinal = props.imagePreview
-      ? props.imagePreview.dataUrl
-      : bgImage && bgImage.src;
+    const backgroundFinal = bgImage ? bgImage.src : props.state.bgSrc;
     const modeStr =
       `url('${backgroundFinal}') center / cover no-repeat` +
       (isParallax ? ' fixed' : '');

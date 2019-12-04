@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import { ImageControlsProps as ImageControlsCustomProps } from '../types/controls';
 import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
+import ImageOrSrc from '../../common/components/imageOrSrc/ImageOrSrc';
 
 type ImageControlsProps = ImageControlsCustomProps;
 
-const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
+const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
   const { Renderer, onChange, readOnly, focused, remove } = props;
   return (
     <div className="imageControls ory-prevent-blur">
@@ -20,18 +21,10 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = props => {
           theme={props.theme}
         >
           <div className="w-100 fg--light">
-            <props.UploadImageField
-              label="Choose image"
-              className="d-flex"
-              onChange={(imageId, image) => onChange({ imageId, image })}
-              imageId={props.state.imageId}
-              existingImage={props.state.image}
-              chooseImageButtonProps={{
-                className: 'ory-prevent-blur',
-              }}
-              uploadImageButtonProps={{
-                className: 'ory-prevent-blur',
-              }}
+            <ImageOrSrc
+              onChange={onChange}
+              state={props.state}
+              UploadImageField={props.UploadImageField}
             />
           </div>
         </BottomToolbar>
