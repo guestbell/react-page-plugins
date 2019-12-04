@@ -152,7 +152,8 @@
     "redux": "*",
     "slate": "*",
     "slate-hyperscript": "*",
-    "slate-react": "*"
+    "slate-react": "*",
+    "slate-history": "*"
   },
   "browserslist": [
     "last 1 version",

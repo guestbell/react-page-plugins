@@ -45,7 +45,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       children: [
                         {
                           text: 'The ORY Editor',
@@ -56,14 +56,14 @@ const contents: EditableType = {
                       alignment: 'center',
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text: '',
                           marks: [],
                         },
                         {
-                          type: 'link',
+                          type: 'LINK',
                           url: 'https://www.ory.sh/',
                           children: [
                             {
@@ -78,7 +78,7 @@ const contents: EditableType = {
                           marks: [],
                         },
                         {
-                          type: 'link',
+                          type: 'LINK',
                           url: 'https://github.com/ory',
                           children: [
                             {
@@ -95,7 +95,7 @@ const contents: EditableType = {
                       ],
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -103,7 +103,7 @@ const contents: EditableType = {
                           marks: [],
                         },
                         {
-                          type: 'link',
+                          type: 'LINK',
                           url: 'https://en.serlo.org/serlo',
                           children: [
                             {
@@ -140,7 +140,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       children: [
                         {
                           text: 'ORY Sites',
@@ -150,7 +150,7 @@ const contents: EditableType = {
                       level: 2,
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text: 'ORY Sites is an ',
@@ -184,7 +184,7 @@ const contents: EditableType = {
                       ],
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       level: 3,
                       children: [
                         {
@@ -192,7 +192,7 @@ const contents: EditableType = {
                           marks: [],
                         },
                         {
-                          type: 'link',
+                          type: 'LINK',
                           url:
                             'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
                           children: [
@@ -210,7 +210,7 @@ const contents: EditableType = {
                       alignment: 'center',
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text: '\n',
@@ -253,7 +253,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       children: [
                         {
                           text: "What's the problem?\n",
@@ -298,7 +298,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -314,7 +314,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -329,7 +329,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -344,7 +344,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -378,7 +378,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       children: [
                         {
                           text: "So what's different?\n",
@@ -423,7 +423,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -439,7 +439,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -454,7 +454,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -469,7 +469,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -484,7 +484,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -499,7 +499,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -513,7 +513,7 @@ const contents: EditableType = {
                       ],
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -562,7 +562,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       children: [
                         {
                           text: 'Feature Spotlight\n',
@@ -610,7 +610,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       level: 3,
                       children: [
                         {
@@ -620,7 +620,7 @@ const contents: EditableType = {
                       ],
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -678,7 +678,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       level: 3,
                       children: [
                         {
@@ -688,7 +688,7 @@ const contents: EditableType = {
                       ],
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -718,7 +718,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       level: 3,
                       children: [
                         {
@@ -728,7 +728,7 @@ const contents: EditableType = {
                       ],
                     },
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -803,7 +803,7 @@ const contents: EditableType = {
                         state: {
                           slateState: [
                             {
-                              type: 'heading',
+                              type: 'HEADING',
                               children: [
                                 {
                                   text: 'React Plugin API',
@@ -813,7 +813,7 @@ const contents: EditableType = {
                               level: 2,
                             },
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -823,7 +823,7 @@ const contents: EditableType = {
                               ],
                             },
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text:
@@ -857,7 +857,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'heading',
+                      type: 'HEADING',
                       children: [
                         {
                           text: "That's all?\n",
@@ -888,7 +888,7 @@ const contents: EditableType = {
                 state: {
                   slateState: [
                     {
-                      type: 'paragraph',
+                      type: 'PARAGRAPH',
                       children: [
                         {
                           text:
@@ -905,7 +905,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text: 'global un-/redo with ',
@@ -939,7 +939,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text: 'editing shortcuts, for example ',
@@ -989,7 +989,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text: 'collaborative editing',
@@ -1003,7 +1003,7 @@ const contents: EditableType = {
                           type: 'list-item',
                           children: [
                             {
-                              type: 'paragraph',
+                              type: 'PARAGRAPH',
                               children: [
                                 {
                                   text: '... and more things to come',
