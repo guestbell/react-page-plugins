@@ -11,8 +11,8 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   entry: {
-    'guestbell-react-page-plugins': './src/lib/index.ts',
-    'guestbell-react-page-plugins': './src/lib/scss/index.scss',
+    'react-page-plugins': './src/lib/index.ts',
+    'react-page-plugins': './src/lib/scss/index.scss',
   },
   module: {
     rules: [

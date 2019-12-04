@@ -49,7 +49,7 @@ module.exports = merge({
   },
   output: {
     path: path.join(__dirname, '..', 'docs'),
-    publicPath: '/guestbell-react-page-plugins',
+    publicPath: '/react-page-plugins',
     filename: 'dist/[name].[hash].js',
   },
   externals: {},
