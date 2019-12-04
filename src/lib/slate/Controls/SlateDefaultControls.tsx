@@ -45,6 +45,7 @@ import { LinkButton } from '../plugins/links/LinkButton';
 import HeadingButtonCompact from '../plugins/heading/HeadingButtonCompact';
 import { MarkButton } from '../plugins/marks/MarkButton';
 import { MarkTypes } from '../plugins/marks/withMarks';
+import { slateEmptyValue } from '../../common/components/slateEditor/slateEmptyValue';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
@@ -69,17 +70,7 @@ export const renderMark: React.FC<RenderMarkProps> = props => {
 };
 
 const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
-  const defaultValue = props.state.slateState || [
-    {
-      type: 'paragraph',
-      children: [
-        {
-          text: 'Some text.',
-          marks: [],
-        },
-      ],
-    },
-  ];
+  const defaultValue = props.state.slateState || slateEmptyValue;
 
   const { readOnly, focused, remove, translations, onChange } = props;
   const editor = React.useRef(

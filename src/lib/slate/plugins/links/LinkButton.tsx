@@ -41,8 +41,10 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
   };
 
   const commitLink = () => {
-    Editor.setSelection(editor, selection);
-    editor.exec({ type: 'insert_link', url });
+    if (url) {
+      Editor.setSelection(editor, selection);
+      editor.exec({ type: 'insert_link', url });
+    }
     handleClose();
   };
 
