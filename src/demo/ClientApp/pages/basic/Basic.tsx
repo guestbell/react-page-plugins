@@ -46,6 +46,7 @@ export const Basic: React.FC<BasicProps> = props => {
         onChange={onChange}
         placeholder="Custom placeholder"
         label="Slate editor"
+        maxChars={100}
       />
       <KeepStateEditor
         plugins={plugins}
