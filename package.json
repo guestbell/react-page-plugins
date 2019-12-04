@@ -84,6 +84,7 @@
     "rimraf": "2.6.3",
     "sass-loader": "7.1.0",
     "slate": "0.50.7",
+    "slate-history": "^0.50.10",
     "slate-hyperscript": "^0.50.8",
     "slate-react": "0.50.9",
     "style-loader": "1.0.0",

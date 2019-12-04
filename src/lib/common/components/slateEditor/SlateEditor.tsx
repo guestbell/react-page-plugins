@@ -30,6 +30,7 @@ import { Theme } from '@material-ui/core';
 import InputGroup from 'guestbell-forms/build/components/inputGroup';
 import yellow from '@material-ui/core/colors/yellow';
 import red from '@material-ui/core/colors/red';
+import { withHistory } from 'slate-history';
 
 export type SlateEditorOnChangeHandler = (val: {
   value: Node[];
@@ -93,10 +94,12 @@ type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 const SlateEditor: React.SFC<SlateEditorProps> = props => {
   const { classes } = props;
   const editor = React.useRef(
-    withFontSizes()(
-      withLists(
-        withHeadings()(
-          withAlignments(withLinks(withMarks(withReact(createEditor()))))
+    withHistory(
+      withFontSizes()(
+        withLists(
+          withHeadings()(
+            withAlignments(withLinks(withMarks(withReact(createEditor()))))
+          )
         )
       )
     )

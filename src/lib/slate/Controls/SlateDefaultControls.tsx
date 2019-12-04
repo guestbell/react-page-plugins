@@ -46,6 +46,7 @@ import HeadingButtonCompact from '../plugins/heading/HeadingButtonCompact';
 import { MarkButton } from '../plugins/marks/MarkButton';
 import { MarkTypes } from '../plugins/marks/withMarks';
 import { slateEmptyValue } from '../../common/components/slateEditor/slateEmptyValue';
+import { withHistory } from 'slate-history';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
@@ -74,13 +75,17 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
 
   const { readOnly, focused, remove, translations, onChange } = props;
   const editor = React.useRef(
-    withHtml(
-      withQuotes(
-        withColors(
-          withFontSizes()(
-            withLists(
-              withHeadings()(
-                withAlignments(withLinks(withMarks(withReact(createEditor()))))
+    withHistory(
+      withHtml(
+        withQuotes(
+          withColors(
+            withFontSizes()(
+              withLists(
+                withHeadings()(
+                  withAlignments(
+                    withLinks(withMarks(withReact(createEditor())))
+                  )
+                )
               )
             )
           )
