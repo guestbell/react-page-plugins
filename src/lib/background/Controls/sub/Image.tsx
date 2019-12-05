@@ -40,7 +40,7 @@ class ImageComponent extends React.Component<BgImageComponentProps> {
     return (
       <div>
         <br />
-        <div className="w-100 fg--light">
+        <div className="w-100">
           <ImageOrSrc
             onChange={this.imageOrSrcOnChange}
             state={{

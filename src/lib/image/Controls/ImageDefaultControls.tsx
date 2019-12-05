@@ -20,7 +20,7 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
           {...props}
           theme={props.theme}
         >
-          <div className="w-100 fg--light">
+          <div className="w-100">
             <ImageOrSrc
               onChange={onChange}
               state={props.state}

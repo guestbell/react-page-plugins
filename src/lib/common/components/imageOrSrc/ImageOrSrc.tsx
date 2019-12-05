@@ -32,11 +32,12 @@ const styles = ({ palette, spacing }: Theme) =>
       position: 'relative',
     },
     switchImageButton: {
-      position: 'absolute',
+      // tslint:disable-next-line: no-any
+      position: 'absolute !important' as any,
       right: -spacing(2),
       top: '50%',
       transform: 'translateY(-50%)',
-      color: palette.action.active,
+      color: palette.action.active + ' !important',
     },
     warningContainer: {
       display: 'flex',
