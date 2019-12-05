@@ -42,11 +42,12 @@ export type SlateEditorOnChangeHandler = (val: {
 export interface SlateEditorCustomProps {
   value: Node[];
   initialValue?: Node[];
-  onChange: SlateEditorOnChangeHandler;
+  onChange?: SlateEditorOnChangeHandler;
   placeholder?: string;
   label?: JSX.Element | string;
   title?: JSX.Element | string;
   maxChars?: number;
+  readOnly?: boolean;
 }
 
 const styles = ({ spacing, palette, typography }: Theme) =>
@@ -113,7 +114,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
   let chars = 0;
   let charsLeft = 0;
   let progress = 0;
-  if (props.maxChars) {
+  if (props.maxChars && !props.readOnly) {
     try {
       chars = Editor.text(editor, {
         anchor: Editor.start(editor, []),
@@ -132,29 +133,36 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
   const onChange = (val: Node[]) =>
     props.onChange({ value: val, isValid: allowNewChar, isDirty: true });
 
+  const [key, setKey] = React.useState(0);
+  React.useEffect(() => setKey(key + 1), [props.value]);
   return (
-    <InputGroup title={props.title}>
+    <InputGroup title={props.title} key={key}>
       <Slate editor={editor} defaultValue={props.value} onChange={onChange}>
         <div className={classNames('slate-editor', classes.root)}>
-          <div className={classes.toolbar}>
-            {props.label && (
-              <div
-                className={classNames('slate-editor__label', classes.label, {
-                  'slate-editor__label--active': hasFocus,
-                  [classes.labelFocused]: hasFocus,
-                })}
-              >
-                {props.label}
-              </div>
-            )}
-            <HeadingButtonCompact />
-            <FontSizeButton />
-            <AlignmentButtons />
-            <ListButtons />
-            <LinkButton />
-          </div>
+          {!props.readOnly && (
+            <div className={classes.toolbar}>
+              {props.label && (
+                <div
+                  className={classNames('slate-editor__label', classes.label, {
+                    'slate-editor__label--active': hasFocus,
+                    [classes.labelFocused]: hasFocus,
+                  })}
+                >
+                  {props.label}
+                </div>
+              )}
+              <HeadingButtonCompact />
+              <FontSizeButton />
+              <AlignmentButtons />
+              <ListButtons />
+              <LinkButton />
+            </div>
+          )}
           <Editable
-            className={classes.editable}
+            readOnly={props.readOnly}
+            className={classNames({
+              [classes.editable]: !props.readOnly,
+            })}
             renderMark={renderMark}
             renderElement={renderElement}
             onKeyDown={event => {
@@ -186,7 +194,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
             onFocus={onFocus}
             onBlur={onBlur}
           />
-          {props.maxChars && (
+          {props.maxChars && !props.readOnly && (
             <div
               className={classNames(
                 'slate-editor__char-count',
@@ -202,7 +210,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
               {chars}/{props.maxChars}
             </div>
           )}
-          {editor.selection && (
+          {editor.selection && !props.readOnly && (
             <>
               <HoveringToolbar>
                 <EmphasizeButton type={EmphasizeTypes.Bold} />

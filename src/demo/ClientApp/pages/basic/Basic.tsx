@@ -41,6 +41,11 @@ export const Basic: React.FC<BasicProps> = props => {
         label="Slate editor"
         maxChars={100}
       />
+      <SlateEditor
+        value={JSON.parse(JSON.stringify(value))}
+        readOnly={true}
+        maxChars={100}
+      />
       <KeepStateEditor
         plugins={plugins}
         value={contents}
