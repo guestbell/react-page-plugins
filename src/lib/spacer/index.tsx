@@ -32,7 +32,7 @@ const SpacerDefaultControls = lazyLoad(() =>
 );
 
 export default (
-  settings: MakeOptional<SpacerSettings, 'Renderer' | 'Controls'>
+  settings?: MakeOptional<SpacerSettings, 'Renderer' | 'Controls'>
 ) => {
   const plugin = createPlugin({
     Renderer: SpacerHtmlRenderer,

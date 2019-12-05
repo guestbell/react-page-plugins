@@ -33,7 +33,7 @@ const VideoDefaultControls = lazyLoad(() =>
 );
 
 export default (
-  settings: MakeOptional<VideoSettings, 'Renderer' | 'Controls'>
+  settings?: MakeOptional<VideoSettings, 'Renderer' | 'Controls'>
 ) => {
   const plugin = createPlugin({
     Renderer: VideoHtmlRenderer,

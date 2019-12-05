@@ -32,7 +32,7 @@ const Html5VideoDefaultControls = lazyLoad(() =>
 );
 
 export default (
-  settings: MakeOptional<Html5VideoSettings, 'Renderer' | 'Controls'>
+  settings?: MakeOptional<Html5VideoSettings, 'Renderer' | 'Controls'>
 ) => {
   const plugin = createPlugin({
     Renderer: Html5VideoHtmlRenderer,

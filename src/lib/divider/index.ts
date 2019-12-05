@@ -31,7 +31,7 @@ const DividerDefaultControls = lazyLoad(() =>
 );
 
 export default (
-  settings: MakeOptional<DividerSettings, 'Renderer' | 'Controls'>
+  settings?: MakeOptional<DividerSettings, 'Renderer' | 'Controls'>
 ) => {
   const plugin = createPlugin({
     Renderer: DividerHtmlRenderer,

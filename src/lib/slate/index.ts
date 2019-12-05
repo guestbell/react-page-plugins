@@ -31,7 +31,7 @@ const SlateDefaultControls = lazyLoad(() =>
 );
 
 export default (
-  settings: MakeOptional<SlateSettings, 'Renderer' | 'Controls'>
+  settings?: MakeOptional<SlateSettings, 'Renderer' | 'Controls'>
 ) => {
   const plugin = createPlugin({
     Renderer: SlateDefaultControls,

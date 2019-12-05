@@ -34,7 +34,7 @@ const BackgroundDefaultControls = lazyLoad(() =>
 );
 
 export default (
-  settings: MakeOptional<BackgroundSettings, 'Renderer' | 'Controls'>
+  settings?: MakeOptional<BackgroundSettings, 'Renderer' | 'Controls'>
 ) => {
   const plugin = createPlugin({
     Controls: BackgroundDefaultControls,
