@@ -27,7 +27,7 @@ import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButto
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
 import classNames from 'classnames';
-import { Theme } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import InputGroup from 'guestbell-forms/build/components/inputGroup';
 import yellow from '@material-ui/core/colors/yellow';
 import red from '@material-ui/core/colors/red';

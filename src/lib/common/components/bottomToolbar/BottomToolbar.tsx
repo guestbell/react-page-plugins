@@ -1,13 +1,11 @@
-import {
-  Avatar,
-  Divider,
-  Grid,
-  IconButton,
-  Typography,
-  ThemeProvider,
-  Theme,
-  Paper,
-} from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import Delete from '@material-ui/icons/Delete';
 import * as React from 'react';

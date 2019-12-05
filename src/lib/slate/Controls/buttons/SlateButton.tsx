@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { WithTheme, withTheme } from '@material-ui/core/styles';
+import withTheme, { WithTheme } from '@material-ui/core/styles/withTheme';
 import Button from 'guestbell-forms/build/components/button';
 
 interface ToolbarButtonCustomProps {

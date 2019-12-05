@@ -1,5 +1,26 @@
 .ory-plugins-content-image {
-  width: 100%;
+  max-width: 100%;
+  &.ory-plugins-content-image--fw {
+    width: 100%;
+  }
+  &.ory-plugins-content-image--small-height {
+    max-height: 10rem;
+    width: auto;
+  }
+  &.ory-plugins-content-image--medium-height {
+    max-height: 15rem;
+    width: auto;
+  }
+  &.ory-plugins-content-image--big-height {
+    max-height: 20rem;
+    width: auto;
+  }
+}
+
+.ory-plugins-content-image__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ory-plugins-content-image-placeholder {

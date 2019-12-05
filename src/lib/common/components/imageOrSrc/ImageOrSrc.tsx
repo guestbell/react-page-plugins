@@ -3,7 +3,7 @@ import createStyles from '@material-ui/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
 import CreateIcon from '@material-ui/icons/Create';
 import ImageIcon from '@material-ui/icons/Image';
-import { Theme } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { UploadImageField } from '../uploadImageField/UploadImageField';
 import { Image } from '../../types/image/Image';
 import Text from 'guestbell-forms/build/components/text/Text';
@@ -45,6 +45,7 @@ const styles = ({ palette, spacing }: Theme) =>
       alignItems: 'center',
       padding: spacing(2),
       backgroundColor: yellow[300],
+      marginBottom: spacing(2),
     },
   });
 

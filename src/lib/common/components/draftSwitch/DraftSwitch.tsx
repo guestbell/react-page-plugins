@@ -1,4 +1,5 @@
-import { FormControlLabel, Switch } from '@material-ui/core';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Actions, connect, Selectors } from '@react-page/core';
 import React from 'react';
 import { createStructuredSelector } from 'reselect';
