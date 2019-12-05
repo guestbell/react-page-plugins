@@ -136,9 +136,9 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
     props.onChange({ value: val, isValid: allowNewChar, isDirty: true });
 
   const [key, setKey] = React.useState(0);
-  React.useEffect(() => setKey(key + 1), [props.value]);
+  React.useEffect(() => setKey(key + 1), [props.readOnly && props.value]);
   return (
-    <InputGroup title={props.title} key={key}>
+    <InputGroup title={props.title} key={props.readOnly ? key : undefined}>
       <Slate editor={editor} defaultValue={props.value} onChange={onChange}>
         <div className={classNames('slate-editor', classes.root)}>
           {!props.readOnly && (
