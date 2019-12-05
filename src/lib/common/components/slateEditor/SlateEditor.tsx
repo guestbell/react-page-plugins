@@ -68,6 +68,8 @@ const styles = ({ spacing, palette, typography }: Theme) =>
     },
     editable: {
       padding: spacing(2),
+    },
+    editableEditable: {
       background: palette.grey[100],
     },
     characterCountContainer: {
@@ -160,8 +162,8 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
           )}
           <Editable
             readOnly={props.readOnly}
-            className={classNames({
-              [classes.editable]: !props.readOnly,
+            className={classNames(classes.editable, {
+              [classes.editableEditable]: !props.readOnly,
             })}
             renderMark={renderMark}
             renderElement={renderElement}
