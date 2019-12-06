@@ -16,7 +16,7 @@ export default class Header extends React.PureComponent<HeaderCustomProps, {}> {
           <span className="navbar__text"> react-page plugins</span>
         </a>
         <a
-          href="https://github.com/PeterKottas/guestbell-react-page-plugins"
+          href="https://github.com/guestbell/react-page-plugins"
           className="github-corner"
           aria-label="View source on GitHub"
         >
