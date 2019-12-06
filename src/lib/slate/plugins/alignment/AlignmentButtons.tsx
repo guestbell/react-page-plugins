@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { lazyLoad } from '@react-page/core';
 import { AlignmentButton } from './AlignmentButton';
-import { AlignmentTypes } from './withAlignments';
+import { AlignmentTypes } from './alignmentTypes';
 
 const AlignLeftIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatAlignLeft')

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { ColorType } from './withColors';
+import { ColorType } from './colorType';
 
 export const ColorElement: React.FC<RenderElementProps> = ({
   attributes,

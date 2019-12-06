@@ -1,4 +1,5 @@
 import { Editor } from 'slate';
+import { LinkType } from './linkType';
 
 export const isLinkActive = (editor: Editor) => {
   const [link] = Editor.nodes(editor, { match: { type: LinkType } });
@@ -9,8 +10,6 @@ export const getLinkUrl = (editor: Editor): string => {
   const [link] = Editor.nodes(editor, { match: { type: LinkType } });
   return link && link[0] && link[0].url;
 };
-
-export const LinkType = 'LINK';
 
 export const LinkCommands = {
   InsertLink: 'insert_link',

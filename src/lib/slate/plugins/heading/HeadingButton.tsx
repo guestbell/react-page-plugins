@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../Controls/buttons/SlateButton';
-import {
-  isHeadingActive,
-  HeadingLevels,
-  HeadingCommands,
-} from './withHeadings';
+import { isHeadingActive, HeadingLevels, HeadingCommands } from './';
 
 export interface HeadingButtonProps {
   icon: JSX.Element;

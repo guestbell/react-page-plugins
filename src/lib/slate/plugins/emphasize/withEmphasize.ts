@@ -1,17 +1,15 @@
 import { Editor } from 'slate';
-
-export enum EmphasizeTypes {
-  Bold = 'BOLD',
-  Italic = 'ITALIC',
-  Underline = 'UNDERLINE',
-}
+import { EmphasizeTypes } from './emphasizeTypes';
 
 export const EmphasizeCommands = {
   ToggleEmphasize: 'toggle_emphasize',
 };
 
 export const isEmphasizeActive = (editor: Editor, type: EmphasizeTypes) => {
-  const [mark] = Editor.marks(editor, { match: { type }, mode: 'all' });
+  const [mark] = Editor.nodes(editor, {
+    match: { [type]: true },
+    mode: 'all',
+  });
   return !!mark;
 };
 
@@ -22,9 +20,12 @@ export const withEmphasize = (editor: Editor) => {
     switch (command.type) {
       case EmphasizeCommands.ToggleEmphasize: {
         const { mark } = command;
-        const isActive = isEmphasizeActive(editor, mark.type);
-        const cmd = isActive ? 'remove_mark' : 'add_mark';
-        editor.exec({ type: cmd, mark });
+        const isActive = isEmphasizeActive(editor, mark);
+        Editor.setNodes(
+          editor,
+          { [mark]: isActive ? null : true },
+          { match: 'text', split: true }
+        );
         break;
       }
 

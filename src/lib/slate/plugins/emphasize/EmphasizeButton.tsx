@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../Controls/buttons/SlateButton';
-import {
-  isEmphasizeActive,
-  EmphasizeTypes,
-  EmphasizeCommands,
-} from './withEmphasize';
+import { isEmphasizeActive, EmphasizeTypes, EmphasizeCommands } from './';
 import { lazyLoad } from '@react-page/core';
 
 export interface EmphasizeButtonProps {
@@ -37,7 +33,7 @@ export const EmphasizeButton: React.FC<EmphasizeButtonProps> = ({ type }) => {
         event.preventDefault();
         editor.exec({
           type: EmphasizeCommands.ToggleEmphasize,
-          mark: { type },
+          mark: type,
         });
       }}
       icon={icons[type]}

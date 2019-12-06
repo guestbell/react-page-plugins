@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../Controls/buttons/SlateButton';
-import { isListActive, ListTypes, ListCommands } from './withLists';
+import { isListActive, ListTypes, ListCommands } from './';
 
 export interface ListButtonProps {
   icon: JSX.Element;

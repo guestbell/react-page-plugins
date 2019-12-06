@@ -7,9 +7,9 @@ import {
   Editable,
   RenderElementProps,
   useEditor,
-  RenderMarkProps,
+  RenderLeafProps,
 } from 'slate-react';
-import { createEditor, Node } from 'slate';
+import { createEditor, Node, Range } from 'slate';
 import debounce from 'lodash/debounce';
 import { HoveringToolbar } from './hoveringToolbar/HoveringToolbar';
 import {
@@ -22,20 +22,14 @@ import { withLinks } from '../plugins/links/withLinks';
 import { Link } from '../plugins/links/Link';
 import isHotkey from 'is-hotkey';
 import { AlignmentButtons } from '../plugins/alignment/AlignmentButtons';
-import {
-  withAlignments,
-  addAlignmentStyles,
-} from '../plugins/alignment/withAlignments';
+import { withAlignments, addAlignmentStyles } from '../plugins/alignment';
 import { Heading } from '../plugins/heading/Heading';
 import { Paragraph } from '../plugins/paragraph/Paragraph';
 import { withHeadings } from '../plugins/heading/withHeadings';
 import { List } from '../plugins/lists/List';
 import { withLists } from '../plugins/lists/withLists';
 import { ListButtons } from '../plugins/lists/ListButtons';
-import {
-  withFontSizes,
-  addFontSizeStyles,
-} from '../plugins/fontSize/withFontSizes';
+import { withFontSizes, addFontSizeStyles } from '../plugins/fontSize';
 import FontSizeButton from '../plugins/fontSize/FontSizeButton';
 import ColorButton from '../plugins/color/ColorButton';
 import { withColors } from '../plugins/color/withColors';
@@ -48,7 +42,7 @@ import { withHtml } from '../plugins/htmlPaste/withHtmlPaste';
 import { LinkButton } from '../plugins/links/LinkButton';
 import HeadingButtonCompact from '../plugins/heading/HeadingButtonCompact';
 import { EmphasizeButton } from '../plugins/emphasize/EmphasizeButton';
-import { EmphasizeTypes } from '../plugins/emphasize/withEmphasize';
+import { EmphasizeTypes } from '../plugins/emphasize/emphasizeTypes';
 import { slateEmptyValue } from '../../common/components/slateEditor/slateEmptyValue';
 import { withHistory } from 'slate-history';
 
@@ -66,17 +60,20 @@ export const renderElement: React.FC<RenderElementProps> = props => {
     ColorElement(props) ||
     Quote(props) ||
     Paragraph(props);
-  return addFontSizeStyles(editor, element, addAlignmentStyles(element, comp));
+  return addFontSizeStyles(
+    editor.fontSizeConfig,
+    element,
+    addAlignmentStyles(element, comp)
+  );
 };
 
-export const renderMark: React.FC<RenderMarkProps> = props => {
-  const comp = Emphasize(props);
-  return comp;
+export const renderLeaf: React.FC<RenderLeafProps> = props => {
+  const { attributes } = props;
+  const children = Emphasize(props);
+  return <span {...attributes}>{children}</span>;
 };
 
 const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
-  const defaultValue = props.state.slateState || slateEmptyValue();
-
   const { readOnly, focused, remove, translations, onChange } = props;
   const editor = React.useRef(
     withHistory(
@@ -98,10 +95,18 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
     )
   ).current;
 
-  const stateChanged = (slateState: Node[]) => onChange({ slateState });
+  const [selection, setSelection] = React.useState<Range | null>(null);
+  const [value, setValue] = React.useState<Node[]>(
+    props.state.slateState || slateEmptyValue()
+  );
+  const stateChanged = (slateState: Node[], s: Range) => {
+    setValue(slateState);
+    setSelection(s);
+    debouncedOnChange({ slateState });
+  };
 
   const debouncedOnChange = React.useRef(
-    debounce(stateChanged, 2000, { leading: false, trailing: true })
+    debounce(onChange, 2000, { leading: false, trailing: true })
   ).current;
 
   /*React.useEffect(() => {
@@ -118,15 +123,15 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   return (
     <div className="slateControls ory-prevent-blur">
       <Slate
-        key={props.state.slateStateTimestamp}
         editor={editor}
-        defaultValue={defaultValue}
-        onChange={debouncedOnChange}
+        selection={selection}
+        value={value}
+        onChange={stateChanged}
       >
         <Editable
           readOnly={props.readOnly}
           placeholder={translations.textPlaceholder}
-          renderMark={renderMark}
+          renderLeaf={renderLeaf}
           renderElement={renderElement}
           onKeyDown={event => {
             for (const hotkey in allHotkeys) {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { QuoteType } from './withQuotes';
+import { QuoteType } from './quoteType';
 
 export const Quote: React.FC<RenderElementProps> = ({
   attributes,

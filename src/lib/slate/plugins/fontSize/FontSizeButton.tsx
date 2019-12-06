@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import {
-  FontSizePluginOptions,
+  FontSizePluginConfig,
   getActiveFontSizes,
   isFontSizeActive,
   FontSizeCommands,
-} from './withFontSizes';
+} from './';
 import MenuItem from '@material-ui/core/MenuItem';
 import { lazyLoad } from '@react-page/core';
 import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
@@ -31,7 +31,7 @@ type FontSizeButtonProps = FontSizeButtonCustomProps &
 
 const FontSizeButtonRaw: React.FC<FontSizeButtonProps> = props => {
   const editor = useSlate();
-  const config: FontSizePluginOptions = editor.fontSizeConfig;
+  const config: FontSizePluginConfig = editor.fontSizeConfig;
   const activeFontSizes = getActiveFontSizes(editor);
   const hasValue = activeFontSizes.length > 0;
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);

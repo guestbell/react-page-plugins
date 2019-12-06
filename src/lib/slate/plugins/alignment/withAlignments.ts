@@ -1,13 +1,5 @@
-import { Editor, Element } from 'slate';
-import React from 'react';
-var classnames = require('classnames');
-
-export enum AlignmentTypes {
-  Left = 'left',
-  Right = 'right',
-  Center = 'center',
-  Justify = 'justify',
-}
+import { Editor } from 'slate';
+import { AlignmentTypes } from './alignmentTypes';
 
 export const AlignmentCommands = {
   ToggleAlignment: 'toggle_alignment',
@@ -49,17 +41,4 @@ export const withAlignments = (editor: Editor) => {
   };
 
   return editor;
-};
-
-export const addAlignmentStyles = (element: Element, children: JSX.Element) => {
-  const { alignment } = element;
-  if (!alignment) {
-    return children;
-  }
-  return React.cloneElement(children, {
-    className: classnames(
-      children && children.props && children.props.className,
-      `block-alignment-${alignment}`
-    ),
-  });
 };

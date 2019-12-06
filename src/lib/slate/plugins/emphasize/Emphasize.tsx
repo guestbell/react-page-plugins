@@ -1,20 +1,20 @@
 import * as React from 'react';
-import { RenderMarkProps } from 'slate-react';
-import { EmphasizeTypes } from './withEmphasize';
+import { RenderLeafProps } from 'slate-react';
+import { EmphasizeTypes } from './emphasizeTypes';
 
-export const Emphasize: React.FC<RenderMarkProps> = ({
+export const Emphasize: React.FC<RenderLeafProps> = ({
   attributes,
   children,
-  mark,
+  leaf,
 }) => {
-  switch (mark.type) {
-    case EmphasizeTypes.Bold:
-      return <strong {...attributes}>{children}</strong>;
-    case EmphasizeTypes.Italic:
-      return <em {...attributes}>{children}</em>;
-    case EmphasizeTypes.Underline:
-      return <u {...attributes}>{children}</u>;
-    default:
-      return null;
+  if (leaf[EmphasizeTypes.Bold]) {
+    children = <strong>{children}</strong>;
   }
+  if (leaf[EmphasizeTypes.Italic]) {
+    children = <em>{children}</em>;
+  }
+  if (leaf[EmphasizeTypes.Underline]) {
+    children = <u>{children}</u>;
+  }
+  return children;
 };

@@ -1,6 +1,6 @@
-import { Editor, Mark } from 'slate';
-import React from 'react';
+import { Editor } from 'slate';
 import { RGBColor } from 'react-color';
+import { ColorType } from './colorType';
 
 export const isColorActive = (editor: Editor) => {
   const [node] = Editor.elements(editor, {
@@ -9,8 +9,6 @@ export const isColorActive = (editor: Editor) => {
   });
   return !!node;
 };
-
-export const ColorType = 'COLOR';
 
 export const ColorCommands = {
   SetColor: 'set_color',
@@ -67,20 +65,4 @@ export const withColors = (editor: Editor) => {
   };
 
   return editor;
-};
-
-export const addColorStyles = (element: Mark, children: JSX.Element) => {
-  const { color } = element;
-  if (!color) {
-    return children;
-  }
-  return (
-    children &&
-    React.cloneElement(children, {
-      style: {
-        ...(children && children.props && children.props.style),
-        color: `rgba(${color.r},${color.g},${color.b},${color.a})`,
-      },
-    })
-  );
 };

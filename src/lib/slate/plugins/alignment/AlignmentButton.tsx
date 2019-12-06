@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../Controls/buttons/SlateButton';
-import {
-  isAlignmentActive,
-  AlignmentTypes,
-  AlignmentCommands,
-} from './withAlignments';
+import { isAlignmentActive, AlignmentTypes, AlignmentCommands } from './';
 
 export interface AlignmentButtonProps {
   alignment: AlignmentTypes;

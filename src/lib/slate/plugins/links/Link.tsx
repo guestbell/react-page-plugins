@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { LinkType } from './withLinks';
+import { LinkType } from './linkType';
 
 export const Link: React.FC<RenderElementProps> = ({
   attributes,

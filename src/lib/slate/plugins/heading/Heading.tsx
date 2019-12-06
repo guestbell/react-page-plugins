@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { HeadingType } from './withHeadings';
+import { HeadingType } from './headingType';
 
 type allHeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 

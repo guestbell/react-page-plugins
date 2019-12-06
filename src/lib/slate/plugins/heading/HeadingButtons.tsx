@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { lazyLoad } from '@react-page/core';
 import { HeadingButton } from './HeadingButton';
-import { HeadingLevels } from './withHeadings';
+import { HeadingLevels } from './headingLevels';
 
 const H1Icon = lazyLoad(() => import('@material-ui/icons/LooksOne'));
 const H2Icon = lazyLoad(() => import('@material-ui/icons/LooksTwo'));

@@ -1,11 +1,10 @@
 import { Node } from 'slate';
 export const slateEmptyValue: () => Node[] = () => [
   {
-    type: 'paragraph',
+    type: 'PARAGRAPH',
     children: [
       {
         text: '',
-        marks: [],
       },
     ],
   },

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { ListTypes } from './withLists';
+import { ListTypes } from './listTypes';
 
 export const List: React.FC<RenderElementProps> = ({
   attributes,

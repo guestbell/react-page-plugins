@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Node, createEditor, Editor } from 'slate';
+import { Node, createEditor, Editor, Range } from 'slate';
 import { withFontSizes } from '../../../slate/plugins/fontSize/withFontSizes';
 import { withLists } from '../../../slate/plugins/lists/withLists';
 import { withHeadings } from '../../../slate/plugins/heading/withHeadings';
@@ -10,11 +10,11 @@ import {
   MARK_HOTKEYS,
   EmphasizeTypes,
   EmphasizeCommands,
-} from '../../../slate/plugins/emphasize/withEmphasize';
+} from '../../../slate/plugins/emphasize';
 import { withReact, Slate, Editable } from 'slate-react';
 import isHotkey from 'is-hotkey';
 import {
-  renderMark,
+  renderLeaf,
   renderElement,
 } from '../../../slate/Controls/SlateDefaultControls';
 import { HoveringToolbar } from '../../../slate/Controls/hoveringToolbar/HoveringToolbar';
@@ -131,15 +131,21 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
       allowNewChar = false;
     }
   }
+  const [selection, setSelection] = React.useState<Range | null>(null);
 
-  const onChange = (val: Node[]) =>
+  const onChange = (val: Node[], s: Range) => {
     props.onChange({ value: val, isValid: allowNewChar, isDirty: true });
+    setSelection(s);
+  };
 
-  const [key, setKey] = React.useState(0);
-  React.useEffect(() => setKey(key + 1), [props.readOnly && props.value]);
   return (
-    <InputGroup title={props.title} key={props.readOnly ? key : undefined}>
-      <Slate editor={editor} defaultValue={props.value} onChange={onChange}>
+    <InputGroup title={props.title}>
+      <Slate
+        editor={editor}
+        value={props.value}
+        selection={selection}
+        onChange={onChange}
+      >
         <div className={classNames('slate-editor', classes.root)}>
           {!props.readOnly && (
             <div className={classes.toolbar}>
@@ -165,7 +171,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
             className={classNames(classes.editable, {
               [classes.editableEditable]: !props.readOnly,
             })}
-            renderMark={renderMark}
+            renderLeaf={renderLeaf}
             renderElement={renderElement}
             onKeyDown={event => {
               if (!allowNewChar) {
@@ -213,14 +219,12 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
             </div>
           )}
           {editor.selection && !props.readOnly && (
-            <>
-              <HoveringToolbar>
-                <EmphasizeButton type={EmphasizeTypes.Bold} />
-                <EmphasizeButton type={EmphasizeTypes.Italic} />
-                <EmphasizeButton type={EmphasizeTypes.Underline} />
-                <LinkButton />
-              </HoveringToolbar>
-            </>
+            <HoveringToolbar>
+              <EmphasizeButton type={EmphasizeTypes.Bold} />
+              <EmphasizeButton type={EmphasizeTypes.Italic} />
+              <EmphasizeButton type={EmphasizeTypes.Underline} />
+              <LinkButton />
+            </HoveringToolbar>
           )}
           {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
         </div>

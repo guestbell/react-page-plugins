@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { lazyLoad } from '@react-page/core';
 import { ListButton } from './ListButton';
-import { ListTypes } from './withLists';
+import { ListTypes } from './listTypes';
 
 const ListIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatListBulleted')

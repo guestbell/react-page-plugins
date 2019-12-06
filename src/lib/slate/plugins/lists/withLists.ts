@@ -1,10 +1,5 @@
 import { Editor } from 'slate';
-
-export enum ListTypes {
-  UL = 'bulleted-list',
-  OL = 'numbered-list',
-  LI = 'list-item',
-}
+import { ListTypes } from './listTypes';
 
 export const ListCommands = {
   ToggleList: 'toggle_list',

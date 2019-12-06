@@ -1,11 +1,10 @@
 import { Editor } from 'slate';
+import { QuoteType } from './quoteType';
 
 export const isQuoteActive = (editor: Editor) => {
   const [quote] = Editor.nodes(editor, { match: { type: QuoteType } });
   return !!quote;
 };
-
-export const QuoteType = 'QUOTE';
 
 export const QuoteCommands = {
   ToggleQuote: 'toggle_quote',

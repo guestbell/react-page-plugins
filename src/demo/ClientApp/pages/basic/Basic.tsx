@@ -11,6 +11,8 @@ import SlateEditor, {
 } from '../../../../lib/common/components/slateEditor/SlateEditor';
 import { Node } from 'slate';
 import { slateEmptyValue } from '../../../../lib/common/components/slateEditor/slateEmptyValue';
+import SlateRenderer from '../../../../lib/common/components/slateRenderer/SlateRenderer';
+import rules from '../../../../lib/common/components/slateRenderer/rules';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -30,7 +32,7 @@ export interface BasicProps {}
 export interface BasicState {}
 
 export const Basic: React.FC<BasicProps> = props => {
-  const [value, setValue] = React.useState<Node[]>(slateEmptyValue);
+  const [value, setValue] = React.useState<Node[]>(slateEmptyValue());
   const onChange: SlateEditorOnChangeHandler = val => setValue(val.value);
   return (
     <div className="container">
@@ -41,11 +43,20 @@ export const Basic: React.FC<BasicProps> = props => {
         label="Slate editor"
         maxChars={100}
       />
+      <h3>Readonly editor</h3>
       <SlateEditor
         value={JSON.parse(JSON.stringify(value))}
         readOnly={true}
         maxChars={100}
       />
+      <h3>Pure render</h3>
+      <div className="p-3">
+        <SlateRenderer
+          value={value}
+          nodeRule={rules.nodeRule}
+          textRule={rules.textRule}
+        />
+      </div>
       <KeepStateEditor
         plugins={plugins}
         value={contents}

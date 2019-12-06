@@ -1,27 +1,32 @@
 import { jsx } from 'slate-hyperscript';
 import { Editor } from 'slate';
+import { ParagraphType } from '../paragraph/withParagraph';
+import { ListTypes } from '../lists/listTypes';
+import { HeadingType } from '../heading/headingType';
+import { QuoteType } from '../quote/quoteType';
+import { LinkType } from '../links/linkType';
+import { EmphasizeTypes } from '../emphasize/emphasizeTypes';
 
 const ELEMENT_TAGS = {
-  A: el => ({ type: 'link', url: el.getAttribute('href') }),
-  BLOCKQUOTE: () => ({ type: 'quote' }),
-  H1: () => ({ type: 'heading', level: 1 }),
-  H2: () => ({ type: 'heading', level: 2 }),
-  H3: () => ({ type: 'heading', level: 3 }),
-  H4: () => ({ type: 'heading', level: 3 }),
-  H5: () => ({ type: 'heading', level: 3 }),
-  H6: () => ({ type: 'heading', level: 3 }),
-  LI: () => ({ type: 'list-item' }),
-  OL: () => ({ type: 'numbered-list' }),
-  P: () => ({ type: 'paragraph' }),
-  UL: () => ({ type: 'bulleted-list' }),
+  A: el => ({ type: LinkType, url: el.getAttribute('href') }),
+  BLOCKQUOTE: () => ({ type: QuoteType }),
+  H1: () => ({ type: HeadingType, level: 1 }),
+  H2: () => ({ type: HeadingType, level: 2 }),
+  H3: () => ({ type: HeadingType, level: 3 }),
+  H4: () => ({ type: HeadingType, level: 3 }),
+  H5: () => ({ type: HeadingType, level: 3 }),
+  H6: () => ({ type: HeadingType, level: 3 }),
+  LI: () => ({ type: ListTypes.LI }),
+  OL: () => ({ type: ListTypes.OL }),
+  P: () => ({ type: ParagraphType }),
+  UL: () => ({ type: ListTypes.UL }),
 };
 
 const MARK_TAGS = {
-  CODE: () => ({ type: 'code' }),
-  EM: () => ({ type: 'italic' }),
-  I: () => ({ type: 'italic' }),
-  STRONG: () => ({ type: 'bold' }),
-  U: () => ({ type: 'underline' }),
+  EM: () => ({ type: EmphasizeTypes.Italic }),
+  I: () => ({ type: EmphasizeTypes.Italic }),
+  STRONG: () => ({ type: EmphasizeTypes.Bold }),
+  U: () => ({ type: EmphasizeTypes.Underline }),
 };
 
 export const deserialize = (el: Node) => {
@@ -49,7 +54,7 @@ export const deserialize = (el: Node) => {
 
   if (MARK_TAGS[nodeName]) {
     const attrs = MARK_TAGS[nodeName](el);
-    return jsx('mark', attrs, children);
+    return jsx('text', attrs, children);
   }
 
   return children;
@@ -59,7 +64,7 @@ export const withHtml = (editor: Editor) => {
   const { exec, isInline, isVoid } = editor;
 
   editor.isInline = element => {
-    return element.type === 'link' ? true : isInline(element);
+    return element.type === LinkType ? true : isInline(element);
   };
 
   editor.isVoid = element => {
