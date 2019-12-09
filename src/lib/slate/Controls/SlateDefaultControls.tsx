@@ -97,13 +97,14 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   ).current;
 
   const [selection, setSelection] = React.useState<Range | null>(null);
-  const [value, setValue] = React.useState<Node[]>(
-    (props.state.value && props.state.value.data) || slateEmptyValue()
+  const [value, setValue] = React.useState(
+    props.state.value || slateEmptyValue()
   );
   const stateChanged = (slateState: Node[], s: Range) => {
-    setValue(slateState);
+    const newValue = { ...props.state.value, data: slateState };
+    setValue(newValue);
     setSelection(s);
-    debouncedOnChange({ value: { ...props.state.value, data: slateState } });
+    debouncedOnChange({ value: newValue });
   };
 
   const debouncedOnChange = React.useRef(
@@ -115,7 +116,7 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
       <Slate
         editor={editor}
         selection={selection}
-        value={value}
+        value={value.data}
         onChange={stateChanged}
         migrations={migrations}
       >
