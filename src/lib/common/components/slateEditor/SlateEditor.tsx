@@ -35,6 +35,7 @@ import { withHistory } from 'slate-history';
 import { SlateValue } from '../../types/slate/SlateValue';
 import { Migrator } from '../../slateMigrations/Migrator';
 import { Migration } from '../../slateMigrations/Migration';
+import { slateEmptyValue } from './slateEmptyValue';
 
 export type SlateEditorOnChangeHandler = (val: {
   value: SlateValue;
@@ -144,13 +145,26 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
   }).current;
 
   React.useEffect(() => {
-    const migrationResult = Migrator.migrateState(props.value, migrations);
-    if (migrationResult.changed) {
+    if (
+      !props.value ||
+      !props.value.data ||
+      !Array.isArray(props.value.data) ||
+      !props.value.data.every(node => Node.isNode(node))
+    ) {
       props.onChange({
-        value: migrationResult.migratedState,
+        value: slateEmptyValue(),
         isValid: allowNewChar,
         isDirty: true,
       });
+    } else {
+      const migrationResult = Migrator.migrateState(props.value, migrations);
+      if (migrationResult.changed) {
+        props.onChange({
+          value: migrationResult.migratedState,
+          isValid: allowNewChar,
+          isDirty: true,
+        });
+      }
     }
     setIsReady(true);
   }, []);
