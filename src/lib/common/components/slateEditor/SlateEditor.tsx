@@ -32,22 +32,24 @@ import InputGroup from 'guestbell-forms/build/components/inputGroup';
 import yellow from '@material-ui/core/colors/yellow';
 import red from '@material-ui/core/colors/red';
 import { withHistory } from 'slate-history';
+import { SlateValue } from '../../types/slate/SlateValue';
+import { Migrator } from '../../slateMigrations/Migrator';
+import { Migration } from '../../slateMigrations/Migration';
 
 export type SlateEditorOnChangeHandler = (val: {
-  value: Node[];
+  value: SlateValue;
   isDirty: boolean;
   isValid: boolean;
 }) => void;
 
 export interface SlateEditorCustomProps {
-  value: Node[];
-  initialValue?: Node[];
-  onChange?: SlateEditorOnChangeHandler;
+  value: SlateValue;
+  onChange: SlateEditorOnChangeHandler;
   placeholder?: string;
   label?: JSX.Element | string;
   title?: JSX.Element | string;
   maxChars?: number;
-  readOnly?: boolean;
+  migrations?: Migration[];
 }
 
 const styles = ({ spacing, palette, typography }: Theme) =>
@@ -68,8 +70,6 @@ const styles = ({ spacing, palette, typography }: Theme) =>
     },
     editable: {
       padding: spacing(2),
-    },
-    editableEditable: {
       background: palette.grey[100],
     },
     characterCountContainer: {
@@ -96,7 +96,7 @@ const allHotkeys = { ...MARK_HOTKEYS };
 type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
 const SlateEditor: React.SFC<SlateEditorProps> = props => {
-  const { classes } = props;
+  const { classes, migrations } = props;
   const editor = React.useRef(
     withHistory(
       withFontSizes()(
@@ -109,14 +109,14 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
     )
   ).current;
   const [hasFocus, setHasFocus] = React.useState(false);
-  const onFocus = () => setHasFocus(true);
-  const onBlur = () => setHasFocus(false);
+  const onFocus = React.useRef(() => setHasFocus(true)).current;
+  const onBlur = React.useRef(() => setHasFocus(false)).current;
 
   let allowNewChar = true;
   let chars = 0;
   let charsLeft = 0;
   let progress = 0;
-  if (props.maxChars && !props.readOnly) {
+  if (props.maxChars) {
     try {
       chars = Editor.text(editor, {
         anchor: Editor.start(editor, []),
@@ -132,22 +132,38 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
     }
   }
   const [selection, setSelection] = React.useState<Range | null>(null);
+  const [isReady, setIsReady] = React.useState(!Boolean(props.migrations));
 
-  const onChange = (val: Node[], s: Range) => {
-    props.onChange({ value: val, isValid: allowNewChar, isDirty: true });
+  const onChange = React.useRef((val: Node[], s: Range) => {
+    props.onChange({
+      value: { ...props.value, data: val },
+      isValid: allowNewChar,
+      isDirty: true,
+    });
     setSelection(s);
-  };
+  }).current;
 
+  React.useEffect(() => {
+    const migrationResult = Migrator.migrateState(props.value, migrations);
+    if (migrationResult.changed) {
+      props.onChange({
+        value: migrationResult.migratedState,
+        isValid: allowNewChar,
+        isDirty: true,
+      });
+    }
+    setIsReady(true);
+  }, []);
   return (
-    <InputGroup title={props.title}>
-      <Slate
-        editor={editor}
-        value={props.value}
-        selection={selection}
-        onChange={onChange}
-      >
-        <div className={classNames('slate-editor', classes.root)}>
-          {!props.readOnly && (
+    isReady && (
+      <InputGroup title={props.title}>
+        <Slate
+          editor={editor}
+          value={props.value.data}
+          selection={selection}
+          onChange={onChange}
+        >
+          <div className={classNames('slate-editor', classes.root)}>
             <div className={classes.toolbar}>
               {props.label && (
                 <div
@@ -165,71 +181,68 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
               <ListButtons />
               <LinkButton />
             </div>
-          )}
-          <Editable
-            readOnly={props.readOnly}
-            className={classNames(classes.editable, {
-              [classes.editableEditable]: !props.readOnly,
-            })}
-            renderLeaf={renderLeaf}
-            renderElement={renderElement}
-            onKeyDown={event => {
-              if (!allowNewChar) {
-                if (!(event.keyCode === 8 || event.keyCode === 46)) {
-                  event.preventDefault();
-                  return;
+            <Editable
+              className={classNames(classes.editable)}
+              renderLeaf={renderLeaf}
+              renderElement={renderElement}
+              onKeyDown={event => {
+                if (!allowNewChar) {
+                  if (!(event.keyCode === 8 || event.keyCode === 46)) {
+                    event.preventDefault();
+                    return;
+                  }
                 }
-              }
-              for (const hotkey in allHotkeys) {
-                if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+                for (const hotkey in allHotkeys) {
+                  if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+                    event.preventDefault();
+                    editor.exec({
+                      type: EmphasizeCommands.ToggleEmphasize,
+                      mark: { type: MARK_HOTKEYS[hotkey] },
+                    });
+                  }
+                }
+                if (
+                  isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
+                ) {
                   event.preventDefault();
                   editor.exec({
-                    type: EmphasizeCommands.ToggleEmphasize,
-                    mark: { type: MARK_HOTKEYS[hotkey] },
+                    type: 'insert_text',
+                    text: '\n',
                   });
                 }
-              }
-              if (
-                isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
-              ) {
-                event.preventDefault();
-                editor.exec({
-                  type: 'insert_text',
-                  text: '\n',
-                });
-              }
-            }}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          />
-          {props.maxChars && !props.readOnly && (
-            <div
-              className={classNames(
-                'slate-editor__char-count',
-                classes.characterCountContainer,
-                {
-                  [classes.characterCountContainerWarning]: progress <= 10,
-                  'slate-editor__char-count--warning': progress <= 10,
-                  [classes.characterCountContainerError]: progress <= 0,
-                  'slate-editor__char-count--error': progress <= 0,
-                }
-              )}
-            >
-              {chars}/{props.maxChars}
-            </div>
-          )}
-          {editor.selection && !props.readOnly && (
-            <HoveringToolbar>
-              <EmphasizeButton type={EmphasizeTypes.Bold} />
-              <EmphasizeButton type={EmphasizeTypes.Italic} />
-              <EmphasizeButton type={EmphasizeTypes.Underline} />
-              <LinkButton />
-            </HoveringToolbar>
-          )}
-          {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
-        </div>
-      </Slate>
-    </InputGroup>
+              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
+            />
+            {props.maxChars && (
+              <div
+                className={classNames(
+                  'slate-editor__char-count',
+                  classes.characterCountContainer,
+                  {
+                    [classes.characterCountContainerWarning]: progress <= 10,
+                    'slate-editor__char-count--warning': progress <= 10,
+                    [classes.characterCountContainerError]: progress <= 0,
+                    'slate-editor__char-count--error': progress <= 0,
+                  }
+                )}
+              >
+                {chars}/{props.maxChars}
+              </div>
+            )}
+            {editor.selection && (
+              <HoveringToolbar>
+                <EmphasizeButton type={EmphasizeTypes.Bold} />
+                <EmphasizeButton type={EmphasizeTypes.Italic} />
+                <EmphasizeButton type={EmphasizeTypes.Underline} />
+                <LinkButton />
+              </HoveringToolbar>
+            )}
+            {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
+          </div>
+        </Slate>
+      </InputGroup>
+    )
   );
 };
 

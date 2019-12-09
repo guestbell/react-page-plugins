@@ -9,10 +9,11 @@ import './styles.scss';
 import SlateEditor, {
   SlateEditorOnChangeHandler,
 } from '../../../../lib/common/components/slateEditor/SlateEditor';
-import { Node } from 'slate';
 import { slateEmptyValue } from '../../../../lib/common/components/slateEditor/slateEmptyValue';
 import SlateRenderer from '../../../../lib/common/components/slateRenderer/SlateRenderer';
 import rules from '../../../../lib/common/components/slateRenderer/rules';
+import { Button } from 'guestbell-forms/build/components/button/Button';
+import migrations from '../../../../lib/common/slateMigrations/migrations';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -32,8 +33,21 @@ export interface BasicProps {}
 export interface BasicState {}
 
 export const Basic: React.FC<BasicProps> = props => {
-  const [value, setValue] = React.useState<Node[]>(slateEmptyValue());
+  // tslint:disable-next-line: no-any
+  const [value, setValue] = React.useState<any>([
+    {
+      type: 'PARAGRAPH',
+      children: [
+        {
+          text: '',
+        },
+      ],
+    },
+  ]);
   const onChange: SlateEditorOnChangeHandler = val => setValue(val.value);
+  const resetValue = () => {
+    setValue(slateEmptyValue());
+  };
   return (
     <div className="container">
       <SlateEditor
@@ -42,12 +56,7 @@ export const Basic: React.FC<BasicProps> = props => {
         placeholder="Custom placeholder"
         label="Slate editor"
         maxChars={100}
-      />
-      <h3>Readonly editor</h3>
-      <SlateEditor
-        value={JSON.parse(JSON.stringify(value))}
-        readOnly={true}
-        maxChars={100}
+        migrations={migrations}
       />
       <h3>Pure render</h3>
       <div className="p-3">
@@ -57,6 +66,7 @@ export const Basic: React.FC<BasicProps> = props => {
           textRule={rules.textRule}
         />
       </div>
+      <Button onClick={resetValue}>Reset value</Button>
       <KeepStateEditor
         plugins={plugins}
         value={contents}

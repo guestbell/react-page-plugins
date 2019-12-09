@@ -1,6 +1,5 @@
-import { Node } from 'slate';
+import { SlateValue } from '../../common/types/slate/SlateValue';
 
 export interface SlateState {
-  slateState: Node[];
-  slateStateTimestamp: number;
+  value: SlateValue;
 }

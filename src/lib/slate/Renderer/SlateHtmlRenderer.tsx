@@ -6,7 +6,7 @@ import rules from '../../common/components/slateRenderer/rules';
 const SlateHtmlRenderer: React.FC<SlateRendererProps> = props => {
   return (
     <SlateRenderer
-      value={props.state.slateState}
+      value={props.state.value}
       nodeRule={rules.nodeRule}
       textRule={rules.textRule}
     />

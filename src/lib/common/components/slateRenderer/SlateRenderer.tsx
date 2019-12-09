@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { Node, Element, Text } from 'slate';
+import { SlateValue } from '../../types/slate/SlateValue';
+import { Migrator } from '../../slateMigrations/Migrator';
+import { Migration } from '../../slateMigrations/Migration';
 
 export type TextRuleType = (text: Text) => JSX.Element;
 export type NodeRuleType = (node: Node, children: JSX.Element) => JSX.Element;
 
 export interface SlateRendererProps {
-  value: Node[];
+  value: SlateValue;
   textRule: TextRuleType;
   nodeRule: NodeRuleType;
+  migrations?: Migration[];
 }
 
 export interface RendererRecursiveProps {
@@ -44,11 +48,18 @@ const RendererRecursive: React.FC<RendererRecursiveProps> = ({
 };
 
 const SlateRenderer: React.FC<SlateRendererProps> = props => {
-  const { value, nodeRule, textRule } = props;
+  const { value, nodeRule, textRule, migrations } = props;
+
+  const migratedValue = React.useMemo(() => {
+    const migrationResult = Migrator.migrateState(value, migrations);
+    return migrationResult.migratedState;
+  }, [props.value]);
   return (
     <>
-      {value &&
-        value.map((node, key) => (
+      {migratedValue &&
+        migratedValue.data &&
+        migratedValue.data &&
+        migratedValue.data.map((node, key) => (
           <RendererRecursive
             nodeRule={nodeRule}
             textRule={textRule}
@@ -61,4 +72,4 @@ const SlateRenderer: React.FC<SlateRendererProps> = props => {
   );
 };
 
-export default SlateRenderer;
+export default React.memo(SlateRenderer);

@@ -97,12 +97,12 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
 
   const [selection, setSelection] = React.useState<Range | null>(null);
   const [value, setValue] = React.useState<Node[]>(
-    props.state.slateState || slateEmptyValue()
+    (props.state.value && props.state.value.data) || slateEmptyValue()
   );
   const stateChanged = (slateState: Node[], s: Range) => {
     setValue(slateState);
     setSelection(s);
-    debouncedOnChange({ slateState });
+    debouncedOnChange({ value: { ...props.state.value, data: slateState } });
   };
 
   const debouncedOnChange = React.useRef(

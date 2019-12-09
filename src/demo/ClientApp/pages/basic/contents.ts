@@ -43,83 +43,86 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      children: [
-                        {
-                          text: 'The ORY Editor',
-                          marks: [],
-                        },
-                      ],
-                      level: 1,
-                      alignment: 'center',
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text: '',
-                          marks: [],
-                        },
-                        {
-                          type: 'LINK',
-                          url: 'https://www.ory.sh/',
-                          children: [
-                            {
-                              text: 'ORY',
-                              marks: [],
-                            },
-                          ],
-                        },
-                        {
-                          text:
-                            ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
-                          marks: [],
-                        },
-                        {
-                          type: 'LINK',
-                          url: 'https://github.com/ory',
-                          children: [
-                            {
-                              text: 'Open Source',
-                              marks: [],
-                            },
-                          ],
-                        },
-                        {
-                          text:
-                            ' tools! The ORY Editor is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            'The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform ',
-                          marks: [],
-                        },
-                        {
-                          type: 'LINK',
-                          url: 'https://en.serlo.org/serlo',
-                          children: [
-                            {
-                              text: 'serlo.org',
-                              marks: [],
-                            },
-                          ],
-                        },
-                        {
-                          text:
-                            '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
-                          marks: [],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        children: [
+                          {
+                            text: 'The ORY Editor',
+                            marks: [],
+                          },
+                        ],
+                        level: 1,
+                        alignment: 'center',
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text: '',
+                            marks: [],
+                          },
+                          {
+                            type: 'LINK',
+                            url: 'https://www.ory.sh/',
+                            children: [
+                              {
+                                text: 'ORY',
+                                marks: [],
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
+                            marks: [],
+                          },
+                          {
+                            type: 'LINK',
+                            url: 'https://github.com/ory',
+                            children: [
+                              {
+                                text: 'Open Source',
+                                marks: [],
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              ' tools! The ORY Editor is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform ',
+                            marks: [],
+                          },
+                          {
+                            type: 'LINK',
+                            url: 'https://en.serlo.org/serlo',
+                            children: [
+                              {
+                                text: 'serlo.org',
+                                marks: [],
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -138,87 +141,90 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      children: [
-                        {
-                          text: 'ORY Sites',
-                          marks: [],
-                        },
-                      ],
-                      level: 2,
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text: 'ORY Sites is an ',
-                          marks: [],
-                        },
-                        {
-                          text: 'next-gen',
-                          marks: [
-                            {
-                              type: 'bold',
-                            },
-                          ],
-                        },
-                        {
-                          text: ' ',
-                          marks: [],
-                        },
-                        {
-                          text: 'open source static site generator',
-                          marks: [
-                            {
-                              type: 'bold',
-                            },
-                          ],
-                        },
-                        {
-                          text:
-                            ' based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      level: 3,
-                      children: [
-                        {
-                          text: '',
-                          marks: [],
-                        },
-                        {
-                          type: 'LINK',
-                          url:
-                            'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
-                          children: [
-                            {
-                              text: 'Learn more about ORY Sites!',
-                              marks: [],
-                            },
-                          ],
-                        },
-                        {
-                          text: '',
-                          marks: [],
-                        },
-                      ],
-                      alignment: 'center',
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text: '\n',
-                          marks: [],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        children: [
+                          {
+                            text: 'ORY Sites',
+                            marks: [],
+                          },
+                        ],
+                        level: 2,
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text: 'ORY Sites is an ',
+                            marks: [],
+                          },
+                          {
+                            text: 'next-gen',
+                            marks: [
+                              {
+                                type: 'bold',
+                              },
+                            ],
+                          },
+                          {
+                            text: ' ',
+                            marks: [],
+                          },
+                          {
+                            text: 'open source static site generator',
+                            marks: [
+                              {
+                                type: 'bold',
+                              },
+                            ],
+                          },
+                          {
+                            text:
+                              ' based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        level: 3,
+                        children: [
+                          {
+                            text: '',
+                            marks: [],
+                          },
+                          {
+                            type: 'LINK',
+                            url:
+                              'https://www.ory.sh/sites?utm_source=github&utm_medium=link&utm_campaign=editor_demo',
+                            children: [
+                              {
+                                text: 'Learn more about ORY Sites!',
+                                marks: [],
+                              },
+                            ],
+                          },
+                          {
+                            text: '',
+                            marks: [],
+                          },
+                        ],
+                        alignment: 'center',
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text: '\n',
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -251,19 +257,22 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      children: [
-                        {
-                          text: "What's the problem?\n",
-                          marks: [],
-                        },
-                      ],
-                      level: 2,
-                      alignment: 'center',
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        children: [
+                          {
+                            text: "What's the problem?\n",
+                            marks: [],
+                          },
+                        ],
+                        level: 2,
+                        alignment: 'center',
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -296,68 +305,71 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            'We had to realize that existing open source content editing solutions had one of the three flaws:\n',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'bulleted-list',
-                      children: [
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'We had to realize that existing open source content editing solutions had one of the three flaws:\n',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'bulleted-list',
+                        children: [
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -376,19 +388,22 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      children: [
-                        {
-                          text: "So what's different?\n",
-                          marks: [],
-                        },
-                      ],
-                      level: 2,
-                      alignment: 'center',
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        children: [
+                          {
+                            text: "So what's different?\n",
+                            marks: [],
+                          },
+                        ],
+                        level: 2,
+                        alignment: 'center',
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -421,108 +436,111 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            'We concluded that a solution must meet the following principles:\n',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'bulleted-list',
-                      children: [
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'The state is a normalized JSON object, no HTML involved.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'It is a visual editor that does not require programming experience or special training.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'It is built by a company, reducing the likelihood of abandonment.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'It works on mobile and touch devices.\n',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            'With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.',
-                          marks: [],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'We concluded that a solution must meet the following principles:\n',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'bulleted-list',
+                        children: [
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'The state is a normalized JSON object, no HTML involved.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'It is a visual editor that does not require programming experience or special training.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'It is built by a company, reducing the likelihood of abandonment.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'It works on mobile and touch devices.\n',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.',
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -560,19 +578,22 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      children: [
-                        {
-                          text: 'Feature Spotlight\n',
-                          marks: [],
-                        },
-                      ],
-                      level: 2,
-                      alignment: 'center',
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        children: [
+                          {
+                            text: 'Feature Spotlight\n',
+                            marks: [],
+                          },
+                        ],
+                        level: 2,
+                        alignment: 'center',
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -608,28 +629,31 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      level: 3,
-                      children: [
-                        {
-                          text: 'Rich Inline Editing',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
-                          marks: [],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        level: 3,
+                        children: [
+                          {
+                            text: 'Rich Inline Editing',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -676,28 +700,31 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      level: 3,
-                      children: [
-                        {
-                          text: 'Responsive Layouts',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            "Today's content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices.",
-                          marks: [],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        level: 3,
+                        children: [
+                          {
+                            text: 'Responsive Layouts',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              "Today's content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices.",
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -716,28 +743,31 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      level: 3,
-                      children: [
-                        {
-                          text: 'Sane mark-up',
-                          marks: [],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It's sane, tested, clean and minimal.",
-                          marks: [],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        level: 3,
+                        children: [
+                          {
+                            text: 'Sane mark-up',
+                            marks: [],
+                          },
+                        ],
+                      },
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It's sane, tested, clean and minimal.",
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -801,38 +831,41 @@ const contents: EditableType = {
                           version: '0.0.2',
                         },
                         state: {
-                          slateState: [
-                            {
-                              type: 'HEADING',
-                              children: [
-                                {
-                                  text: 'React Plugin API',
-                                  marks: [],
-                                },
-                              ],
-                              level: 2,
-                            },
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
-                                  marks: [],
-                                },
-                              ],
-                            },
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text:
-                                    'In fact, this section is rendered on top of an exemplary layout plugin!',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
+                          value: {
+                            version: '0.0.1',
+                            data: [
+                              {
+                                type: 'HEADING',
+                                children: [
+                                  {
+                                    text: 'React Plugin API',
+                                    marks: [],
+                                  },
+                                ],
+                                level: 2,
+                              },
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text:
+                                      'In fact, this section is rendered on top of an exemplary layout plugin!',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
                         },
                       },
                     },
@@ -855,19 +888,22 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'HEADING',
-                      children: [
-                        {
-                          text: "That's all?\n",
-                          marks: [],
-                        },
-                      ],
-                      level: 2,
-                      alignment: 'center',
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'HEADING',
+                        children: [
+                          {
+                            text: "That's all?\n",
+                            marks: [],
+                          },
+                        ],
+                        level: 2,
+                        alignment: 'center',
+                      },
+                    ],
+                  },
                 },
               },
             },
@@ -886,136 +922,139 @@ const contents: EditableType = {
                   version: '0.0.2',
                 },
                 state: {
-                  slateState: [
-                    {
-                      type: 'PARAGRAPH',
-                      children: [
-                        {
-                          text:
-                            'No, of course not! We are very proud of these ones as well:',
-                          marks: [],
-                        },
-                      ],
-                      level: 3,
-                    },
-                    {
-                      type: 'bulleted-list',
-                      children: [
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text: 'global un-/redo with ',
-                                  marks: [],
-                                },
-                                {
-                                  text: 'ctrl+z',
-                                  marks: [
-                                    {
-                                      type: 'italic',
-                                    },
-                                  ],
-                                },
-                                {
-                                  text: ' / ',
-                                  marks: [],
-                                },
-                                {
-                                  text: 'ctrl+y',
-                                  marks: [
-                                    {
-                                      type: 'italic',
-                                    },
-                                  ],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text: 'editing shortcuts, for example ',
-                                  marks: [],
-                                },
-                                {
-                                  text: 'ctrl+b',
-                                  marks: [
-                                    {
-                                      type: 'bold',
-                                    },
-                                  ],
-                                },
-                                {
-                                  text: ',',
-                                  marks: [],
-                                },
-                                {
-                                  text: ' ',
-                                  marks: [
-                                    {
-                                      type: 'bold',
-                                    },
-                                  ],
-                                },
-                                {
-                                  text: 'ctrl+i, ',
-                                  marks: [
-                                    {
-                                      type: 'italic',
-                                    },
-                                  ],
-                                },
-                                {
-                                  text: 'ctrl+u',
-                                  marks: [
-                                    {
-                                      type: 'underline',
-                                    },
-                                  ],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text: 'collaborative editing',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                        {
-                          type: 'list-item',
-                          children: [
-                            {
-                              type: 'PARAGRAPH',
-                              children: [
-                                {
-                                  text: '... and more things to come',
-                                  marks: [],
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
+                  value: {
+                    version: '0.0.1',
+                    data: [
+                      {
+                        type: 'PARAGRAPH',
+                        children: [
+                          {
+                            text:
+                              'No, of course not! We are very proud of these ones as well:',
+                            marks: [],
+                          },
+                        ],
+                        level: 3,
+                      },
+                      {
+                        type: 'bulleted-list',
+                        children: [
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text: 'global un-/redo with ',
+                                    marks: [],
+                                  },
+                                  {
+                                    text: 'ctrl+z',
+                                    marks: [
+                                      {
+                                        type: 'italic',
+                                      },
+                                    ],
+                                  },
+                                  {
+                                    text: ' / ',
+                                    marks: [],
+                                  },
+                                  {
+                                    text: 'ctrl+y',
+                                    marks: [
+                                      {
+                                        type: 'italic',
+                                      },
+                                    ],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text: 'editing shortcuts, for example ',
+                                    marks: [],
+                                  },
+                                  {
+                                    text: 'ctrl+b',
+                                    marks: [
+                                      {
+                                        type: 'bold',
+                                      },
+                                    ],
+                                  },
+                                  {
+                                    text: ',',
+                                    marks: [],
+                                  },
+                                  {
+                                    text: ' ',
+                                    marks: [
+                                      {
+                                        type: 'bold',
+                                      },
+                                    ],
+                                  },
+                                  {
+                                    text: 'ctrl+i, ',
+                                    marks: [
+                                      {
+                                        type: 'italic',
+                                      },
+                                    ],
+                                  },
+                                  {
+                                    text: 'ctrl+u',
+                                    marks: [
+                                      {
+                                        type: 'underline',
+                                      },
+                                    ],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text: 'collaborative editing',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                          {
+                            type: 'list-item',
+                            children: [
+                              {
+                                type: 'PARAGRAPH',
+                                children: [
+                                  {
+                                    text: '... and more things to come',
+                                    marks: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
                 },
               },
             },
