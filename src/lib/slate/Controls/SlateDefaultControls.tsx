@@ -45,6 +45,7 @@ import { EmphasizeButton } from '../plugins/emphasize/EmphasizeButton';
 import { EmphasizeTypes } from '../plugins/emphasize/emphasizeTypes';
 import { slateEmptyValue } from '../../common/components/slateEditor/slateEmptyValue';
 import { withHistory } from 'slate-history';
+import migrations from '../../common/slateMigrations/migrations';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
@@ -109,17 +110,6 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
     debounce(onChange, 2000, { leading: false, trailing: true })
   ).current;
 
-  /*React.useEffect(() => {
-    setTimeout(
-      () =>
-        onChange({
-          slateState: defaultValue2,
-          slateStateTimestamp: new Date().getTime(),
-        }),
-      1000
-    );
-  }, []);*/
-
   return (
     <div className="slateControls ory-prevent-blur">
       <Slate
@@ -127,6 +117,7 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
         selection={selection}
         value={value}
         onChange={stateChanged}
+        migrations={migrations}
       >
         <Editable
           readOnly={props.readOnly}
