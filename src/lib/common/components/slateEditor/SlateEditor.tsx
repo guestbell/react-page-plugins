@@ -133,7 +133,6 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
     }
   }
   const [selection, setSelection] = React.useState<Range | null>(null);
-  const [isReady, setIsReady] = React.useState(!Boolean(props.migrations));
 
   const onChange = React.useRef((val: Node[], s: Range) => {
     props.onChange({
@@ -144,6 +143,7 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
     setSelection(s);
   }).current;
 
+  const [isReady, setIsReady] = React.useState(!Boolean(props.migrations));
   React.useEffect(() => {
     if (
       !props.value ||
