@@ -20,7 +20,7 @@ const createPlugin: (
   return {
     Component: WrappedComponent,
     name: 'ory/editor/core/content/slate',
-    version: '0.0.2',
+    version: '0.0.3',
     IconComponent: <Subject />,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
