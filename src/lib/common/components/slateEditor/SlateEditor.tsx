@@ -134,46 +134,57 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
   }
   const [selection, setSelection] = React.useState<Range | null>(null);
 
-  const onChange = React.useRef((val: Node[], s: Range) => {
-    props.onChange({
-      value: { ...props.value, data: val },
-      isValid: allowNewChar,
-      isDirty: true,
-    });
-    setSelection(s);
-  }).current;
+  const [value, setValue] = React.useState<SlateValue | null>(null);
 
-  const [isReady, setIsReady] = React.useState(!Boolean(props.migrations));
+  // This is the initial check and/or migration
   React.useEffect(() => {
+    let isDirty = false;
+    let newValue: SlateValue = props.value;
     if (
       !props.value ||
       !props.value.data ||
       !Array.isArray(props.value.data) ||
       !props.value.data.every(node => Node.isNode(node))
     ) {
-      props.onChange({
-        value: slateEmptyValue(),
-        isValid: allowNewChar,
-        isDirty: true,
-      });
+      newValue = slateEmptyValue();
     } else {
       const migrationResult = Migrator.migrateState(props.value, migrations);
-      if (migrationResult.changed) {
-        props.onChange({
-          value: migrationResult.migratedState,
-          isValid: allowNewChar,
-          isDirty: true,
-        });
-      }
+      isDirty = migrationResult.changed;
+      newValue = migrationResult.migratedState;
     }
-    setIsReady(true);
+    props.onChange({
+      value: newValue,
+      isValid: allowNewChar,
+      isDirty,
+    });
+    setValue(newValue);
   }, []);
+
+  React.useEffect(() => {
+    if (value !== null && props.value !== value) {
+      setValue(props.value);
+      setSelection(null);
+    }
+  }, [props.value]);
+
+  const onChange = React.useRef((val: Node[], s: Range) => {
+    const newValue: SlateValue = { ...props.value, data: val };
+    setValue(newValue);
+    setSelection(s);
+    props.onChange({
+      value: newValue,
+      isValid: allowNewChar,
+      isDirty: true,
+    });
+  }).current;
+
   return (
-    isReady && (
+    value &&
+    value.data && (
       <InputGroup title={props.title}>
         <Slate
           editor={editor}
-          value={props.value.data}
+          value={value.data}
           selection={selection}
           onChange={onChange}
         >
