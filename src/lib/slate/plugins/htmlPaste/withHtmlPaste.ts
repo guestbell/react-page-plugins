@@ -23,10 +23,10 @@ const ELEMENT_TAGS = {
 };
 
 const MARK_TAGS = {
-  EM: () => ({ type: EmphasizeTypes.Italic }),
-  I: () => ({ type: EmphasizeTypes.Italic }),
-  STRONG: () => ({ type: EmphasizeTypes.Bold }),
-  U: () => ({ type: EmphasizeTypes.Underline }),
+  EM: () => ({ [EmphasizeTypes.Italic]: true }),
+  I: () => ({ [EmphasizeTypes.Italic]: true }),
+  STRONG: () => ({ [EmphasizeTypes.Bold]: true }),
+  U: () => ({ [EmphasizeTypes.Underline]: true }),
 };
 
 const checkEmpty = potentialString =>
@@ -54,9 +54,7 @@ export const deserialize = (el: Node) => {
 
   if (el.nodeName === 'BODY') {
     if (!checkEmpty(children[0])) {
-      children.unshift('\n');
-    } else {
-      children[0] = '\n';
+      children.slice(1);
     }
     if (checkEmpty(children[children.length - 1])) {
       children.pop();
@@ -95,12 +93,26 @@ export const withHtml = (editor: Editor) => {
 
       if (html) {
         const parsed = new DOMParser().parseFromString(html, 'text/html');
-        const fragment = deserialize(parsed.body);
+        // tslint:disable-next-line: no-any
+        let fragment = (deserialize(parsed.body) as unknown) as any[];
         const selection = editor.selection;
+
+        const selectedNode = Editor.node(editor, selection)[0];
+        const selectedNodeEmpty =
+          selectedNode &&
+          selectedNode.text !== undefined &&
+          selectedNode.text.length === 0
+            ? true
+            : false;
+        if (!selectedNodeEmpty && fragment.length > 1) {
+          fragment = fragment.slice(1);
+        }
         // tslint:disable-next-line: no-any
         Editor.insertFragment(editor, fragment as any);
-        Editor.select(editor, selection);
-        Editor.delete(editor);
+        if (selectedNodeEmpty && fragment.length > 1) {
+          Editor.select(editor, selection);
+          Editor.delete(editor);
+        }
         return;
       }
     }
