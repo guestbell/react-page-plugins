@@ -30,13 +30,16 @@ const MARK_TAGS = {
 };
 
 const checkEmpty = potentialString =>
-  potentialString &&
-  typeof potentialString === 'string' &&
-  /[\r\n]+/.test(potentialString);
+  !(
+    potentialString &&
+    typeof potentialString === 'string' &&
+    potentialString.length > 0 &&
+    !/^(\r\n|\r|\n)$/.test(potentialString)
+  );
 
 export const deserialize = (el: Node) => {
   if (el.nodeType === 3) {
-    return el.textContent;
+    return el.textContent && el.textContent.replace('\n', '');
   } else if (el.nodeType !== 1) {
     return null;
   } else if (el.nodeName === 'BR') {
@@ -49,16 +52,13 @@ export const deserialize = (el: Node) => {
   // tslint:disable-next-line: no-any
   let children: any[] = Array.from(parent.childNodes).map(deserialize);
 
-  if (el.nodeType === 1) {
+  if (el.nodeName === 'BODY') {
     if (checkEmpty(children[0])) {
-      children = children.slice(1);
+      // children = children.slice(1);
     }
     if (checkEmpty(children[children.length - 1])) {
       children.pop();
     }
-  }
-
-  if (el.nodeName === 'BODY') {
     return jsx('fragment', {}, children);
   }
 
@@ -94,8 +94,11 @@ export const withHtml = (editor: Editor) => {
       if (html) {
         const parsed = new DOMParser().parseFromString(html, 'text/html');
         const fragment = deserialize(parsed.body);
+        const selection = editor.selection;
         // tslint:disable-next-line: no-any
         Editor.insertFragment(editor, fragment as any);
+        Editor.select(editor, selection);
+        Editor.delete(editor);
         return;
       }
     }
