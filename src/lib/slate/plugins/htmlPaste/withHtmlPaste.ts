@@ -29,6 +29,11 @@ const MARK_TAGS = {
   U: () => ({ type: EmphasizeTypes.Underline }),
 };
 
+const checkEmpty = potentialString =>
+  potentialString &&
+  typeof potentialString === 'string' &&
+  /[\r\n]+/.test(potentialString);
+
 export const deserialize = (el: Node) => {
   if (el.nodeType === 3) {
     return el.textContent;
@@ -41,7 +46,17 @@ export const deserialize = (el: Node) => {
   const { nodeName } = el;
   let parent = el;
 
-  const children = Array.from(parent.childNodes).map(deserialize);
+  // tslint:disable-next-line: no-any
+  let children: any[] = Array.from(parent.childNodes).map(deserialize);
+
+  if (el.nodeType === 1) {
+    if (checkEmpty(children[0])) {
+      children = children.slice(1);
+    }
+    if (checkEmpty(children[children.length - 1])) {
+      children.pop();
+    }
+  }
 
   if (el.nodeName === 'BODY') {
     return jsx('fragment', {}, children);
@@ -79,7 +94,8 @@ export const withHtml = (editor: Editor) => {
       if (html) {
         const parsed = new DOMParser().parseFromString(html, 'text/html');
         const fragment = deserialize(parsed.body);
-        Editor.insertFragment(editor, fragment);
+        // tslint:disable-next-line: no-any
+        Editor.insertFragment(editor, fragment as any);
         return;
       }
     }
