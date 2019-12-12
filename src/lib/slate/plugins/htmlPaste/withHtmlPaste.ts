@@ -53,8 +53,10 @@ export const deserialize = (el: Node) => {
   let children: any[] = Array.from(parent.childNodes).map(deserialize);
 
   if (el.nodeName === 'BODY') {
-    if (checkEmpty(children[0])) {
-      // children = children.slice(1);
+    if (!checkEmpty(children[0])) {
+      children.unshift('\n');
+    } else {
+      children[0] = '\n';
     }
     if (checkEmpty(children[children.length - 1])) {
       children.pop();
