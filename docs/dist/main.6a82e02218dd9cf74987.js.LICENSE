@@ -48,20 +48,6 @@
  * @license MIT
  */
 
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-/**!
-* tippy.js v4.3.5
-* (c) 2017-2019 atomiks
-* MIT License
-*/
-
-/*! https://mths.be/esrever v0.2.0 by @mathias */
-
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
  * @version 1.16.0
@@ -86,6 +72,20 @@ object-assign
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+/**!
+* tippy.js v5.1.2
+* (c) 2017-2019 atomiks
+* MIT License
+*/
+
+/*! https://mths.be/esrever v0.2.0 by @mathias */
 
 /** @license React v16.9.0
  * react.production.min.js
