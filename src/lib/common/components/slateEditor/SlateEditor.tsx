@@ -51,6 +51,7 @@ export interface SlateEditorCustomProps {
   title?: JSX.Element | string;
   maxChars?: number;
   migrations?: Migration[];
+  extraToolbarButtons?: JSX.Element;
 }
 
 const styles = ({ spacing, palette, typography }: Theme) =>
@@ -97,7 +98,7 @@ const allHotkeys = { ...MARK_HOTKEYS };
 type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
 const SlateEditor: React.FC<SlateEditorProps> = props => {
-  const { classes, migrations } = props;
+  const { classes, migrations, extraToolbarButtons } = props;
   const editor = React.useRef(
     withHistory(
       withFontSizes()(
@@ -205,6 +206,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
               <AlignmentButtons />
               <ListButtons />
               <LinkButton />
+              {extraToolbarButtons}
             </div>
             <Editable
               className={classNames(classes.editable)}
