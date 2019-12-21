@@ -272,5 +272,5 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
 };
 
 export default withStyles(styles)(SlateEditor) as React.ComponentType<
-  SlateEditorProps
+  SlateEditorCustomProps & Partial<WithStyles<typeof styles>>
 >;
