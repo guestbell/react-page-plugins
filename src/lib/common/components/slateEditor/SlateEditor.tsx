@@ -96,7 +96,7 @@ const allHotkeys = { ...MARK_HOTKEYS };
 
 type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
-const SlateEditor: React.SFC<SlateEditorProps> = props => {
+const SlateEditor: React.FC<SlateEditorProps> = props => {
   const { classes, migrations } = props;
   const editor = React.useRef(
     withHistory(
@@ -271,4 +271,6 @@ const SlateEditor: React.SFC<SlateEditorProps> = props => {
   );
 };
 
-export default withStyles(styles)(SlateEditor);
+export default withStyles(styles)(SlateEditor) as React.ComponentType<
+  SlateEditorProps
+>;
