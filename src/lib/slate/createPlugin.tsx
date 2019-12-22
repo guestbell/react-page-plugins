@@ -7,6 +7,8 @@ import { SlateProps } from './types/component';
 import { SlateState } from './types/state';
 import { defaultSettings } from './default/settings';
 import { lazyLoad } from '@react-page/core';
+import { SLATE_VERSION } from '../common/constants/SlateConstants';
+import { slateEmptyValue } from '../common/components/slateEditor/slateEmptyValue';
 
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 
@@ -24,6 +26,10 @@ const createPlugin: (
     IconComponent: <Subject />,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
+    createInitialState: () => ({
+      version: SLATE_VERSION,
+      value: slateEmptyValue(),
+    }),
   };
 };
 
