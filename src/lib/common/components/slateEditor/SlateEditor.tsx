@@ -50,6 +50,7 @@ export interface SlateEditorCustomProps {
   label?: JSX.Element | string;
   title?: JSX.Element | string;
   maxChars?: number;
+  version?: number;
   migrations?: Migration[];
   extraToolbarButtons?: JSX.Element;
 }
@@ -98,7 +99,7 @@ const allHotkeys = { ...MARK_HOTKEYS };
 type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
 const SlateEditor: React.FC<SlateEditorProps> = props => {
-  const { classes, migrations, extraToolbarButtons } = props;
+  const { classes, migrations, extraToolbarButtons, version } = props;
   const editor = React.useRef(
     withHistory(
       withFontSizes()(
@@ -143,13 +144,16 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     let newValue: SlateValue = props.value;
     if (
       !props.value ||
-      !props.value.data ||
-      !Array.isArray(props.value.data) ||
-      !props.value.data.every(node => Node.isNode(node))
+      !Array.isArray(props.value) ||
+      !props.value.every(node => Node.isNode(node))
     ) {
       newValue = slateEmptyValue();
     } else {
-      const migrationResult = Migrator.migrateState(props.value, migrations);
+      const migrationResult = Migrator.migrateState(
+        version,
+        props.value,
+        migrations
+      );
       isDirty = migrationResult.changed;
       newValue = migrationResult.migratedState;
     }
@@ -169,7 +173,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   }, [props.value]);
 
   const onChange = React.useRef((val: Node[], s: Range) => {
-    const newValue: SlateValue = { ...props.value, data: val };
+    const newValue: SlateValue = val;
     setValue(newValue);
     setSelection(s);
     props.onChange({
@@ -180,12 +184,11 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   }).current;
 
   return (
-    value &&
-    value.data && (
+    value && (
       <InputGroup title={props.title}>
         <Slate
           editor={editor}
-          value={value.data}
+          value={value}
           selection={selection}
           onChange={onChange}
         >

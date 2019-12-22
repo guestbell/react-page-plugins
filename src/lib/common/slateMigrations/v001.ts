@@ -1,19 +1,18 @@
 import { Migration } from './Migration';
 
 export default new Migration(
-  '0.0.1',
-  '*',
-  state => {
+  1,
+  0,
+  0,
+  (state, version) => {
     return {
       changed: true,
-      migratedState: {
-        version: '0.0.1',
-        data: state,
-      },
+      migratedState: state,
+      finalVersion: version,
     };
   },
   state => {
-    if (Array.isArray(state) || !state.version) {
+    if (Array.isArray(state)) {
       return true;
     }
     return false;

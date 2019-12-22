@@ -11,6 +11,7 @@ export interface SlateRendererProps {
   value: SlateValue;
   textRule: TextRuleType;
   nodeRule: NodeRuleType;
+  version?: number;
   migrations?: Migration[];
 }
 
@@ -48,18 +49,16 @@ const RendererRecursive: React.FC<RendererRecursiveProps> = ({
 };
 
 const SlateRenderer: React.FC<SlateRendererProps> = props => {
-  const { value, nodeRule, textRule, migrations } = props;
+  const { value, nodeRule, textRule, migrations, version } = props;
 
   const migratedValue = React.useMemo(() => {
-    const migrationResult = Migrator.migrateState(value, migrations);
+    const migrationResult = Migrator.migrateState(version, value, migrations);
     return migrationResult.migratedState;
   }, [props.value]);
   return (
     <>
       {migratedValue &&
-        migratedValue.data &&
-        migratedValue.data &&
-        migratedValue.data.map((node, key) => (
+        migratedValue.map((node, key) => (
           <RendererRecursive
             nodeRule={nodeRule}
             textRule={textRule}

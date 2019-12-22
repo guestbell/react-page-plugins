@@ -24,13 +24,12 @@ if (
 }
 
 // tslint:disable-next-line:no-any
-const KeepStateEditor = ({ value, ...props }: any) => {
+/*const KeepStateEditor = ({ value, ...props }: any) => {
   const [state, setState] = React.useState(value);
   return <Editor {...props} value={state} onChange={setState} />;
-};
-export interface BasicProps {}
+};*/
 
-export interface BasicState {}
+export interface BasicProps {}
 
 export const Basic: React.FC<BasicProps> = props => {
   // tslint:disable-next-line: no-any
@@ -48,6 +47,7 @@ export const Basic: React.FC<BasicProps> = props => {
   const resetValue = () => {
     setValue(slateEmptyValue());
   };
+  const [content, setContent] = React.useState(contents);
   return (
     <div className="container">
       <SlateEditor
@@ -66,12 +66,18 @@ export const Basic: React.FC<BasicProps> = props => {
           textRule={rules.textRule}
         />
       </div>
-      <Button onClick={resetValue}>Reset value</Button>
-      <KeepStateEditor
+      <Button onClick={resetValue} className="mb-3">
+        Reset value
+      </Button>
+      <Editor
         plugins={plugins}
-        value={contents}
-        // onChange={s => console.log('on change, new state', s)}
+        value={content}
+        defaultPlugin={plugins.content.find(
+          c => c.name === 'ory/editor/core/content/slate'
+        )}
+        onChange={s => setContent(s)}
       />
+      {/*<pre>{JSON.stringify(content, null, 2)}</pre>*/}
     </div>
   );
 };

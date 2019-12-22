@@ -10,6 +10,17 @@ export const isColorActive = (editor: Editor) => {
   return !!node;
 };
 
+export const getActiveColors = (editor: Editor): RGBColor[] => {
+  const nodes = Editor.nodes(editor, { at: editor.selection, mode: 'all' });
+  let colors = [];
+  for (const [node] of nodes) {
+    colors.push(node.color);
+  }
+  colors = colors.filter(i => i);
+  const unique = new Set(colors);
+  return [...unique];
+};
+
 export const ColorCommands = {
   SetColor: 'set_color',
   ClearColor: 'clear_color',
