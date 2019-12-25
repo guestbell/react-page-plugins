@@ -1,5 +1,6 @@
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { AlignmentTypes } from './alignmentTypes';
+import { ReactEditor } from 'slate-react';
 
 export const AlignmentCommands = {
   ToggleAlignment: 'toggle_alignment',
@@ -9,22 +10,25 @@ export const isAlignmentActive = (
   editor: Editor,
   alignment: AlignmentTypes
 ) => {
-  const [node] = Editor.nodes(editor, { match: { alignment }, mode: 'all' });
+  const [node] = Editor.nodes(editor, {
+    match: elem => elem.alignment === alignment,
+    mode: 'all',
+  });
   return !!node;
 };
 
 const toggleAlignment = (editor: Editor, alignment: AlignmentTypes) => {
   if (isAlignmentActive(editor, alignment)) {
-    Editor.setNodes(editor, { alignment: null });
+    Transforms.setNodes(editor, { alignment: null });
     return;
   }
 
   const align = { alignment };
-  Editor.setNodes(editor, align);
+  Transforms.setNodes(editor, align);
   // Editor.collapse(editor, { edge: 'end' });
 };
 
-export const withAlignments = (editor: Editor) => {
+export const withAlignments = (editor: ReactEditor) => {
   const { exec } = editor;
 
   editor.exec = command => {

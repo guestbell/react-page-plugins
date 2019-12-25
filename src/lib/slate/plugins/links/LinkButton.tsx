@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Editor, Range } from 'slate';
+import { Range } from 'slate';
 import { lazyLoad } from '@react-page/core';
 
 export interface LinkButtonProps {}
@@ -35,14 +35,14 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
   };
 
   const clearLink = () => {
-    Editor.setSelection(editor, selection);
+    editor.selection = selection;
     editor.exec({ type: LinkCommands.RemoveLink });
     handleClose();
   };
 
   const commitLink = () => {
     if (url) {
-      Editor.setSelection(editor, selection);
+      editor.selection = selection;
       editor.exec({ type: LinkCommands.InsertLink, url });
     }
     handleClose();

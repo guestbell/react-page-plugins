@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Node, createEditor, Editor, Range } from 'slate';
+import { Node, createEditor, Editor } from 'slate';
 import { withFontSizes } from '../../../slate/plugins/fontSize/withFontSizes';
 import { withLists } from '../../../slate/plugins/lists/withLists';
 import { withHeadings } from '../../../slate/plugins/heading/withHeadings';
@@ -11,7 +11,7 @@ import {
   EmphasizeTypes,
   EmphasizeCommands,
 } from '../../../slate/plugins/emphasize';
-import { withReact, Slate, Editable } from 'slate-react';
+import { withReact, Slate, Editable, ReactEditor } from 'slate-react';
 import isHotkey from 'is-hotkey';
 import {
   renderLeaf,
@@ -100,8 +100,8 @@ type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
 const SlateEditor: React.FC<SlateEditorProps> = props => {
   const { classes, migrations, extraToolbarButtons, version } = props;
-  const editor = React.useRef(
-    withHistory(
+  const editor: ReactEditor = React.useRef(
+    withHistory<ReactEditor>(
       withFontSizes()(
         withLists(
           withHeadings()(
@@ -121,7 +121,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   let progress = 0;
   if (props.maxChars) {
     try {
-      chars = Editor.text(editor, {
+      chars = Editor.string(editor, {
         anchor: Editor.start(editor, []),
         focus: Editor.end(editor, []),
       }).length;
@@ -134,7 +134,6 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
       allowNewChar = false;
     }
   }
-  const [selection, setSelection] = React.useState<Range | null>(null);
 
   const [value, setValue] = React.useState<SlateValue | null>(null);
 
@@ -168,14 +167,13 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   React.useEffect(() => {
     if (value !== null && props.value !== value) {
       setValue(props.value);
-      setSelection(null);
+      editor.selection = null;
     }
   }, [props.value]);
 
-  const onChange = React.useRef((val: Node[], s: Range) => {
+  const onChange = React.useRef((val: Node[]) => {
     const newValue: SlateValue = val;
     setValue(newValue);
-    setSelection(s);
     props.onChange({
       value: newValue,
       isValid: allowNewChar,
@@ -186,12 +184,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   return (
     value && (
       <InputGroup title={props.title}>
-        <Slate
-          editor={editor}
-          value={value}
-          selection={selection}
-          onChange={onChange}
-        >
+        <Slate editor={editor} value={value} onChange={onChange}>
           <div className={classNames('slate-editor', classes.root)}>
             <div className={classes.toolbar}>
               {props.label && (

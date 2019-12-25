@@ -8,8 +8,9 @@ import {
   RenderElementProps,
   useEditor,
   RenderLeafProps,
+  ReactEditor,
 } from 'slate-react';
-import { createEditor, Node, Range } from 'slate';
+import { createEditor, Node } from 'slate';
 import debounce from 'lodash/debounce';
 import { HoveringToolbar } from './hoveringToolbar/HoveringToolbar';
 import {
@@ -77,7 +78,7 @@ export const renderLeaf: React.FC<RenderLeafProps> = props => {
 const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   const { readOnly, focused, remove, translations, onChange } = props;
   const editor = React.useRef(
-    withHistory(
+    withHistory<ReactEditor>(
       withHtml(
         withQuotes()(
           withColors(
@@ -96,7 +97,6 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
     )
   ).current;
 
-  const [selection, setSelection] = React.useState<Range | null>(null);
   const [value, setValue] = React.useState(
     (props.state.value &&
       Array.isArray(props.state.value) &&
@@ -104,9 +104,8 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
       props.state.value) ||
       slateEmptyValue()
   );
-  const stateChanged = (slateState: Node[], s: Range) => {
+  const stateChanged = (slateState: Node[]) => {
     setValue(slateState);
-    setSelection(s);
     debouncedOnChange({ value: slateState });
   };
 
@@ -118,7 +117,6 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
     <div className="slateControls ory-prevent-blur">
       <Slate
         editor={editor}
-        selection={selection}
         value={value}
         onChange={stateChanged}
         migrations={migrations}

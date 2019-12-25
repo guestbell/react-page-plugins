@@ -1,5 +1,6 @@
-import { Editor } from 'slate';
+import { Editor, Transforms, Text } from 'slate';
 import { EmphasizeTypes } from './emphasizeTypes';
+import { ReactEditor } from 'slate-react';
 
 export const EmphasizeCommands = {
   ToggleEmphasize: 'toggle_emphasize',
@@ -7,13 +8,13 @@ export const EmphasizeCommands = {
 
 export const isEmphasizeActive = (editor: Editor, type: EmphasizeTypes) => {
   const [mark] = Editor.nodes(editor, {
-    match: { [type]: true },
+    match: elem => elem[type],
     mode: 'all',
   });
   return !!mark;
 };
 
-export const withEmphasize = (editor: Editor) => {
+export const withEmphasize = (editor: ReactEditor) => {
   const { exec } = editor;
 
   editor.exec = command => {
@@ -21,10 +22,10 @@ export const withEmphasize = (editor: Editor) => {
       case EmphasizeCommands.ToggleEmphasize: {
         const { mark } = command;
         const isActive = isEmphasizeActive(editor, mark);
-        Editor.setNodes(
+        Transforms.setNodes(
           editor,
           { [mark]: isActive ? null : true },
-          { match: 'text', split: true }
+          { match: Text.isText, split: true }
         );
         break;
       }

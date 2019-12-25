@@ -10,7 +10,7 @@ import { lazyLoad } from '@react-page/core';
 import { ChromePicker, Color, ColorResult } from 'react-color';
 import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
 import createStyles from '@material-ui/styles/createStyles';
-import { Range, Editor } from 'slate';
+import { Range } from 'slate';
 
 export interface ColorButtonCustomProps {}
 
@@ -53,13 +53,13 @@ export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
   };
 
   const clearColor = () => {
-    Editor.setSelection(editor, selection);
+    editor.selection = selection;
     editor.exec({ type: ColorCommands.ClearColor });
     handleClose();
   };
 
   const commitColor = () => {
-    Editor.setSelection(editor, selection);
+    editor.selection = selection;
     editor.exec({ type: ColorCommands.SetColor, color: color });
     handleClose();
   };

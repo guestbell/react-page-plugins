@@ -20,7 +20,7 @@ export const HoveringToolbar: React.FC = props => {
       !selection ||
       !ReactEditor.isFocused(editor) ||
       Range.isCollapsed(selection) ||
-      Editor.text(editor, selection) === ''
+      Editor.string(editor, selection) === ''
     ) {
       el.style.opacity = '0';
       el.style.pointerEvents = 'none';

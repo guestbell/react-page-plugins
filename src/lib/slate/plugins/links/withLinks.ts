@@ -1,13 +1,18 @@
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { LinkType } from './linkType';
+import { ReactEditor } from 'slate-react';
 
 export const isLinkActive = (editor: Editor) => {
-  const [link] = Editor.nodes(editor, { match: { type: LinkType } });
+  const [link] = Editor.nodes(editor, {
+    match: elem => elem.type === LinkType,
+  });
   return !!link;
 };
 
 export const getLinkUrl = (editor: Editor): string => {
-  const [link] = Editor.nodes(editor, { match: { type: LinkType } });
+  const [link] = Editor.nodes(editor, {
+    match: elem => elem.type === LinkType,
+  });
   return link && link[0] && link[0].url;
 };
 
@@ -17,7 +22,7 @@ export const LinkCommands = {
 };
 
 const unwrapLink = (editor: Editor) => {
-  Editor.unwrapNodes(editor, { match: { type: LinkType } });
+  Transforms.unwrapNodes(editor, { match: elem => elem.type === LinkType });
 };
 
 const wrapLink = (editor: Editor, url: string) => {
@@ -26,11 +31,11 @@ const wrapLink = (editor: Editor, url: string) => {
   }
 
   const link = { type: LinkType, url, children: [] };
-  Editor.wrapNodes(editor, link, { split: true });
+  Transforms.wrapNodes(editor, link, { split: true });
   // Editor.collapse(editor, { edge: 'end' });
 };
 
-export const withLinks = (editor: Editor) => {
+export const withLinks = (editor: ReactEditor) => {
   const { exec, isInline } = editor;
 
   editor.isInline = element => {

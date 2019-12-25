@@ -6,6 +6,7 @@ import { HeadingType } from '../heading/headingType';
 import { QuoteType } from '../quote/quoteType';
 import { LinkType } from '../links/linkType';
 import { EmphasizeTypes } from '../emphasize/emphasizeTypes';
+import { ReactEditor } from 'slate-react';
 
 const ELEMENT_TAGS = {
   A: el => ({ type: LinkType, url: el.getAttribute('href') }),
@@ -75,7 +76,7 @@ export const deserialize = (el: Node) => {
   return children;
 };
 
-export const withHtml = (editor: Editor) => {
+export const withHtml = (editor: ReactEditor) => {
   const { exec, isInline, isVoid } = editor;
 
   editor.isInline = element => {
@@ -110,8 +111,8 @@ export const withHtml = (editor: Editor) => {
         // tslint:disable-next-line: no-any
         Editor.insertFragment(editor, fragment as any);
         if (selectedNodeEmpty && fragment.length > 1) {
-          Editor.select(editor, selection);
-          Editor.delete(editor);
+          editor.selection = selection;
+          editor.deleteFragment();
         }
         return;
       }

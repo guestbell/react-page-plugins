@@ -1,10 +1,11 @@
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { RGBColor } from 'react-color';
 import { ColorType } from './colorType';
+import { ReactEditor } from 'slate-react';
 
 export const isColorActive = (editor: Editor) => {
-  const [node] = Editor.elements(editor, {
-    match: { type: ColorType },
+  const [node] = Editor.nodes(editor, {
+    match: elem => elem.type === ColorType,
     mode: 'all',
   });
   return !!node;
@@ -27,7 +28,7 @@ export const ColorCommands = {
 };
 
 const unwrapColor = (editor: Editor) => {
-  Editor.unwrapNodes(editor, { match: { type: ColorType } });
+  Transforms.unwrapNodes(editor, { match: elem => elem.type === ColorType });
 };
 
 const wrapColor = (editor: Editor, color: RGBColor) => {
@@ -35,19 +36,19 @@ const wrapColor = (editor: Editor, color: RGBColor) => {
 
   const c = { type: ColorType, color, children: [] };
   // Wrap no matter what because if it's active, it splits the inline correctly
-  Editor.wrapNodes(editor, c, { split: true });
+  Transforms.wrapNodes(editor, c, { split: true });
   if (isActive) {
     // Unwrap the new wrap
     unwrapColor(editor);
     // Unwrap the original color
     unwrapColor(editor);
     // Wrap to give it the new color
-    Editor.wrapNodes(editor, c, { split: true });
+    Transforms.wrapNodes(editor, c, { split: true });
   }
   // Editor.collapse(editor, { edge: 'end' });
 };
 
-export const withColors = (editor: Editor) => {
+export const withColors = (editor: ReactEditor) => {
   const { exec, isInline } = editor;
 
   editor.isInline = element => {

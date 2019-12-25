@@ -1,5 +1,6 @@
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { FontSizePluginConfig, defaultConfig } from './fontSizeConfig';
+import { ReactEditor } from 'slate-react';
 
 export const getActiveFontSizes = (editor: Editor): number[] => {
   const nodes = Editor.nodes(editor, { at: editor.selection, mode: 'all' });
@@ -13,23 +14,26 @@ export const getActiveFontSizes = (editor: Editor): number[] => {
 };
 
 export const isFontSizeActive = (editor: Editor, fontSize: number) => {
-  const [node] = Editor.nodes(editor, { match: { fontSize }, mode: 'all' });
+  const [node] = Editor.nodes(editor, {
+    match: elem => elem.fontSize === fontSize,
+    mode: 'all',
+  });
   return !!node;
 };
 
 const changeFontSize = (editor: Editor, fontSize: number) => {
   if (isFontSizeActive(editor, fontSize)) {
-    Editor.setNodes(editor, { fontSize: null });
+    Transforms.setNodes(editor, { fontSize: null });
     return;
   }
 
   const data = { fontSize };
-  Editor.setNodes(editor, data);
+  Transforms.setNodes(editor, data);
   // Editor.collapse(editor, { edge: 'end' });
 };
 
 const clearFontSize = (editor: Editor) => {
-  Editor.setNodes(editor, { fontSize: null });
+  Transforms.setNodes(editor, { fontSize: null });
 };
 
 export const FontSizeCommands = {
@@ -38,7 +42,7 @@ export const FontSizeCommands = {
 };
 
 export const withFontSizes = (options?: FontSizePluginConfig) => (
-  editor: Editor
+  editor: ReactEditor
 ) => {
   options = { ...defaultConfig, ...options };
   const { exec } = editor;

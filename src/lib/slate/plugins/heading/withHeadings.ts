@@ -1,6 +1,8 @@
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { HeadingLevels } from './headingLevels';
 import { HeadingType } from './headingType';
+import { ParagraphType } from '../paragraph/withParagraph';
+import { ReactEditor } from 'slate-react';
 
 export const HeadingCommands = {
   ToggleHeading: 'toggle_heading',
@@ -8,14 +10,14 @@ export const HeadingCommands = {
 
 export const isHeadingActive = (editor: Editor, level: HeadingLevels) => {
   const [heading] = Editor.nodes(editor, {
-    match: { type: HeadingType, level },
+    match: elem => elem.type === HeadingType && elem.level === level,
   });
   return !!heading;
 };
 
 export const getActiveHeadings = (editor: Editor): HeadingLevels[] => {
   const nodes = Editor.nodes(editor, {
-    match: { type: HeadingType },
+    match: elem => elem.type === HeadingType,
     mode: 'all',
   });
   let headings = [];
@@ -28,7 +30,7 @@ export const getActiveHeadings = (editor: Editor): HeadingLevels[] => {
 };
 
 const unwrapHeading = (editor: Editor) => {
-  Editor.setNodes(editor, { type: 'paragraph', level: null });
+  Transforms.setNodes(editor, { type: ParagraphType, level: null });
 };
 
 const wrapHeading = (editor: Editor, level: HeadingLevels) => {
@@ -38,7 +40,7 @@ const wrapHeading = (editor: Editor, level: HeadingLevels) => {
   }
 
   const heading = { type: HeadingType, level };
-  Editor.setNodes(editor, heading);
+  Transforms.setNodes(editor, heading);
   // Editor.collapse(editor, { edge: 'end' });
 };
 
@@ -53,7 +55,7 @@ export const defaultOptions: HeadingPluginOptions = {
 };
 
 export const withHeadings = (options?: HeadingPluginOptions) => (
-  editor: Editor
+  editor: ReactEditor
 ) => {
   options = { ...defaultOptions, ...options };
   const { exec } = editor;

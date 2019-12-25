@@ -1,16 +1,17 @@
-import { Editor } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { ListTypes } from './listTypes';
+import { ReactEditor } from 'slate-react';
 
 export const ListCommands = {
   ToggleList: 'toggle_list',
 };
 
 export const isListActive = (editor: Editor, type: ListTypes) => {
-  const [list] = Editor.nodes(editor, { match: { type } });
+  const [list] = Editor.nodes(editor, { match: elem => elem.type === type });
   return !!list;
 };
 
-export const withLists = (editor: Editor) => {
+export const withLists = (editor: ReactEditor) => {
   const { exec } = editor;
 
   editor.exec = command => {
@@ -20,19 +21,19 @@ export const withLists = (editor: Editor) => {
       } = command;
       const isActive = isListActive(editor, type);
       const isListType = type === ListTypes.OL || type === ListTypes.UL;
-      Editor.unwrapNodes(editor, {
-        match: { type: ListTypes.UL },
+      Transforms.unwrapNodes(editor, {
+        match: elem => elem.type === ListTypes.UL,
         split: true,
       });
-      Editor.unwrapNodes(editor, {
-        match: { type: ListTypes.OL },
+      Transforms.unwrapNodes(editor, {
+        match: elem => elem.type === ListTypes.OL,
         split: true,
       });
       const newType = isActive ? null : isListType ? ListTypes.LI : type;
-      Editor.setNodes(editor, { type: newType });
+      Transforms.setNodes(editor, { type: newType });
 
       if (!isActive && isListType) {
-        Editor.wrapNodes(editor, { type, children: [] });
+        Transforms.wrapNodes(editor, { type, children: [] });
       }
 
       return;
