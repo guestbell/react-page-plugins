@@ -156,12 +156,14 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
       isDirty = migrationResult.changed;
       newValue = migrationResult.migratedState;
     }
-    props.onChange({
-      value: newValue,
-      isValid: allowNewChar,
-      isDirty,
-    });
-    setValue(newValue);
+    if (isDirty) {
+      props.onChange({
+        value: newValue,
+        isValid: allowNewChar,
+        isDirty,
+      });
+      setValue(newValue);
+    }
   }, []);
 
   React.useEffect(() => {
