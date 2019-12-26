@@ -135,7 +135,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     }
   }
 
-  const [value, setValue] = React.useState<SlateValue | null>(null);
+  const [value, setValue] = React.useState<SlateValue | null>(props.value);
 
   // This is the initial check and/or migration
   React.useEffect(() => {
