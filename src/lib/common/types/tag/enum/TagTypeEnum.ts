@@ -6,4 +6,5 @@ export enum TagTypeEnum {
   Service = 16,
   Orderable = 32,
   OpeningHours = 64,
+  Content = 128,
 }
