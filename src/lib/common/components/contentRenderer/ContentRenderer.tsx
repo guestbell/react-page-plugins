@@ -35,6 +35,7 @@ const ContentRenderer: React.FC<ContentRendererProps> = props => {
         migrations={migrations}
         textRule={rules.textRule}
         nodeRule={rules.nodeRule}
+        version={instance.version}
       />
     );
   }
