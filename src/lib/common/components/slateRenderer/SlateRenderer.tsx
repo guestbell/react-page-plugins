@@ -58,6 +58,7 @@ const SlateRenderer: React.FC<SlateRendererProps> = props => {
   return (
     <>
       {migratedValue &&
+        Array.isArray(migratedValue) &&
         migratedValue.map((node, key) => (
           <RendererRecursive
             nodeRule={nodeRule}

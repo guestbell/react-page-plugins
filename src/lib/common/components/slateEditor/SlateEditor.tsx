@@ -111,9 +111,6 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
       )
     )
   ).current;
-  const [hasFocus, setHasFocus] = React.useState(false);
-  const onFocus = React.useRef(() => setHasFocus(true)).current;
-  const onBlur = React.useRef(() => setHasFocus(false)).current;
 
   let allowNewChar = true;
   let chars = 0;
@@ -170,19 +167,21 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   React.useEffect(() => {
     if (value !== null && props.value !== value) {
       setValue(props.value);
-      editor.selection = null;
     }
   }, [props.value]);
 
-  const onChange = React.useRef((val: Node[]) => {
-    const newValue: SlateValue = val;
-    setValue(newValue);
-    props.onChange({
-      value: newValue,
-      isValid: allowNewChar,
-      isDirty: true,
-    });
-  }).current;
+  const onChange = React.useCallback(
+    (val: Node[]) => {
+      const newValue: SlateValue = val;
+      setValue(newValue);
+      props.onChange({
+        value: newValue,
+        isValid: allowNewChar,
+        isDirty: true,
+      });
+    },
+    [props.onChange]
+  );
 
   return (
     value && (
@@ -193,8 +192,8 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
               {props.label && (
                 <div
                   className={classNames('slate-editor__label', classes.label, {
-                    'slate-editor__label--active': hasFocus,
-                    [classes.labelFocused]: hasFocus,
+                    'slate-editor__label--active': false,
+                    [classes.labelFocused]: false,
                   })}
                 >
                   {props.label}
@@ -237,8 +236,6 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                   });
                 }
               }}
-              onFocus={onFocus}
-              onBlur={onBlur}
             />
             {props.maxChars && (
               <div

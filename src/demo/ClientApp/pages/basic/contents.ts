@@ -812,7 +812,7 @@ const contents: EditableType = {
                         },
                         state: {
                           value: {
-                            version: '0.0.1',
+                            version: 1,
                             data: [
                               {
                                 type: 'HEADING',
