@@ -142,11 +142,12 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     let isDirty = false;
     let newValue: SlateValue = props.value;
     if (
-      !props.value ||
-      !Array.isArray(props.value) ||
-      !props.value.every(node => Node.isNode(node))
+      !value ||
+      !Array.isArray(value) ||
+      !value.every(node => Node.isNode(node))
     ) {
       newValue = slateEmptyValue();
+      isDirty = true;
     } else {
       const migrationResult = Migrator.migrateState(
         version,
