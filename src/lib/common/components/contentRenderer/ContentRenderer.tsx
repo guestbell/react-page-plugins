@@ -7,12 +7,16 @@ import SlateRenderer, {
 import migrations from '../../slateMigrations/migrations';
 import { SlateValue } from '../../types/slate/SlateValue';
 import rules from '../slateRenderer/rules';
+import { HTMLRenderer } from '@react-page/renderer';
+import { EditableType } from '@react-page/core/lib/types/editable';
+import { Plugins } from '@react-page/core/lib/service/plugin/classes';
 
 export interface ContentRendererProps {
   value: Content;
   lang: string;
   defaultLang: string;
   slateProps?: SlateRendererProps;
+  reactPagePlugins?: Plugins;
 }
 
 const ContentRenderer: React.FC<ContentRendererProps> = props => {
@@ -36,6 +40,14 @@ const ContentRenderer: React.FC<ContentRendererProps> = props => {
         textRule={rules.textRule}
         nodeRule={rules.nodeRule}
         version={instance.version}
+      />
+    );
+  }
+  if (value.type === ContentType.ReactPage) {
+    return (
+      <HTMLRenderer
+        state={instance.data as EditableType}
+        plugins={props.reactPagePlugins}
       />
     );
   }
