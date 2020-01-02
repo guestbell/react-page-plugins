@@ -47,6 +47,8 @@ import { EmphasizeTypes } from '../plugins/emphasize/emphasizeTypes';
 import { slateEmptyValue } from '../../common/components/slateEditor/slateEmptyValue';
 import { withHistory } from 'slate-history';
 import migrations from '../../common/slateMigrations/migrations';
+import { SlateValue } from '../../common/types/slate/SlateValue';
+import { Migrator } from '../../common/slateMigrations/Migrator';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
@@ -104,14 +106,40 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
       props.state.value) ||
       slateEmptyValue()
   );
-  const stateChanged = (slateState: Node[]) => {
-    setValue(slateState);
-    debouncedOnChange({ value: slateState });
-  };
 
   const debouncedOnChange = React.useRef(
     debounce(onChange, 2000, { leading: false, trailing: true })
   ).current;
+
+  const stateChanged = React.useCallback((slateState: SlateValue) => {
+    setValue(slateState);
+    debouncedOnChange({ value: slateState });
+  }, []);
+
+  // This is the initial check and/or migration
+  React.useEffect(() => {
+    let isDirty = false;
+    let newValue: SlateValue = props.state.value;
+    if (
+      !value ||
+      !Array.isArray(value) ||
+      !value.every(node => Node.isNode(node))
+    ) {
+      newValue = slateEmptyValue();
+      isDirty = true;
+    } else {
+      const migrationResult = Migrator.migrateState(
+        props.state.version,
+        props.state.value,
+        migrations
+      );
+      isDirty = migrationResult.changed;
+      newValue = migrationResult.migratedState;
+    }
+    if (isDirty) {
+      stateChanged(newValue);
+    }
+  }, []);
 
   return (
     <div className="slateControls ory-prevent-blur">
