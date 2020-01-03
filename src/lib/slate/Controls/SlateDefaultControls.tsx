@@ -108,7 +108,7 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   );
 
   const debouncedOnChange = React.useRef(
-    debounce(onChange, 2000, { leading: false, trailing: true })
+    debounce(onChange, 500, { leading: false, trailing: true })
   ).current;
 
   const stateChanged = React.useCallback((slateState: SlateValue) => {
