@@ -3,7 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import Delete from '@material-ui/icons/Delete';
@@ -122,9 +122,9 @@ const BottomToolbar: React.FC<
               className={avatar}
             />
           ) : null}
-          <Typography variant="subtitle1" className={pluginName}>
+          {/*<Typography variant="subtitle1" className={pluginName}>
             {title}
-          </Typography>
+          </Typography>*/}
           <DraftSwitch id={id} editable={editable} />
           <DuplicateButton id={id} editable={editable} />
           {onDelete ? (
