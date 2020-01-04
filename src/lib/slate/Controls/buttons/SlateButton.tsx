@@ -21,6 +21,9 @@ const SlateButton: React.FC<ToolbarButtonProps> = ({
   title,
 }) => (
   <Button
+    type="gray"
+    blank={true}
+    circular={true}
     style={
       isActive
         ? { color: theme.palette.primary.main }

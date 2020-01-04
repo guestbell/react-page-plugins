@@ -15,7 +15,6 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
     state: { url } = defaultHtml5VideoState,
     changeUrl,
     focused,
-    theme,
     IconComponent,
     remove,
   } = props;
@@ -26,7 +25,6 @@ const Html5VideoDefaultControls: React.SFC<Html5VideoControlsProps> = props => {
       onDelete={remove}
       icon={IconComponent}
       {...props}
-      theme={theme}
     >
       <TextField
         fullWidth={true}

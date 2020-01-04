@@ -12,7 +12,6 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
     isPreviewMode,
     isEditMode,
     remove,
-    theme,
     Renderer,
     changeHeightPreview,
     commitHeight,
@@ -41,7 +40,6 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
               open={props.focused}
               title={props.translations.pluginName}
               onDelete={remove}
-              theme={theme}
             />
             <div
               style={{

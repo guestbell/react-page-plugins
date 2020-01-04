@@ -188,17 +188,14 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
               title={props.translations.pluginName}
               onDelete={remove}
               {...props}
-              theme={props.theme}
             >
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <HeadingButtonCompact />
-                <FontSizeButton />
-                <ColorButton />
-                <AlignmentButtons />
-                <ListButtons />
-                <LinkButton />
-                <QuoteButton />
-              </div>
+              <HeadingButtonCompact />
+              <FontSizeButton />
+              <ColorButton />
+              <AlignmentButtons />
+              <ListButtons />
+              <LinkButton />
+              <QuoteButton />
             </BottomToolbar>
           </>
         )}

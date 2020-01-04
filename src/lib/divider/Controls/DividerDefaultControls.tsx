@@ -17,7 +17,6 @@ const DividerDefaultControls: React.SFC<DividerControlsProps> = props => {
           title={props.translations.pluginName}
           onDelete={remove}
           {...props}
-          theme={props.theme}
         />
       )}
     </div>

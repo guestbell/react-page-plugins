@@ -32,7 +32,6 @@ const Form: React.SFC<VideoControlsProps> = props => {
     readOnly,
     changeSrc,
     remove,
-    theme,
     state: { src } = defaultVideoState,
   } = props;
 
@@ -43,7 +42,6 @@ const Form: React.SFC<VideoControlsProps> = props => {
       icon={props.IconComponent}
       onDelete={remove}
       {...props}
-      theme={theme}
     >
       <TextField
         fullWidth={true}

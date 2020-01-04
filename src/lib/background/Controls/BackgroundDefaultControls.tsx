@@ -57,7 +57,6 @@ class BackgroundControls extends React.Component<
           icon={this.props.IconComponent}
           onDelete={remove}
           {...this.props}
-          theme={this.props.theme}
         >
           <Tabs
             value={this.state.mode}

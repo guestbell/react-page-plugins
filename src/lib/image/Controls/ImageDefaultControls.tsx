@@ -43,7 +43,6 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
           title={props.translations.pluginName}
           onDelete={remove}
           {...props}
-          theme={props.theme}
         >
           <ImageOrSrc
             onChange={onChange}

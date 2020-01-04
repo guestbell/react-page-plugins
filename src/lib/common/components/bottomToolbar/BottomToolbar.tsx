@@ -1,16 +1,18 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import Delete from '@material-ui/icons/Delete';
 import * as React from 'react';
 import DraftSwitch from '../draftSwitch/DraftSwitch';
 import DuplicateButton from '../duplicateButton/DuplicateButton';
+import { SlideProps } from '@material-ui/core/Slide';
+import createStyles from '@material-ui/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
 
 export interface BottomToolbarProps {
   open?: boolean;
@@ -25,15 +27,69 @@ export interface BottomToolbarProps {
   // FIXME: seems like we use more and more information about the current cell. we should refactor this
   id: string;
   editable?: string;
-  theme: Theme;
 }
 
-const BottomToolbar: React.SFC<BottomToolbarProps> = ({
+const drawerSlideProps: Partial<SlideProps> = {
+  unmountOnExit: true,
+};
+
+const drawerPaperProps: Partial<PaperProps> = {
+  style: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    overflow: 'visible',
+    pointerEvents: 'none',
+  },
+};
+
+const styles = (theme: Theme) =>
+  createStyles({
+    childrenContainer: {
+      // width: '100%',
+      // overflow: 'auto',
+    },
+    paper: {
+      pointerEvents: 'all',
+      borderRadius: '4px 4px 0 0',
+      padding: '1rem',
+      paddingBottom: '0.5rem',
+      paddingTop: '0.5rem',
+      margin: 'auto',
+      // boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
+      position: 'relative',
+      maxWidth: 'calc(100vw - 2rem)',
+    },
+    divider: {
+      marginLeft: '-1rem',
+      marginRight: '-1rem',
+      marginTop: '0.5rem',
+      marginBottom: '0.5rem',
+    },
+    avatar: {
+      marginRight: '1rem',
+    },
+    bottomGrid: {
+      overflow: 'auto',
+    },
+    pluginName: {
+      marginRight: 'auto',
+    },
+  });
+
+const BottomToolbar: React.FC<
+  BottomToolbarProps & WithStyles<typeof styles>
+> = ({
   open = false,
   children,
   className,
-  theme,
-
+  classes: {
+    avatar,
+    divider,
+    paper,
+    childrenContainer,
+    bottomGrid,
+    pluginName,
+  },
   anchor = 'bottom',
   onDelete = null,
   title,
@@ -42,82 +98,51 @@ const BottomToolbar: React.SFC<BottomToolbarProps> = ({
   editable,
 }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <Drawer
-        SlideProps={{
-          unmountOnExit: true,
-        }}
-        variant="persistent"
-        className={className}
-        open={open}
-        anchor={anchor}
-        PaperProps={{
-          style: {
-            backgroundColor: 'transparent',
-            border: 'none',
-            overflow: 'visible',
-            pointerEvents: 'none',
-          },
-        }}
-      >
-        <Paper
-          style={{
-            pointerEvents: 'all',
-            borderRadius: '4px 4px 0 0',
-            padding: '12px 24px',
-            margin: 'auto',
-            boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
-            position: 'relative',
-            minWidth: '50vw',
-            maxWidth: 'calc(100vw - 220px)',
-          }}
+    <Drawer
+      SlideProps={drawerSlideProps}
+      variant="persistent"
+      className={className}
+      open={open}
+      anchor={anchor}
+      PaperProps={drawerPaperProps}
+    >
+      <Paper className={paper}>
+        <div className={childrenContainer}>{children}</div>
+        {React.Children.count(children) > 0 && <Divider className={divider} />}
+        <Grid
+          container={true}
+          direction="row"
+          alignItems="center"
+          wrap="nowrap"
+          className={bottomGrid}
         >
-          {children}
-          {React.Children.count(children) > 0 && (
-            <Divider
-              style={{
-                marginLeft: -24,
-                marginRight: -24,
-                marginTop: 12,
-                marginBottom: 12,
-              }}
+          {icon || title ? (
+            <Avatar
+              children={icon || (title ? title[0] : '')}
+              className={avatar}
             />
-          )}
-          <>
-            <Grid container={true} direction="row" alignItems="center">
-              {icon || title ? (
-                <Grid item={true}>
-                  <Avatar
-                    children={icon || (title ? title[0] : '')}
-                    style={{
-                      marginRight: 16,
-                    }}
-                  />
-                </Grid>
-              ) : null}
-              <Grid item={true}>
-                <Typography variant="subtitle1">{title}</Typography>
-              </Grid>
-              <Grid item={true} style={{ marginLeft: 'auto' }}>
-                <DraftSwitch id={id} editable={editable} />
-                <DuplicateButton id={id} editable={editable} />
-                {onDelete ? (
-                  <IconButton
-                    onClick={onDelete}
-                    aria-label="delete"
-                    color="secondary"
-                    title="Delete"
-                  >
-                    <Delete />
-                  </IconButton>
-                ) : null}
-              </Grid>
-            </Grid>
-          </>
-        </Paper>
-      </Drawer>
-    </ThemeProvider>
+          ) : null}
+          <Typography variant="subtitle1" className={pluginName}>
+            {title}
+          </Typography>
+          <DraftSwitch id={id} editable={editable} />
+          <DuplicateButton id={id} editable={editable} />
+          {onDelete ? (
+            <IconButton
+              onClick={onDelete}
+              aria-label="delete"
+              color="secondary"
+              title="Delete"
+            >
+              <Delete />
+            </IconButton>
+          ) : null}
+        </Grid>
+      </Paper>
+    </Drawer>
   );
 };
 
-export default BottomToolbar;
+export default withStyles(styles)(BottomToolbar) as React.FC<
+  BottomToolbarProps
+>;
