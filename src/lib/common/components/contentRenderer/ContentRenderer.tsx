@@ -21,11 +21,12 @@ export interface ContentRendererProps {
 
 const ContentRenderer: React.FC<ContentRendererProps> = props => {
   const { value, lang, defaultLang } = props;
-  const instance =
-    value &&
-    value.data &&
-    (value.data.find(d => d.lang === lang) ||
-      value.data.find(d => d.lang === defaultLang));
+  let instance = value && value.data && value.data.find(d => d.lang === lang);
+  const defInstance =
+    value && value.data && value.data.find(d => d.lang === defaultLang);
+  if (!instance || instance.useDefault) {
+    instance = defInstance;
+  }
   if (!instance) {
     return null;
   }
