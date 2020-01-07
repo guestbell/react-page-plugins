@@ -36,6 +36,8 @@ import { SlateValue } from '../../types/slate/SlateValue';
 import { Migrator } from '../../slateMigrations/Migrator';
 import { Migration } from '../../slateMigrations/Migration';
 import { slateEmptyValue } from './slateEmptyValue';
+import { withColors } from '../../../slate/plugins/color';
+import ColorButton from '../../../slate/plugins/color/ColorButton';
 
 export type SlateEditorOnChangeHandler = (val: {
   value: SlateValue;
@@ -104,8 +106,12 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     withHistory<ReactEditor>(
       withFontSizes()(
         withLists(
-          withHeadings()(
-            withAlignments(withLinks(withEmphasize(withReact(createEditor()))))
+          withColors(
+            withHeadings()(
+              withAlignments(
+                withLinks(withEmphasize(withReact(createEditor())))
+              )
+            )
           )
         )
       )
@@ -259,6 +265,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 <EmphasizeButton type={EmphasizeTypes.Italic} />
                 <EmphasizeButton type={EmphasizeTypes.Underline} />
                 <LinkButton />
+                <ColorButton />
               </HoveringToolbar>
             )}
             {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}

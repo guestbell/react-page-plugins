@@ -58,6 +58,7 @@ export const Basic: React.FC<BasicProps> = props => {
         maxChars={100}
         migrations={migrations}
       />
+      <pre>{JSON.stringify(value, null, 1)}</pre>
       <h3>Pure render</h3>
       <div className="p-3">
         <SlateRenderer
