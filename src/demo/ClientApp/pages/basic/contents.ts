@@ -50,7 +50,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'The ORY Editor',
-                          marks: [],
                         },
                       ],
                       level: 1,
@@ -61,7 +60,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: '',
-                          marks: [],
                         },
                         {
                           type: 'LINK',
@@ -69,14 +67,12 @@ const contents: EditableType = {
                           children: [
                             {
                               text: 'ORY',
-                              marks: [],
                             },
                           ],
                         },
                         {
                           text:
                             ' is a company building and maintaining developer tools for a safer, more accessible web. You might also like our other ',
-                          marks: [],
                         },
                         {
                           type: 'LINK',
@@ -84,14 +80,12 @@ const contents: EditableType = {
                           children: [
                             {
                               text: 'Open Source',
-                              marks: [],
                             },
                           ],
                         },
                         {
                           text:
                             ' tools! The ORY Editor is a smart, extensible and modern editor ("WYSIWYG") for the web written in React.',
-                          marks: [],
                         },
                       ],
                     },
@@ -101,7 +95,6 @@ const contents: EditableType = {
                         {
                           text:
                             'The ORY Editor was written because we urgently needed a robust and modern content editing solution for our open education platform ',
-                          marks: [],
                         },
                         {
                           type: 'LINK',
@@ -109,14 +102,12 @@ const contents: EditableType = {
                           children: [
                             {
                               text: 'serlo.org',
-                              marks: [],
                             },
                           ],
                         },
                         {
                           text:
                             '. Serlo is the largest open education platform in Germany, works like the Wikipedia and is used by millions every year.',
-                          marks: [],
                         },
                       ],
                     },
@@ -146,7 +137,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'ORY Sites',
-                          marks: [],
                         },
                       ],
                       level: 2,
@@ -156,7 +146,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'ORY Sites is an ',
-                          marks: [],
                         },
                         {
                           text: 'next-gen',
@@ -168,7 +157,6 @@ const contents: EditableType = {
                         },
                         {
                           text: ' ',
-                          marks: [],
                         },
                         {
                           text: 'open source static site generator',
@@ -181,7 +169,6 @@ const contents: EditableType = {
                         {
                           text:
                             ' based on the ORY Editor. Create stunning websites, write your own designs and plugins, and be done with databases, application servers, and security updates.',
-                          marks: [],
                         },
                       ],
                     },
@@ -191,7 +178,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: '',
-                          marks: [],
                         },
                         {
                           type: 'LINK',
@@ -200,13 +186,11 @@ const contents: EditableType = {
                           children: [
                             {
                               text: 'Learn more about ORY Sites!',
-                              marks: [],
                             },
                           ],
                         },
                         {
                           text: '',
-                          marks: [],
                         },
                       ],
                       alignment: 'center',
@@ -216,7 +200,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: '\n',
-                          marks: [],
                         },
                       ],
                     },
@@ -260,7 +243,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: "What's the problem?\n",
-                          marks: [],
                         },
                       ],
                       level: 2,
@@ -307,7 +289,6 @@ const contents: EditableType = {
                         {
                           text:
                             'We had to realize that existing open source content editing solutions had one of the three flaws:\n',
-                          marks: [],
                         },
                       ],
                     },
@@ -323,7 +304,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'The produced markup was horrific, a lot of sanitation had to take place and XSS is always a threat.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -338,7 +318,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'The author must learn special mark up, like markdown, before being able to produce content. These text-based solutions are usually unable to specify a layout and complex data structures like tables are annoying to edit.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -353,7 +332,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'Promising libraries potentially solving the above where abandoned by their maintainers, because it started as a special use case, or a free-time project.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -387,7 +365,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: "So what's different?\n",
-                          marks: [],
                         },
                       ],
                       level: 2,
@@ -434,7 +411,6 @@ const contents: EditableType = {
                         {
                           text:
                             'We concluded that a solution must meet the following principles:\n',
-                          marks: [],
                         },
                       ],
                     },
@@ -450,7 +426,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'The state is a normalized JSON object, no HTML involved.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -465,7 +440,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'It is a visual editor that does not require programming experience or special training.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -480,7 +454,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'It is built by a company, reducing the likelihood of abandonment.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -495,7 +468,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'Based on reusable React Components, it gives developers, authors and designers new ways of working together and creating better and richer experiences more easily.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -510,7 +482,6 @@ const contents: EditableType = {
                                 {
                                   text:
                                     'It works on mobile and touch devices.\n',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -524,7 +495,6 @@ const contents: EditableType = {
                         {
                           text:
                             'With these principles in mind, we went out and implemented the ORY Editor, which you are looking at right now.',
-                          marks: [],
                         },
                       ],
                     },
@@ -573,7 +543,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'Feature Spotlight\n',
-                          marks: [],
                         },
                       ],
                       level: 2,
@@ -623,7 +592,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'Rich Inline Editing',
-                          marks: [],
                         },
                       ],
                     },
@@ -633,7 +601,6 @@ const contents: EditableType = {
                         {
                           text:
                             'Presentation and modification happen in the same canvas, at the same time. Now you always know what your content looks like on desktop, tablet and mobile, in real-time!',
-                          marks: [],
                         },
                       ],
                     },
@@ -692,7 +659,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'Responsive Layouts',
-                          marks: [],
                         },
                       ],
                     },
@@ -702,7 +668,6 @@ const contents: EditableType = {
                         {
                           text:
                             "Today's content is more than a monolithic blob of text. The ORY Editor allows you to define your own layout blocks, and create content that looks good on all devices.",
-                          marks: [],
                         },
                       ],
                     },
@@ -733,7 +698,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: 'Sane mark-up',
-                          marks: [],
                         },
                       ],
                     },
@@ -743,7 +707,6 @@ const contents: EditableType = {
                         {
                           text:
                             "Most web editors work on top of the DOM. This is dangerous (XSS), hard to maintain and difficult to parse. The ORY Editor uses JSON only - everywhere! It's sane, tested, clean and minimal.",
-                          marks: [],
                         },
                       ],
                     },
@@ -819,7 +782,6 @@ const contents: EditableType = {
                                 children: [
                                   {
                                     text: 'React Plugin API',
-                                    marks: [],
                                   },
                                 ],
                                 level: 2,
@@ -830,7 +792,6 @@ const contents: EditableType = {
                                   {
                                     text:
                                       "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
-                                    marks: [],
                                   },
                                 ],
                               },
@@ -840,7 +801,6 @@ const contents: EditableType = {
                                   {
                                     text:
                                       'In fact, this section is rendered on top of an exemplary layout plugin!',
-                                    marks: [],
                                   },
                                 ],
                               },
@@ -875,7 +835,6 @@ const contents: EditableType = {
                       children: [
                         {
                           text: "That's all?\n",
-                          marks: [],
                         },
                       ],
                       level: 2,
@@ -908,7 +867,6 @@ const contents: EditableType = {
                         {
                           text:
                             'No, of course not! We are very proud of these ones as well:',
-                          marks: [],
                         },
                       ],
                       level: 3,
@@ -924,7 +882,6 @@ const contents: EditableType = {
                               children: [
                                 {
                                   text: 'global un-/redo with ',
-                                  marks: [],
                                 },
                                 {
                                   text: 'ctrl+z',
@@ -936,7 +893,6 @@ const contents: EditableType = {
                                 },
                                 {
                                   text: ' / ',
-                                  marks: [],
                                 },
                                 {
                                   text: 'ctrl+y',
@@ -958,7 +914,6 @@ const contents: EditableType = {
                               children: [
                                 {
                                   text: 'editing shortcuts, for example ',
-                                  marks: [],
                                 },
                                 {
                                   text: 'ctrl+b',
@@ -970,7 +925,6 @@ const contents: EditableType = {
                                 },
                                 {
                                   text: ',',
-                                  marks: [],
                                 },
                                 {
                                   text: ' ',
@@ -1008,7 +962,6 @@ const contents: EditableType = {
                               children: [
                                 {
                                   text: 'collaborative editing',
-                                  marks: [],
                                 },
                               ],
                             },
@@ -1022,7 +975,6 @@ const contents: EditableType = {
                               children: [
                                 {
                                   text: '... and more things to come',
-                                  marks: [],
                                 },
                               ],
                             },
