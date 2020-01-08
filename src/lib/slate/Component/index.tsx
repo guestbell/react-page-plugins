@@ -4,13 +4,23 @@ import ErrorBoundaryInline from '../../common/components/errorBoundary/ErrorBoun
 
 const Slate: React.SFC<SlateProps> = props => {
   const { readOnly, state, createInitialState, onChange } = props;
-  return (
+  return readOnly ? (
+    <ErrorBoundaryInline
+      state={state}
+      createInitialState={createInitialState}
+      onChange={onChange}
+      body=""
+      hideButton={true}
+    >
+      <props.Renderer {...props} />
+    </ErrorBoundaryInline>
+  ) : (
     <ErrorBoundaryInline
       state={state}
       createInitialState={createInitialState}
       onChange={onChange}
     >
-      {readOnly ? <props.Renderer {...props} /> : <props.Controls {...props} />}
+      <props.Controls {...props} />
     </ErrorBoundaryInline>
   );
 };

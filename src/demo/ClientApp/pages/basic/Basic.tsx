@@ -1,5 +1,4 @@
 import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
-import Editor from '@react-page/editor';
 import '@react-page/ui/lib/index.css';
 import * as React from 'react';
 // The content state
@@ -14,6 +13,8 @@ import SlateRenderer from '../../../../lib/common/components/slateRenderer/Slate
 import rules from '../../../../lib/common/components/slateRenderer/rules';
 import { Button } from 'guestbell-forms/build/components/button/Button';
 import migrations from '../../../../lib/common/slateMigrations/migrations';
+import Editor, { Editable } from '@react-page/core';
+import { HTMLRenderer } from '@react-page/renderer';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -31,6 +32,14 @@ if (
 
 export interface BasicProps {}
 
+const editor = new Editor({
+  plugins: plugins,
+  defaultPlugin: plugins.content.find(
+    c => c.name === 'ory/editor/core/content/slate'
+  ),
+  editables: [contents],
+});
+editor.trigger.mode.edit();
 export const Basic: React.FC<BasicProps> = props => {
   // tslint:disable-next-line: no-any
   const [value, setValue] = React.useState<any>([
@@ -70,14 +79,13 @@ export const Basic: React.FC<BasicProps> = props => {
       <Button onClick={resetValue} className="mb-3">
         Reset value
       </Button>
-      <Editor
-        plugins={plugins}
-        value={content}
-        defaultPlugin={plugins.content.find(
-          c => c.name === 'ory/editor/core/content/slate'
-        )}
+      {false && <pre>{JSON.stringify(content, null, 1)}</pre>}
+      <Editable
+        editor={editor}
+        id={contents.id}
         onChange={s => setContent(s)}
       />
+      <HTMLRenderer plugins={plugins} state={content} />
       {/*<pre>{JSON.stringify(content, null, 2)}</pre>*/}
     </div>
   );

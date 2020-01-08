@@ -15,6 +15,7 @@ export interface ErrorBoundaryInlineProps<StateT> {
   onChange: (state: StateT) => void;
   state: StateT;
   createInitialState: () => StateT;
+  hideButton?: boolean;
 }
 
 class ErrorBoundaryInline<StateT> extends React.Component<
@@ -50,15 +51,17 @@ class ErrorBoundaryInline<StateT> extends React.Component<
         <div className="p-3 d-flex flex-column">
           <h3 className="text-center mb-0">{this.props.title}</h3>
           {this.props.body && <p className="mt-3">{this.props.body}</p>}
-          <div className="mx-auto mt-3">
-            <Button
-              type="error"
-              {...this.props.buttonProps}
-              onClick={this.onClick}
-            >
-              {this.props.buttonText}
-            </Button>
-          </div>
+          {!this.props.hideButton && (
+            <div className="mx-auto mt-3">
+              <Button
+                type="error"
+                {...this.props.buttonProps}
+                onClick={this.onClick}
+              >
+                {this.props.buttonText}
+              </Button>
+            </div>
+          )}
         </div>
       );
     }

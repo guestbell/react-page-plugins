@@ -16,8 +16,16 @@ const createPlugin: (
   settings: SlateSettings
 ) => ContentPluginConfig<SlateState> = settings => {
   const mergedSettings = { ...defaultSettings, ...settings };
+  const createInitialState = () => ({
+    version: SLATE_VERSION,
+    value: slateEmptyValue(),
+  });
   const WrappedComponent: React.SFC<SlateProps> = props => (
-    <Slate {...props} {...mergedSettings} />
+    <Slate
+      {...props}
+      {...mergedSettings}
+      createInitialState={createInitialState}
+    />
   );
   return {
     Component: WrappedComponent,
@@ -26,10 +34,7 @@ const createPlugin: (
     IconComponent: <Subject />,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-    createInitialState: () => ({
-      version: SLATE_VERSION,
-      value: slateEmptyValue(),
-    }),
+    createInitialState,
   };
 };
 
