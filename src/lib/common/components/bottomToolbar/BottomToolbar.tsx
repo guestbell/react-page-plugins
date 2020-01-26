@@ -11,8 +11,8 @@ import * as React from 'react';
 import DraftSwitch from '../draftSwitch/DraftSwitch';
 import DuplicateButton from '../duplicateButton/DuplicateButton';
 import { SlideProps } from '@material-ui/core/Slide';
-import createStyles from '@material-ui/styles/createStyles';
-import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 
 export interface BottomToolbarProps {
   open?: boolean;

@@ -8,8 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { lazyLoad } from '@react-page/core';
 import { ChromePicker, Color, ColorResult } from 'react-color';
-import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
-import createStyles from '@material-ui/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import { Range } from 'slate';
 
 export interface ColorButtonCustomProps {}

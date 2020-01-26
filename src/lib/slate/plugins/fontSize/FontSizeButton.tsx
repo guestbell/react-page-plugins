@@ -8,8 +8,8 @@ import {
 } from './';
 import MenuItem from '@material-ui/core/MenuItem';
 import { lazyLoad } from '@react-page/core';
-import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
-import createStyles from '@material-ui/styles/createStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import SlateButton from '../../Controls/buttons/SlateButton';
 import Menu from '@material-ui/core/Menu';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';

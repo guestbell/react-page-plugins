@@ -25,7 +25,7 @@ import { ListButtons } from '../../../slate/plugins/lists/ListButtons';
 import { LinkButton } from '../../../slate/plugins/links/LinkButton';
 import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButton';
 import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles } from '@material-ui/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import InputGroup from 'guestbell-forms/build/components/inputGroup';
