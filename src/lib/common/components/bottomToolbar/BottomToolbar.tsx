@@ -66,7 +66,7 @@ const styles = (theme: Theme) =>
       marginBottom: '0.5rem',
     },
     avatar: {
-      marginRight: '1rem',
+      marginRight: 'auto',
     },
     bottomGrid: {
       overflow: 'auto',

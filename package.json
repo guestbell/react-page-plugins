@@ -27,10 +27,6 @@
     "@react-page/core": "0.16.7",
     "@react-page/editor": "^0.16.7",
     "@react-page/plugins-default-native": "^0.16.7",
-    "@react-page/plugins-divider": "^0.16.7",
-    "@react-page/plugins-html5-video": "^0.16.7",
-    "@react-page/plugins-spacer": "^0.16.7",
-    "@react-page/plugins-video": "^0.16.7",
     "@react-page/ui": "0.16.7",
     "@tippy.js/react": "3.1.1",
     "@types/classnames": "^2.2.9",
@@ -57,7 +53,7 @@
     "deep-rename-keys": "^0.2.1",
     "dts-bundle": "0.7.3",
     "file-loader": "4.1.0",
-    "guestbell-forms": "2.0.104",
+    "guestbell-forms": "2.0.127",
     "html-webpack-plugin": "^3.2.0",
     "immutable": "3.8.2",
     "is-hotkey": "^0.1.6",
@@ -99,7 +95,8 @@
     "webpack-cli": "3.3.6",
     "webpack-merge": "4.2.1",
     "webpack-plugin-serve": "0.12.0",
-    "why-did-you-update": "^1.0.6"
+    "why-did-you-update": "^1.0.6",
+    "react-player": "1.15.2"
   },
   "name": "@guestbell/react-page-plugins",
   "scripts": {
