@@ -32,11 +32,11 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
         >
           <div style={{ height, position: 'relative' }}>
             <BottomToolbar
-              {...props}
               icon={props.IconComponent}
               open={props.focused}
               title={props.translations.pluginName}
               onDelete={remove}
+              {...props}
             />
             <div className="ory-plugins-content-spacer__handle">
               <svg
