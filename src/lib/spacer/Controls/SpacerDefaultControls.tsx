@@ -5,8 +5,6 @@ import { SpacerControlsProps } from '../types/controls';
 import { defaultSpacerState } from './../default/state';
 import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 
-const faintBlack = 'rgba(0, 0, 0, 0.12)';
-
 const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
   const {
     isPreviewMode,
@@ -19,7 +17,6 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
   } = props;
   return (
     <div
-      style={{ border: 'solid 1px', borderColor: faintBlack }}
       className={classNames('ory-plugins-content-spacer', {
         'ory-plugins-content-spacer-read-only': isPreviewMode,
       })}
@@ -41,16 +38,7 @@ const SpacerDefaultControls: React.SFC<SpacerControlsProps> = props => {
               title={props.translations.pluginName}
               onDelete={remove}
             />
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '0',
-                height: '24px',
-                width: '100%',
-                background: faintBlack,
-                textAlign: 'center',
-              }}
-            >
+            <div className="ory-plugins-content-spacer__handle">
               <svg
                 viewBox="0 0 24 24"
                 style={{ color: 'white', width: 24, height: 24 }}
