@@ -33,7 +33,7 @@ export const defaultSettings: Partial<BackgroundSettings> = {
   defaultModeFlag: 1,
   defaultDarken: 0.1,
   defaultLighten: 0,
-  defaultHasPadding: true,
+  defaultHasPadding: false,
   defaultIsParallax: true,
   translations: defaultTranslations,
   enabledModes: IMAGE_MODE_FLAG | COLOR_MODE_FLAG | GRADIENT_MODE_FLAG,
