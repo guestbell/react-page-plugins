@@ -30,11 +30,12 @@ const styles = ({ palette, spacing }: Theme) =>
   createStyles({
     root: {
       position: 'relative',
+      paddingRight: '1.5rem',
     },
     switchImageButton: {
       // tslint:disable-next-line: no-any
       position: 'absolute !important' as any,
-      right: -spacing(2),
+      right: -spacing(1),
       top: '50%',
       transform: 'translateY(-50%)',
       color: palette.action.active + ' !important',
