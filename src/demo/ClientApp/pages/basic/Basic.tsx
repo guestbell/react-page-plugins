@@ -13,7 +13,7 @@ import SlateRenderer from '../../../../lib/common/components/slateRenderer/Slate
 import rules from '../../../../lib/common/components/slateRenderer/rules';
 import { Button } from 'guestbell-forms/build/components/button/Button';
 import migrations from '../../../../lib/common/slateMigrations/migrations';
-import Editor, { Editable } from '@react-page/core';
+import Editor from '@react-page/editor';
 import { HTMLRenderer } from '@react-page/renderer';
 
 if (
@@ -32,14 +32,6 @@ if (
 
 export interface BasicProps {}
 
-const editor = new Editor({
-  plugins: plugins,
-  defaultPlugin: plugins.content.find(
-    c => c.name === 'ory/editor/core/content/slate'
-  ),
-  editables: [contents],
-});
-editor.trigger.mode.edit();
 export const Basic: React.FC<BasicProps> = props => {
   // tslint:disable-next-line: no-any
   const [value, setValue] = React.useState<any>([
@@ -80,9 +72,12 @@ export const Basic: React.FC<BasicProps> = props => {
         Reset value
       </Button>
       {false && <pre>{JSON.stringify(content, null, 1)}</pre>}
-      <Editable
-        editor={editor}
-        id={contents.id}
+      <Editor
+        plugins={plugins}
+        defaultPlugin={plugins.content.find(
+          c => c.name === 'ory/editor/core/content/slate'
+        )}
+        value={content}
         onChange={s => setContent(s)}
       />
       <HTMLRenderer plugins={plugins} state={content} />

@@ -18,10 +18,8 @@ import {
   renderElement,
 } from '../../../slate/Controls/SlateDefaultControls';
 import { HoveringToolbar } from '../../../slate/Controls/hoveringToolbar/HoveringToolbar';
-import HeadingButtonCompact from '../../../slate/plugins/heading/HeadingButtonCompact';
 import FontSizeButton from '../../../slate/plugins/fontSize/FontSizeButton';
 import { AlignmentButtons } from '../../../slate/plugins/alignment/AlignmentButtons';
-import { ListButtons } from '../../../slate/plugins/lists/ListButtons';
 import { LinkButton } from '../../../slate/plugins/links/LinkButton';
 import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButton';
 import createStyles from '@material-ui/core/styles/createStyles';
@@ -100,7 +98,7 @@ const allHotkeys = { ...MARK_HOTKEYS };
 
 type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
-const SlateEditor: React.FC<SlateEditorProps> = props => {
+const SlateEditor: React.FC<SlateEditorProps> = (props) => {
   const { classes, migrations, extraToolbarButtons, version } = props;
   const editor: ReactEditor = React.useRef(
     withHistory<ReactEditor>(
@@ -147,7 +145,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     if (
       !value ||
       !Array.isArray(value) ||
-      !value.every(node => Node.isNode(node))
+      !value.every((node) => Node.isNode(node))
     ) {
       newValue = slateEmptyValue();
       isDirty = true;
@@ -205,10 +203,10 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                   {props.label}
                 </div>
               )}
-              <HeadingButtonCompact />
+              {/*<HeadingButtonCompact />*/}
               <FontSizeButton />
               <AlignmentButtons />
-              <ListButtons />
+              {/*<ListButtons />*/}
               <LinkButton />
               {extraToolbarButtons}
             </div>
@@ -216,7 +214,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
               className={classNames(classes.editable)}
               renderLeaf={renderLeaf}
               renderElement={renderElement}
-              onKeyDown={event => {
+              onKeyDown={(event) => {
                 if (!allowNewChar) {
                   if (!(event.keyCode === 8 || event.keyCode === 46)) {
                     event.preventDefault();

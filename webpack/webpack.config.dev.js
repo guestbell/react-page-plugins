@@ -58,12 +58,12 @@ module.exports = merge({
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin(htmlPluginOptions),
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin({patterns:[
       {
         from: './src/demo/ClientApp/assets/favicon/icons',
         to: 'dist/icons',
       },
-    ]),
+    ]}),
     new Serve({
       port: 8081,
       static: clientOutputDir,

@@ -56,12 +56,14 @@ module.exports = merge({
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin(htmlPluginOptions),
-    new CopyWebpackPlugin([
-      {
-        from: './src/demo/ClientApp/assets/favicon/icons',
-        to: 'dist/icons',
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './src/demo/ClientApp/assets/favicon/icons',
+          to: 'dist/icons',
+        },
+      ],
+    }),
     new MiniCssExtractPlugin({
       filename: 'dist/[name].[hash].css',
     }),
