@@ -79,6 +79,8 @@ export const Basic: React.FC<BasicProps> = props => {
         )}
         value={content}
         onChange={s => setContent(s)}
+        allowMoveInEditMode={true}
+        allowResizeInEditMode={true}
       />
       <HTMLRenderer plugins={plugins} state={content} />
       {/*<pre>{JSON.stringify(content, null, 2)}</pre>*/}

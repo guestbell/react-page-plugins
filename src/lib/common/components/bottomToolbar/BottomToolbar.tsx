@@ -13,6 +13,7 @@ import DuplicateButton from '../duplicateButton/DuplicateButton';
 import { SlideProps } from '@material-ui/core/Slide';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import PaddingButton from '../paddingButton/PaddingButton';
 
 export interface BottomToolbarProps {
   open?: boolean;
@@ -76,9 +77,8 @@ const styles = (theme: Theme) =>
     },
   });
 
-const BottomToolbar: React.FC<
-  BottomToolbarProps & WithStyles<typeof styles>
-> = ({
+const BottomToolbar: React.FC<BottomToolbarProps &
+  WithStyles<typeof styles>> = ({
   open = false,
   children,
   className,
@@ -126,12 +126,13 @@ const BottomToolbar: React.FC<
             {title}
           </Typography>*/}
           <DraftSwitch id={id} editable={editable} />
+          <PaddingButton id={id} editable={editable} />
           <DuplicateButton id={id} editable={editable} />
           {onDelete ? (
             <IconButton
               onClick={onDelete}
               aria-label="delete"
-              color="secondary"
+              color="default"
               title="Delete"
             >
               <Delete />

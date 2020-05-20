@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 const DraftSwitch = ({ id, node, setDraft }) => {
   return node ? (
     <FormControlLabel
-      style={{ marginRight: 5 }}
+      style={{ marginRight: 0 }}
       labelPlacement="start"
       control={
         <Switch
@@ -31,7 +31,4 @@ const mapDispatchToProps = {
   setDraft: Actions.Cell.updateCellIsDraft,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DraftSwitch);
+export default connect(mapStateToProps, mapDispatchToProps)(DraftSwitch);

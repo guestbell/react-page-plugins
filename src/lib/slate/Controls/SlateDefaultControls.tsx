@@ -49,6 +49,7 @@ import { withHistory } from 'slate-history';
 import migrations from '../../common/slateMigrations/migrations';
 import { SlateValue } from '../../common/types/slate/SlateValue';
 import { Migrator } from '../../common/slateMigrations/Migrator';
+import PaddingComponent from '../../common/utils/PaddingComponent';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
@@ -142,66 +143,70 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   }, []);
 
   return (
-    <div className="slateControls ory-prevent-blur">
-      <Slate
-        editor={editor}
-        value={value}
-        onChange={stateChanged}
-        migrations={migrations}
-      >
-        <Editable
-          readOnly={props.readOnly}
-          placeholder={translations.textPlaceholder}
-          renderLeaf={renderLeaf}
-          renderElement={renderElement}
-          onKeyDown={event => {
-            for (const hotkey in allHotkeys) {
-              if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+    <PaddingComponent state={props.state}>
+      <div className="slateControls ory-prevent-blur">
+        <Slate
+          editor={editor}
+          value={value}
+          onChange={stateChanged}
+          migrations={migrations}
+        >
+          <Editable
+            readOnly={props.readOnly}
+            placeholder={translations.textPlaceholder}
+            renderLeaf={renderLeaf}
+            renderElement={renderElement}
+            onKeyDown={event => {
+              for (const hotkey in allHotkeys) {
+                if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+                  event.preventDefault();
+                  editor.exec({
+                    type: EmphasizeCommands.ToggleEmphasize,
+                    mark: { type: MARK_HOTKEYS[hotkey] },
+                  });
+                }
+              }
+              if (
+                isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
+              ) {
                 event.preventDefault();
                 editor.exec({
-                  type: EmphasizeCommands.ToggleEmphasize,
-                  mark: { type: MARK_HOTKEYS[hotkey] },
+                  type: 'insert_text',
+                  text: '\n',
                 });
               }
-            }
-            if (isHotkey('shift+enter', (event as unknown) as KeyboardEvent)) {
-              event.preventDefault();
-              editor.exec({
-                type: 'insert_text',
-                text: '\n',
-              });
-            }
-          }}
-        />
-        {!readOnly && focused && (
-          <>
-            <HoveringToolbar>
-              <EmphasizeButton type={EmphasizeTypes.Bold} />
-              <EmphasizeButton type={EmphasizeTypes.Italic} />
-              <EmphasizeButton type={EmphasizeTypes.Underline} />
-              <LinkButton />
-              <ColorButton />
-            </HoveringToolbar>
-            <BottomToolbar
-              icon={props.IconComponent}
-              open={props.focused}
-              title={props.translations.pluginName}
-              onDelete={remove}
-              {...props}
-            >
-              <HeadingButtonCompact />
-              <FontSizeButton />
-              <ColorButton />
-              <AlignmentButtons />
-              <ListButtons />
-              <LinkButton />
-              <QuoteButton />
-            </BottomToolbar>
-          </>
-        )}
-        {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
-      </Slate>
-    </div>
+            }}
+          />
+          {!readOnly && focused && (
+            <>
+              <HoveringToolbar>
+                <EmphasizeButton type={EmphasizeTypes.Bold} />
+                <EmphasizeButton type={EmphasizeTypes.Italic} />
+                <EmphasizeButton type={EmphasizeTypes.Underline} />
+                <LinkButton />
+                <ColorButton />
+              </HoveringToolbar>
+              <BottomToolbar
+                icon={props.IconComponent}
+                open={props.focused}
+                title={props.translations.pluginName}
+                onDelete={remove}
+                {...props}
+              >
+                <HeadingButtonCompact />
+                <FontSizeButton />
+                <ColorButton />
+                <AlignmentButtons />
+                <ListButtons />
+                <LinkButton />
+                <QuoteButton />
+              </BottomToolbar>
+            </>
+          )}
+          {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
+        </Slate>
+      </div>
+    </PaddingComponent>
   );
 };
 

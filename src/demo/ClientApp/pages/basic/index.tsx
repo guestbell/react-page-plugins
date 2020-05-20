@@ -23,7 +23,15 @@ const KeepStateEditor = ({ value, ...props }: any) => {
   // <Editor /> is stateful, so you don't nesseary have to keep the value updated
   // if you do, you have to guarantee that the value is referencially equal to what has been passed by `onChange`
   // or the editor will blur its fields (and other problems)
-  return <Editor {...props} value={state} onChange={setState} />;
+  return (
+    <Editor
+      {...props}
+      allowResizeInEditMode={true}
+      allowMoveInEditMode={true}
+      value={state}
+      onChange={setState}
+    />
+  );
 };
 // Render the editables - the areas that are editable
 const elements = document.querySelectorAll<HTMLDivElement>('.editable');

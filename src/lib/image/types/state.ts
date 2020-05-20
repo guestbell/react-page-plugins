@@ -1,4 +1,5 @@
 import { Image } from '../../common/types/image/Image';
+import { PaddingState } from '../../common/types/padding/PaddingState';
 
 export enum ImageConstraintMode {
   FullWidth = 0,
@@ -7,7 +8,7 @@ export enum ImageConstraintMode {
   SmallHeight = 3,
 }
 
-export interface ImageState {
+export interface ImageState extends PaddingState {
   imageId?: number;
   image?: Image;
   src?: string;

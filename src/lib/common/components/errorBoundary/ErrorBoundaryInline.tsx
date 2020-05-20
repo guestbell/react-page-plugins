@@ -25,7 +25,7 @@ class ErrorBoundaryInline<StateT> extends React.Component<
   public static defaultProps = {
     title: 'Something went wrong.',
     body:
-      'We found a problem in this section. You can remove it by clicking the button bellow.',
+      'We found a problem in this section. You can remove it by clicking the button below.',
     buttonText: 'Remove component',
   };
   constructor(props: ErrorBoundaryInlineProps<StateT>) {

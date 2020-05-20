@@ -11,9 +11,9 @@ $black: rgba(black, 0.3);
   box-shadow: none !important;
 }
 
-.ory-plugins-content-spacer > .react-resizable > .react-resizable-handle:before,
+.ory-plugins-content-spacer .react-resizable > .react-resizable-handle:before,
 .ory-plugins-content-spacer
-  > .react-resizable
+  .react-resizable
   > .react-resizable-handle:hover:before {
   content: ' ';
   position: absolute;

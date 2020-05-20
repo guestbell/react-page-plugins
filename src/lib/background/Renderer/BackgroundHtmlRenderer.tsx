@@ -2,6 +2,7 @@ import { colorToString } from '@react-page/ui';
 import * as React from 'react';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundRendererProps } from '../types/renderer';
+import PaddingComponent from '../../common/utils/PaddingComponent';
 
 const getStyles = (props: BackgroundRendererProps) => {
   const {
@@ -103,19 +104,21 @@ const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = props => {
     props.lightenPreview !== undefined ? props.lightenPreview : lighten;
   const containerStyles = getStyles(props);
   return (
-    <div
-      className="ory-plugins-layout-background"
-      style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
-    >
+    <PaddingComponent state={props.state}>
       <div
-        className="ory-plugins-layout-background__backstretch"
-        style={{
-          // tslint:disable-next-line:max-line-length
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`,
-        }}
-      />
-      {children}
-    </div>
+        className="ory-plugins-layout-background"
+        style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
+      >
+        <div
+          className="ory-plugins-layout-background__backstretch"
+          style={{
+            // tslint:disable-next-line:max-line-length
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, ${darkenFinal}), rgba(0, 0, 0, ${darkenFinal})),linear-gradient(rgba(255, 255, 255, ${lightenFinal}), rgba(255, 255, 255, ${lightenFinal}))`,
+          }}
+        />
+        {children}
+      </div>
+    </PaddingComponent>
   );
 };
 

@@ -4,6 +4,7 @@ import { iconStyle } from './../common/styles';
 import { lazyLoad } from '@react-page/core';
 import classNames from 'classnames';
 import { ImageConstraintMode } from '../types/state';
+import PaddingComponent from '../../common/utils/PaddingComponent';
 
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
@@ -42,9 +43,11 @@ const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
     Image = <img className={className} src={state.src} srcSet={state.srcSet} />;
   }
   return (
-    <div className="ory-plugins-content-image__container">
-      {state.href && !isEditMode ? <a href={state.href}>{Image}</a> : Image}
-    </div>
+    <PaddingComponent state={props.state}>
+      <div className="ory-plugins-content-image__container">
+        {state.href && !isEditMode ? <a href={state.href}>{Image}</a> : Image}
+      </div>
+    </PaddingComponent>
   );
 };
 
