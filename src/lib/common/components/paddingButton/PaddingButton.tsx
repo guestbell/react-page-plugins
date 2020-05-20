@@ -12,6 +12,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import {
   UpdateCellContentAction,
   updateCellContent as updateCellContentInternal,
+  updateCellLayout as updateCellLayoutInternal,
 } from '@react-page/core/lib/actions/cell';
 import { ComponetizedCell } from '@react-page/core/lib/types/editable';
 import { PaddingState } from '../../types/padding/PaddingState';
@@ -26,6 +27,7 @@ export interface PaddingButtonCustomProps {
 type ReduxProps = {
   node?: Cell;
   updateCellContent: (state: PaddingState) => void;
+  updateCellLayout: (state: PaddingState) => void;
 };
 
 type ActionCreatorsTypes = {};
@@ -35,7 +37,9 @@ type PaddingButtonProps = PaddingButtonCustomProps &
   ActionCreatorsTypes;
 
 const PaddingButton: React.FC<PaddingButtonProps> = props => {
-  const { node, updateCellContent } = props;
+  const { node, updateCellContent, updateCellLayout } = props;
+  const isContentCell = Boolean(node?.content?.state);
+  const updateCell = isContentCell ? updateCellContent : updateCellLayout;
   const nodeAbove =
     (node?.content?.state as PaddingState)?.above ||
     (node?.layout?.state as PaddingState)?.above;
@@ -66,28 +70,28 @@ const PaddingButton: React.FC<PaddingButtonProps> = props => {
   const onSpaceAboveChange = React.useCallback(
     val => {
       setSpaceAbove(val);
-      updateCellContent({ above: val, below: spaceBelow });
+      updateCell({ above: val, below: spaceBelow });
     },
-    [spaceBelow]
+    [spaceBelow, updateCell]
   );
   const onSpaceBelowChange = React.useCallback(
     val => {
       setSpaceBelow(val);
-      updateCellContent({ above: spaceAbove, below: val });
+      updateCell({ above: spaceAbove, below: val });
     },
-    [spaceAbove]
+    [spaceAbove, updateCell]
   );
 
   const onCancelClick = React.useCallback(() => {
     closeModal();
-    updateCellContent(initialState);
-  }, [closeModal, initialState]);
+    updateCell(initialState);
+  }, [closeModal, initialState, updateCell]);
   const onOkClick = React.useCallback(() => {
     const newState = { above: spaceAbove, below: spaceBelow };
-    updateCellContent(newState);
+    updateCell(newState);
     setInitialState({ ...newState });
     closeModal();
-  }, [closeModal, updateCellContent, spaceAbove, spaceBelow]);
+  }, [closeModal, updateCell, updateCell, spaceAbove, spaceBelow]);
   return node ? (
     <>
       <IconButton onClick={openModal} color="default" title="Padding">
@@ -133,6 +137,7 @@ const mapDispatchToProps = (
   bindActionCreators(
     {
       updateCellContent: updateCellContentInternal(id),
+      updateCellLayout: updateCellLayoutInternal(id),
     },
     // tslint:disable-next-line:no-any
     dispatch as any
