@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 const DraftSwitch = ({ id, node, setDraft }) => {
   return node ? (
     <FormControlLabel
+      className="bottomToolbar__draftSwitch"
       style={{ marginRight: 0 }}
       labelPlacement="start"
       control={

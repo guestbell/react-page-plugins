@@ -70,7 +70,7 @@ class BackgroundControls extends React.Component<
                     color={
                       (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
                         ? 'secondary'
-                        : undefined
+                        : 'action'
                     }
                   />
                 }
@@ -85,7 +85,7 @@ class BackgroundControls extends React.Component<
                     color={
                       (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
                         ? 'secondary'
-                        : undefined
+                        : 'action'
                     }
                   />
                 }
@@ -100,7 +100,7 @@ class BackgroundControls extends React.Component<
                     color={
                       (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
                         ? 'secondary'
-                        : undefined
+                        : 'action'
                     }
                   />
                 }

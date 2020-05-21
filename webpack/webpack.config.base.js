@@ -9,6 +9,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@material-ui/styles': path.resolve(
+        __dirname,
+        '..',
+        'node_modules',
+        '@material-ui/styles'
+      ),
+    },
   },
   entry: {
     'react-page-plugins': './src/lib/index.ts',

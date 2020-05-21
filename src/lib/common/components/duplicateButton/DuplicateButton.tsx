@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 const DuplicateButton = ({ id, node, duplicateCell }) => {
   return node ? (
     <IconButton
+      className="bottomToolbar__duplicateButton"
       onClick={() => duplicateCell(node, node)}
       aria-label="delete"
       color="default"
@@ -25,7 +26,4 @@ const mapDispatchToProps = {
   duplicateCell: Actions.Cell.duplicateCell,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DuplicateButton);
+export default connect(mapStateToProps, mapDispatchToProps)(DuplicateButton);

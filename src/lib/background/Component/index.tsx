@@ -121,6 +121,16 @@ class BackgroundComponent
           {...this.props}
           lightenPreview={this.state.lightenPreview}
           darkenPreview={this.state.darkenPreview}
+          gradientColorPreview={this.state.gradientColorPreview}
+          backgroundColorPreview={this.state.backgroundColorPreview}
+          gradientColorPreviewColorIndex={
+            this.state.gradientColorPreviewColorIndex
+          }
+          gradientColorPreviewIndex={this.state.gradientColorPreviewIndex}
+          gradientDegPreview={this.state.gradientDegPreview}
+          gradientDegPreviewIndex={this.state.gradientDegPreviewIndex}
+          gradientOpacityPreview={this.state.gradientOpacityPreview}
+          gradientOpacityPreviewIndex={this.state.gradientOpacityPreviewIndex}
         />
       </>
     );

@@ -31,6 +31,264 @@ const contents: EditableType = {
       size: 12,
       rows: [
         {
+          id: '3a0e7a57-4a73-4640-9274-11aa62795ac1',
+          cells: [
+            {
+              id: 'cf315380-fb9e-447f-b842-e7c87af0e80f',
+              inline: null,
+              size: 12,
+              layout: {
+                plugin: {
+                  name: 'ory/editor/core/layout/background',
+                  version: '0.0.1',
+                },
+                state: {
+                  modeFlag: 3,
+                  backgroundColor: {
+                    r: 23,
+                    g: 106,
+                    b: 135,
+                    a: 1,
+                  },
+                  hasPadding: false,
+                },
+              },
+              rows: [
+                {
+                  id: '30940b59-7093-4528-b580-e68e8e2cfebb',
+                  cells: [
+                    {
+                      id: '27c055ef-6b5c-43f5-b22d-ac04e283b64f',
+                      inline: null,
+                      size: 12,
+                      layout: {
+                        plugin: {
+                          name: 'ory/editor/core/layout/background',
+                          version: '0.0.1',
+                        },
+                        state: {
+                          modeFlag: 3,
+                          gradients: [
+                            {
+                              deg: 0,
+                              opacity: 1,
+                              colors: [
+                                {
+                                  color: {
+                                    r: 0,
+                                    g: 0,
+                                    b: 0,
+                                    a: 0,
+                                  },
+                                },
+                                {
+                                  color: {
+                                    r: 0,
+                                    g: 0,
+                                    b: 0,
+                                    a: 1,
+                                  },
+                                },
+                                {
+                                  color: {
+                                    r: 245,
+                                    g: 0,
+                                    b: 87,
+                                    a: 1,
+                                  },
+                                },
+                              ],
+                            },
+                          ],
+                          backgroundColor: {
+                            r: 42,
+                            g: 20,
+                            b: 4,
+                            a: 0.09,
+                          },
+                          darken: 0.05,
+                          bgImage: {
+                            title: 'Main Page Image',
+                            description: '',
+                            src:
+                              'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=1200.jpg',
+                            placeholderSrc:
+                              'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=200.jpg',
+                            srcSet:
+                              'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=1200.jpg 1200w,https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=900.jpg 900w,https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=600.jpg 600w,https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=400.jpg 400w,https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=200.jpg 200w',
+                            sizes: [
+                              {
+                                src:
+                                  'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=1200.jpg',
+                                width: 1200,
+                                height: 800,
+                              },
+                              {
+                                src:
+                                  'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=900.jpg',
+                                width: 900,
+                                height: 600,
+                              },
+                              {
+                                src:
+                                  'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=600.jpg',
+                                width: 600,
+                                height: 400,
+                              },
+                              {
+                                src:
+                                  'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=400.jpg',
+                                width: 400,
+                                height: 266,
+                              },
+                              {
+                                src:
+                                  'https://static.guestbell.com/img/content-templates/exotic/b54179a7-acd4-4385-a513-6ef3fe0cfcb7_w=200.jpg',
+                                width: 200,
+                                height: 133,
+                              },
+                            ],
+                            tags: [],
+                            createdOn: '2020-02-27T12:28:12.624Z',
+                          },
+                          isParallax: false,
+                          hasPadding: false,
+                        },
+                      },
+                      rows: [
+                        {
+                          id: '7378235d-5be6-40ba-a880-3c35a93b392b',
+                          cells: [
+                            {
+                              id: '27c2c1d2-5c12-45bb-bdd9-7d26224b709c',
+                              inline: null,
+                              size: 12,
+                              content: {
+                                plugin: {
+                                  name: 'ory/editor/core/content/spacer',
+                                  version: '0.0.1',
+                                },
+                                state: {
+                                  height: 386,
+                                },
+                              },
+                            },
+                          ],
+                        },
+                        {
+                          id: '3fca3444-298a-4177-9ea6-cbd83ab4ca4b',
+                          cells: [
+                            {
+                              id: '026fdce4-cc1b-495b-8bb5-924d4c6c0131',
+                              inline: null,
+                              size: 12,
+                              layout: {
+                                plugin: {
+                                  name: 'ory/editor/core/layout/background',
+                                  version: '0.0.1',
+                                },
+                                state: {
+                                  modeFlag: 3,
+                                  backgroundColor: {
+                                    r: 0,
+                                    g: 179,
+                                    b: 220,
+                                    a: 0.8,
+                                  },
+                                  hasPadding: false,
+                                },
+                              },
+                              rows: [
+                                {
+                                  id: '685a8ce4-2beb-46b5-92ce-1d28874f0f4e',
+                                  cells: [
+                                    {
+                                      id:
+                                        'ec2a4e93-30c9-4ab8-adef-de503862f24e',
+                                      inline: null,
+                                      size: 12,
+                                      content: {
+                                        plugin: {
+                                          name: 'ory/editor/core/content/slate',
+                                          version: '0.0.3',
+                                        },
+                                        state: {
+                                          value: [
+                                            {
+                                              type: 'HEADING',
+                                              children: [
+                                                {
+                                                  text: '',
+                                                },
+                                                {
+                                                  type: 'COLOR',
+                                                  color: {
+                                                    r: 255,
+                                                    g: 255,
+                                                    b: 255,
+                                                    a: 1,
+                                                  },
+                                                  children: [
+                                                    {
+                                                      text: 'Test',
+                                                      BOLD: true,
+                                                    },
+                                                  ],
+                                                },
+                                                {
+                                                  text: '',
+                                                },
+                                              ],
+                                              alignment: 'center',
+                                              level: 1,
+                                            },
+                                            {
+                                              type: 'HEADING',
+                                              children: [
+                                                {
+                                                  text: '',
+                                                },
+                                                {
+                                                  type: 'COLOR',
+                                                  color: {
+                                                    r: 255,
+                                                    g: 255,
+                                                    b: 255,
+                                                    a: 1,
+                                                  },
+                                                  children: [
+                                                    {
+                                                      text:
+                                                        'True Exotic Paradise',
+                                                    },
+                                                  ],
+                                                },
+                                                {
+                                                  text: '',
+                                                },
+                                              ],
+                                              alignment: 'center',
+                                              level: 5,
+                                            },
+                                          ],
+                                        },
+                                      },
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
           id: 'd813d094-215a-43ec-bcdd-d5fd6258b915',
           cells: [
             {

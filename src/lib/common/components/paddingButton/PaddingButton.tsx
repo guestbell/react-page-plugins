@@ -94,7 +94,12 @@ const PaddingButton: React.FC<PaddingButtonProps> = props => {
   }, [closeModal, updateCell, updateCell, spaceAbove, spaceBelow]);
   return node ? (
     <>
-      <IconButton onClick={openModal} color="default" title="Padding">
+      <IconButton
+        className="bottomToolbar__paddingButton"
+        onClick={openModal}
+        color="default"
+        title="Padding"
+      >
         <VerticalAlignCenterIcon />
       </IconButton>
       <Dialog open={isModalOpen} onClose={onCancelClick}>

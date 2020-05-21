@@ -2,11 +2,9 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 // import Typography from '@material-ui/core/Typography';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
-import Delete from '@material-ui/icons/Delete';
 import * as React from 'react';
 import DraftSwitch from '../draftSwitch/DraftSwitch';
 import DuplicateButton from '../duplicateButton/DuplicateButton';
@@ -14,6 +12,9 @@ import { SlideProps } from '@material-ui/core/Slide';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import PaddingButton from '../paddingButton/PaddingButton';
+import SelectParentButton from '../selectParentButton/SelectParentButton';
+import classNames from 'classnames';
+import DeleteButton from '../deleteButton/DeleteButton';
 
 export interface BottomToolbarProps {
   open?: boolean;
@@ -106,7 +107,7 @@ const BottomToolbar: React.FC<BottomToolbarProps &
       anchor={anchor}
       PaperProps={drawerPaperProps}
     >
-      <Paper className={paper}>
+      <Paper className={classNames(paper, 'bottomToolbar')}>
         <div className={childrenContainer}>{children}</div>
         {React.Children.count(children) > 0 && <Divider className={divider} />}
         <Grid
@@ -127,17 +128,9 @@ const BottomToolbar: React.FC<BottomToolbarProps &
           </Typography>*/}
           <DraftSwitch id={id} editable={editable} />
           <PaddingButton id={id} editable={editable} />
+          <SelectParentButton id={id} editable={editable} />
           <DuplicateButton id={id} editable={editable} />
-          {onDelete ? (
-            <IconButton
-              onClick={onDelete}
-              aria-label="delete"
-              color="default"
-              title="Delete"
-            >
-              <Delete />
-            </IconButton>
-          ) : null}
+          <DeleteButton onDelete={onDelete} />
         </Grid>
       </Paper>
     </Drawer>

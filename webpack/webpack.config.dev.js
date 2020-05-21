@@ -38,11 +38,6 @@ module.exports = merge({
     return undefined;
   },
 })(require('./webpack.config.base'), {
-  resolve: {
-    alias: {
-      // 'react-dom': '@hot-loader/react-dom'
-    },
-  },
   entry: ['./src/demo/ClientApp/Main.tsx', 'webpack-plugin-serve/client'],
   output: {
     path: clientOutputDir,
@@ -58,12 +53,14 @@ module.exports = merge({
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin(htmlPluginOptions),
-    new CopyWebpackPlugin({patterns:[
-      {
-        from: './src/demo/ClientApp/assets/favicon/icons',
-        to: 'dist/icons',
-      },
-    ]}),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './src/demo/ClientApp/assets/favicon/icons',
+          to: 'dist/icons',
+        },
+      ],
+    }),
     new Serve({
       port: 8081,
       static: clientOutputDir,
