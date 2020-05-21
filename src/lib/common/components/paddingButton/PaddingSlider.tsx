@@ -32,7 +32,7 @@ const PaddingSlider: React.FC<PaddingSliderProps> = props => {
     value,
     onValueChange,
     min = 0,
-    max = 50,
+    max = 40,
     step = 1,
   } = props;
   const classes = useStyles();
@@ -62,9 +62,11 @@ const PaddingSlider: React.FC<PaddingSliderProps> = props => {
         val = innerValue;
       }
       setInnerValue(val || 0);
+      onValueChangeDebounced(val || 0);
     },
     [innerValue, min, max, setInnerValue]
   );
+
   const sliderCommitted = React.useCallback(() => {
     setTextValue((innerValue || 0).toFixed());
   }, [innerValue, setTextValue]);
@@ -89,6 +91,7 @@ const PaddingSlider: React.FC<PaddingSliderProps> = props => {
             value={textValue}
             margin="dense"
             onChange={onTextValueChange}
+            onBlur={sliderCommitted}
             inputProps={{
               step,
               min,
