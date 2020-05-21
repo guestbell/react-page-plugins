@@ -125,10 +125,18 @@ const PaddingButton: React.FC<PaddingButtonProps> = props => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onCancelClick} color="default">
+          <Button
+            className="bottomToolbar__paddingButton__cancel"
+            onClick={onCancelClick}
+            color="default"
+          >
             Cancel
           </Button>
-          <Button onClick={onOkClick} color="primary">
+          <Button
+            className="bottomToolbar__paddingButton__ok"
+            onClick={onOkClick}
+            color="primary"
+          >
             Ok
           </Button>
         </DialogActions>
