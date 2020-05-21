@@ -36,6 +36,8 @@ type PaddingButtonProps = PaddingButtonCustomProps &
   ReduxProps &
   ActionCreatorsTypes;
 
+const dialogClasses = { paper: 'bottomToolbar__paddingModal' };
+
 const PaddingButton: React.FC<PaddingButtonProps> = props => {
   const { node, updateCellContent, updateCellLayout } = props;
   const isContentCell = Boolean(node?.content?.state);
@@ -102,7 +104,11 @@ const PaddingButton: React.FC<PaddingButtonProps> = props => {
       >
         <VerticalAlignCenterIcon />
       </IconButton>
-      <Dialog open={isModalOpen} onClose={onCancelClick}>
+      <Dialog
+        classes={dialogClasses}
+        open={isModalOpen}
+        onClose={onCancelClick}
+      >
         <DialogTitle id="responsive-dialog-title">
           Add space around your content
         </DialogTitle>
