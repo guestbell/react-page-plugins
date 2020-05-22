@@ -82,9 +82,9 @@ const parentIdSelector = (
 
   // tslint:disable-next-line: no-any
   const parent = parentInner(tree as any, props);
-  const ancestor = (parent?.ancestors || [])
-    .reverse()
-    .find(a => (a as Cell).content || (a as Cell).layout);
+  const ancestor = (parent?.ancestors || []).find(
+    a => (a as Cell).content || (a as Cell).layout
+  );
   return ancestor?.id;
 };
 
@@ -95,7 +95,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Dispatch, props: ComponetizedCell) => {
   return bindActionCreators(
     {
-      focusCell: (id: string) => focusCellInternal(id)(),
+      focusCell: (id: string) => focusCellInternal(id, true)(),
     },
     // tslint:disable-next-line:no-any
     dispatch as any
