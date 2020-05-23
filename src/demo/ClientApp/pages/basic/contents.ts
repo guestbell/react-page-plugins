@@ -471,11 +471,13 @@ const contents: EditableType = {
               size: 6,
               content: {
                 plugin: {
-                  name: 'ory/sites/plugin/content/html5-video',
+                  name: 'ory/editor/core/content/video',
                   version: '0.0.1',
                 },
                 state: {
-                  url: 'http://techslides.com/demos/sample-videos/small.mp4',
+                  uploadedSrc:
+                    'http://techslides.com/demos/sample-videos/small.mp4',
+                  type: 2,
                 },
               },
             },
@@ -647,7 +649,8 @@ const contents: EditableType = {
                   version: '0.0.1',
                 },
                 state: {
-                  src: 'https://www.youtube.com/watch?v=dkc65_l0Kfc',
+                  embeddedSrc: 'https://www.youtube.com/watch?v=dkc65_l0Kfc',
+                  type: 1,
                 },
               },
             },

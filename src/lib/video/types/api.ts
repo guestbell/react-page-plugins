@@ -1,3 +1,7 @@
+import { VideoTypeEnum } from './enum/VideoTypeEnum';
+
 export interface VideoApi {
-  changeSrc: (src: string) => void;
+  changeEmbeddedSrc: (src: string) => void;
+  changeUploadedSrc: (src: string) => void;
+  changeType: (type: VideoTypeEnum) => void;
 }

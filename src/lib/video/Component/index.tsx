@@ -22,18 +22,17 @@
 
 import * as React from 'react';
 import { VideoProps } from './../types/component';
+import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
 
-export interface VideoState {
-  src: string;
-}
+export interface VideoState {}
 
 class Video extends React.PureComponent<VideoProps, VideoState> {
   constructor(props: VideoProps) {
     super(props);
-    this.state = {
-      src: undefined,
-    };
-    this.changeSrc = this.changeSrc.bind(this);
+    this.state = {};
+    this.changeEmbeddedSrc = this.changeEmbeddedSrc.bind(this);
+    this.changeUploadedSrc = this.changeUploadedSrc.bind(this);
+    this.changeType = this.changeType.bind(this);
   }
 
   render() {
@@ -43,11 +42,10 @@ class Video extends React.PureComponent<VideoProps, VideoState> {
         {!readOnly ? (
           <Controls
             {...this.props}
-            state={{
-              ...this.props.state,
-              src: this.state.src ? this.state.src : this.props.state.src,
-            }}
-            changeSrc={this.changeSrc}
+            state={this.props.state}
+            changeEmbeddedSrc={this.changeEmbeddedSrc}
+            changeUploadedSrc={this.changeUploadedSrc}
+            changeType={this.changeType}
           />
         ) : null}
         <Renderer {...this.props} />
@@ -55,8 +53,16 @@ class Video extends React.PureComponent<VideoProps, VideoState> {
     );
   }
 
-  private changeSrc(src: string) {
-    this.props.onChange({ src });
+  private changeEmbeddedSrc(src: string) {
+    this.props.onChange({ embeddedSrc: src });
+  }
+
+  private changeUploadedSrc(src: string) {
+    this.props.onChange({ uploadedSrc: src });
+  }
+
+  private changeType(type: VideoTypeEnum) {
+    this.props.onChange({ type });
   }
 }
 

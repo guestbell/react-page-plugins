@@ -25,15 +25,39 @@ import * as React from 'react';
 import { defaultVideoState } from '../default/state';
 import { VideoControlsProps } from '../types/controls';
 import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
+import EmbeddedIcon from '@material-ui/icons/YouTube';
+import UploadedIcon from '@material-ui/icons/PlayArrow';
 
 const Form: React.SFC<VideoControlsProps> = props => {
   const {
     focused,
     readOnly,
-    changeSrc,
+    changeType,
+    changeEmbeddedSrc,
+    changeUploadedSrc,
     remove,
-    state: { src } = defaultVideoState,
+    state: { type, embeddedSrc, uploadedSrc } = defaultVideoState,
   } = props;
+
+  const handleTabTypeChange = React.useCallback(
+    (e: React.ChangeEvent, tabType: number) => changeType(tabType),
+    [changeType]
+  );
+
+  const handleEmbeddedSrcChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      changeEmbeddedSrc(e.target.value),
+    [changeEmbeddedSrc]
+  );
+
+  const handleUploadedSrcChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      changeUploadedSrc(e.target.value),
+    [changeUploadedSrc]
+  );
 
   return !readOnly && focused ? (
     <BottomToolbar
@@ -43,13 +67,58 @@ const Form: React.SFC<VideoControlsProps> = props => {
       onDelete={remove}
       {...props}
     >
-      <TextField
-        fullWidth={true}
-        placeholder={props.translations.placeholder}
-        label={props.translations.label}
-        value={src}
-        onChange={e => changeSrc(e.target.value)}
-      />
+      <Tabs value={type} onChange={handleTabTypeChange} centered={true}>
+        {(props.enabledTypes & VideoTypeEnum.Embedded) > 0 && (
+          <Tab
+            icon={
+              <EmbeddedIcon
+                color={
+                  (type & VideoTypeEnum.Embedded) > 0 ? 'primary' : 'action'
+                }
+              />
+            }
+            label="Embedded"
+            value={VideoTypeEnum.Embedded}
+          />
+        )}
+        {(props.enabledTypes & VideoTypeEnum.Uploaded) > 0 && (
+          <Tab
+            icon={
+              <UploadedIcon
+                color={
+                  (type & VideoTypeEnum.Uploaded) > 0 ? 'primary' : 'action'
+                }
+              />
+            }
+            label="Uploaded"
+            value={VideoTypeEnum.Uploaded}
+          />
+        )}
+      </Tabs>
+      <div className="p-3">
+        {type === VideoTypeEnum.Embedded && (
+          <>
+            <TextField
+              fullWidth={true}
+              placeholder={props.translations.embeddedPlaceholder}
+              label={props.translations.embeddedLabel}
+              value={embeddedSrc}
+              onChange={handleEmbeddedSrcChange}
+            />
+          </>
+        )}
+        {type === VideoTypeEnum.Uploaded && (
+          <>
+            <TextField
+              fullWidth={true}
+              placeholder={props.translations.uploadedPlaceholder}
+              label={props.translations.uploadedLabel}
+              value={uploadedSrc}
+              onChange={handleUploadedSrcChange}
+            />
+          </>
+        )}
+      </div>
     </BottomToolbar>
   ) : null;
 };

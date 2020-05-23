@@ -28,49 +28,69 @@ import { lazyLoad } from '@react-page/core';
 
 import { VideoHtmlRendererProps } from '../types/renderer';
 import PaddingComponent from '../../common/utils/PaddingComponent';
+import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
 
 // react player is big, better lazy load it.
 const ReactPlayer = lazyLoad(() => import('react-player'));
 
 const Display: React.SFC<VideoHtmlRendererProps> = props => {
   const {
-    state: { src },
+    state: { type, embeddedSrc, uploadedSrc },
     readOnly,
   } = props;
   return (
     <PaddingComponent state={props.state}>
-      {src ? (
-        <div
-          style={{ position: 'relative', height: 0, paddingBottom: '65.25%' }}
-        >
-          {readOnly ? null : (
-            <div
+      {type === VideoTypeEnum.Embedded ? (
+        embeddedSrc ? (
+          <div
+            style={{ position: 'relative', height: 0, paddingBottom: '65.25%' }}
+          >
+            {readOnly ? null : (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 10,
+                }}
+              />
+            )}
+            <ReactPlayer
+              url={embeddedSrc}
+              height="100%"
+              width="100%"
               style={{
                 position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: 10,
+                width: '100%',
+                height: '100%',
               }}
             />
-          )}
-          <ReactPlayer
-            url={src}
-            height="100%"
+          </div>
+        ) : (
+          <div className="ory-plugins-content-video-placeholder">
+            <PlayArrow style={iconStyle} />
+          </div>
+        )
+      ) : null}
+      {uploadedSrc && type === VideoTypeEnum.Uploaded ? (
+        <div className="ory-content-plugin-html5-video">
+          <video
+            autoPlay={true}
+            controls={true}
+            loop={true}
+            muted={true}
             width="100%"
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-            }}
-          />
+            key={uploadedSrc}
+          >
+            <source
+              src={uploadedSrc}
+              type={`video/${uploadedSrc.split('.').pop()}`}
+            />
+          </video>
         </div>
-      ) : (
-        <div className="ory-plugins-content-video-placeholder">
-          <PlayArrow style={iconStyle} />
-        </div>
-      )}
+      ) : null}
     </PaddingComponent>
   );
 };

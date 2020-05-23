@@ -27,8 +27,6 @@ import background, { ModeEnum } from '../../../../lib/background/index';
 import native from '@react-page/plugins-default-native';
 // The divider plugin
 import divider from '../../../../lib/divider';
-// The html5-video plugin
-import htmlVideo from '../../../../lib/htmlVideo/index';
 // The image plugin
 import { imagePlugin } from '../../../../lib/image/index';
 // The spacer plugin
@@ -47,7 +45,6 @@ export const plugins: Plugins = {
     imagePlugin({ theme: muiTheme }),
     video({ theme: muiTheme }),
     divider({ theme: muiTheme }),
-    htmlVideo({ theme: muiTheme }),
   ],
   layout: [
     background({

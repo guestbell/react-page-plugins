@@ -1,5 +1,8 @@
 import { PaddingState } from '../../common/types/padding/PaddingState';
+import { VideoTypeEnum } from './enum/VideoTypeEnum';
 
 export interface VideoState extends PaddingState {
-  src: string;
+  embeddedSrc: string;
+  uploadedSrc: string;
+  type: VideoTypeEnum;
 }
