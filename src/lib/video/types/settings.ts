@@ -13,4 +13,5 @@ export interface VideoSettings {
   IconComponent?: React.ReactNode;
   theme?: Theme;
   enabledTypes?: VideoTypeEnum;
+  defaultType?: VideoTypeEnum;
 }

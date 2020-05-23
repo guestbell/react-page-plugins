@@ -39,7 +39,11 @@ const Form: React.SFC<VideoControlsProps> = props => {
     changeEmbeddedSrc,
     changeUploadedSrc,
     remove,
-    state: { type, embeddedSrc, uploadedSrc } = defaultVideoState,
+    state: {
+      type = props.defaultType,
+      embeddedSrc,
+      uploadedSrc,
+    } = defaultVideoState,
   } = props;
 
   const handleTabTypeChange = React.useCallback(

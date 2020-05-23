@@ -24,4 +24,5 @@ export const defaultSettings: VideoSettings = {
   translations: defaultTranslations,
   IconComponent: <PlayArrow />,
   enabledTypes: VideoTypeEnum.Embedded | VideoTypeEnum.Uploaded,
+  defaultType: VideoTypeEnum.Embedded,
 };

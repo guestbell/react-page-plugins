@@ -29,13 +29,18 @@ import { lazyLoad } from '@react-page/core';
 import { VideoHtmlRendererProps } from '../types/renderer';
 import PaddingComponent from '../../common/utils/PaddingComponent';
 import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
+import { defaultVideoState } from '../default/state';
 
 // react player is big, better lazy load it.
 const ReactPlayer = lazyLoad(() => import('react-player'));
 
 const Display: React.SFC<VideoHtmlRendererProps> = props => {
   const {
-    state: { type, embeddedSrc, uploadedSrc },
+    state: {
+      type = props.defaultType,
+      embeddedSrc,
+      uploadedSrc,
+    } = defaultVideoState,
     readOnly,
   } = props;
   return (
