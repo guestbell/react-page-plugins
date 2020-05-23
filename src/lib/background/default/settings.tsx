@@ -31,7 +31,7 @@ export const defaultSettings: Partial<BackgroundSettings> = {
   defaultGradientSecondaryColor: { r: 71, g: 245, b: 87, a: 1 },
   defaultMode: 1,
   defaultModeFlag: 1,
-  defaultDarken: 0.1,
+  defaultDarken: 0,
   defaultLighten: 0,
   defaultHasPadding: false,
   defaultIsParallax: true,
