@@ -79,22 +79,28 @@ const Display: React.SFC<VideoHtmlRendererProps> = props => {
           </div>
         )
       ) : null}
-      {uploadedSrc && type === VideoTypeEnum.Uploaded ? (
-        <div className="ory-content-plugin-html5-video">
-          <video
-            autoPlay={true}
-            controls={true}
-            loop={true}
-            muted={true}
-            width="100%"
-            key={uploadedSrc}
-          >
-            <source
-              src={uploadedSrc}
-              type={`video/${uploadedSrc.split('.').pop()}`}
-            />
-          </video>
-        </div>
+      {type === VideoTypeEnum.Uploaded ? (
+        uploadedSrc ? (
+          <div className="ory-content-plugin-html5-video">
+            <video
+              autoPlay={true}
+              controls={true}
+              loop={true}
+              muted={true}
+              width="100%"
+              key={uploadedSrc}
+            >
+              <source
+                src={uploadedSrc}
+                type={`video/${uploadedSrc.split('.').pop()}`}
+              />
+            </video>
+          </div>
+        ) : (
+          <div className="ory-plugins-content-video-placeholder">
+            <PlayArrow style={iconStyle} />
+          </div>
+        )
       ) : null}
     </PaddingComponent>
   );
