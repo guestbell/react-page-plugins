@@ -109,8 +109,7 @@ class BackgroundControls extends React.Component<
               />
             )}
           </Tabs>
-          {this.renderUI()}
-          <br />
+          <div className="py-3">{this.renderUI()}</div>
           <div style={{ display: 'flex' }}>
             <div style={{ flex: '1', marginRight: '8px' }}>
               <Typography variant="body1" id="linear-gradient-darken-label">
@@ -152,6 +151,7 @@ class BackgroundControls extends React.Component<
             </div>
           </div>
           <div style={{ display: 'flex' }}>
+            {this.renderModeSwitch()}
             <FormControlLabel
               control={
                 <Switch
@@ -209,7 +209,6 @@ class BackgroundControls extends React.Component<
       case ModeEnum.COLOR_MODE_FLAG:
         return (
           <React.Fragment>
-            {this.renderModeSwitch()}
             <ColorComponent
               {...this.props}
               ensureModeOn={this.ensureModeOn(ModeEnum.COLOR_MODE_FLAG)}
@@ -223,7 +222,6 @@ class BackgroundControls extends React.Component<
       case ModeEnum.GRADIENT_MODE_FLAG:
         return (
           <React.Fragment>
-            {this.renderModeSwitch()}
             <LinearGradientComponent
               {...this.props}
               ensureModeOn={this.ensureModeOn(ModeEnum.GRADIENT_MODE_FLAG)}
@@ -254,7 +252,6 @@ class BackgroundControls extends React.Component<
       default:
         return (
           <React.Fragment>
-            {this.renderModeSwitch()}
             <ImageComponent
               {...this.props}
               ensureModeOn={this.ensureModeOn(ModeEnum.IMAGE_MODE_FLAG)}

@@ -199,7 +199,7 @@ class LinearGradientComponent extends React.Component<
                   aria-labelledby="linear-gradient-degree-label"
                   value={deg}
                   onChange={this.handleChangeDegPreview(i)}
-                  onDragEnd={this.handleChangeDeg(i, deg)}
+                  onChangeCommitted={this.handleChangeDeg(i, deg)}
                   step={5}
                   min={0}
                   max={360}
@@ -214,7 +214,7 @@ class LinearGradientComponent extends React.Component<
                   aria-labelledby="linear-gradient-opacity-label"
                   value={opacity}
                   onChange={this.handleChangeOpacityPreview(i)}
-                  onDragEnd={this.handleChangeOpacity(i, opacity)}
+                  onChangeCommitted={this.handleChangeOpacity(i, opacity)}
                   step={0.01}
                   min={0}
                   max={1}
