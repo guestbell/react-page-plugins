@@ -98,7 +98,7 @@ const allHotkeys = { ...MARK_HOTKEYS };
 
 type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
 
-const SlateEditor: React.FC<SlateEditorProps> = (props) => {
+const SlateEditor: React.FC<SlateEditorProps> = props => {
   const { classes, migrations, extraToolbarButtons, version } = props;
   const editor: ReactEditor = React.useRef(
     withHistory<ReactEditor>(
@@ -145,7 +145,7 @@ const SlateEditor: React.FC<SlateEditorProps> = (props) => {
     if (
       !value ||
       !Array.isArray(value) ||
-      !value.every((node) => Node.isNode(node))
+      !value.every(node => Node.isNode(node))
     ) {
       newValue = slateEmptyValue();
       isDirty = true;
@@ -207,14 +207,14 @@ const SlateEditor: React.FC<SlateEditorProps> = (props) => {
               <FontSizeButton />
               <AlignmentButtons />
               {/*<ListButtons />*/}
-              <LinkButton />
+              {/*<LinkButton />*/}
               {extraToolbarButtons}
             </div>
             <Editable
               className={classNames(classes.editable)}
               renderLeaf={renderLeaf}
               renderElement={renderElement}
-              onKeyDown={(event) => {
+              onKeyDown={event => {
                 if (!allowNewChar) {
                   if (!(event.keyCode === 8 || event.keyCode === 46)) {
                     event.preventDefault();
