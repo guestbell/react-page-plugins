@@ -5,8 +5,8 @@ export interface FontSizePluginConfig {
 }
 
 export const defaultConfig: FontSizePluginConfig = {
-  allowedFontSizes: [1, 2, 3, 4, 5],
-  fontSizesNames: { 1: '70%', 2: '85%', 3: '100%', 4: '125%', 5: '150%' },
+  allowedFontSizes: [1, 3, 4],
+  fontSizesNames: { 1: '70%', 2: '85%', 3: '100%', 4: '130%', 5: '150%' },
   fontSizesStyle: {
     1: '0.75rem',
     2: '0.875rem',
