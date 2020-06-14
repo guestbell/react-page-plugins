@@ -20,7 +20,6 @@ import {
 import { HoveringToolbar } from '../../../slate/Controls/hoveringToolbar/HoveringToolbar';
 import FontSizeButton from '../../../slate/plugins/fontSize/FontSizeButton';
 import { AlignmentButtons } from '../../../slate/plugins/alignment/AlignmentButtons';
-import { LinkButton } from '../../../slate/plugins/links/LinkButton';
 import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButton';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
@@ -266,7 +265,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 <EmphasizeButton type={EmphasizeTypes.Bold} />
                 <EmphasizeButton type={EmphasizeTypes.Italic} />
                 <EmphasizeButton type={EmphasizeTypes.Underline} />
-                <LinkButton />
+                {/*<LinkButton />*/}
                 <ColorButton />
               </HoveringToolbar>
             )}
