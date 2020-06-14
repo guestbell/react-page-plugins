@@ -176,15 +176,19 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
 
   const onChange = React.useCallback(
     (val: Node[]) => {
-      const newValue: SlateValue = val;
-      setValue(newValue);
-      props.onChange({
-        value: newValue,
-        isValid: allowNewChar,
-        isDirty: true,
-      });
+      // This might possibly be stupid but right now, it triggers on every focus which causes
+      // problems with re-rendering components and losing focus in modals (link, color)
+      if (JSON.stringify(value) !== JSON.stringify(val)) {
+        const newValue: SlateValue = val;
+        setValue(newValue);
+        props.onChange({
+          value: newValue,
+          isValid: allowNewChar,
+          isDirty: true,
+        });
+      }
     },
-    [props.onChange]
+    [props.onChange, value]
   );
 
   return (

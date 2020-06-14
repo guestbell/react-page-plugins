@@ -34,19 +34,25 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
     setOpen(false);
   };
 
-  const clearLink = () => {
-    editor.selection = selection;
-    editor.exec({ type: LinkCommands.RemoveLink });
-    handleClose();
-  };
-
-  const commitLink = () => {
-    if (url) {
+  const clearLink = React.useCallback(
+    (e: React.MouseEvent) => {
       editor.selection = selection;
-      editor.exec({ type: LinkCommands.InsertLink, url });
-    }
-    handleClose();
-  };
+      editor.exec({ type: LinkCommands.RemoveLink });
+      handleClose();
+    },
+    [selection]
+  );
+
+  const commitLink = React.useCallback(
+    (e: React.MouseEvent) => {
+      if (url) {
+        editor.selection = selection;
+        editor.exec({ type: LinkCommands.InsertLink, url });
+      }
+      handleClose();
+    },
+    [url, selection]
+  );
 
   React.useEffect(() => {
     setUrl(storedUrl);
@@ -60,7 +66,12 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
         icon={<LinkIcon />}
         title="Link"
       />
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        disableEnforceFocus={true}
+        disableAutoFocus={true}
+      >
         <DialogContent>
           <TextField label="Link url" onChange={changeColor} value={url} />
         </DialogContent>
