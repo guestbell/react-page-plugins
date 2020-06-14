@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, RootState } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 import IconButton from '@material-ui/core/IconButton';
-import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
+import PanoramaIcon from '@material-ui/icons/Panorama';
 import { Dispatch, bindActionCreators } from 'redux';
 import {
   ComponetizedCell,
@@ -37,9 +37,9 @@ const SelectParentButton: React.FC<SelectParentButtonProps> = props => {
       className="bottomToolbar__selectParentButton"
       onClick={onClick}
       color="default"
-      title="Select parent"
+      title="Select background"
     >
-      <VerticalAlignTopIcon />
+      <PanoramaIcon />
     </IconButton>
   ) : null;
 };
