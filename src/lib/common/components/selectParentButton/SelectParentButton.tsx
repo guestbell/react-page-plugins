@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, RootState } from '@react-page/core';
 import { createStructuredSelector } from 'reselect';
 import IconButton from '@material-ui/core/IconButton';
-import PanoramaIcon from '@material-ui/icons/Panorama';
+import SelectAll from '@material-ui/icons/SelectAll';
 import { Dispatch, bindActionCreators } from 'redux';
 import {
   ComponetizedCell,
@@ -39,7 +39,7 @@ const SelectParentButton: React.FC<SelectParentButtonProps> = props => {
       color="default"
       title="Select background"
     >
-      <PanoramaIcon />
+      <SelectAll />
     </IconButton>
   ) : null;
 };
