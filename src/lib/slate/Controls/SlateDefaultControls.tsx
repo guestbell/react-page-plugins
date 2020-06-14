@@ -31,7 +31,6 @@ import { List } from '../plugins/lists/List';
 import { withLists } from '../plugins/lists/withLists';
 import { ListButtons } from '../plugins/lists/ListButtons';
 import { withFontSizes, addFontSizeStyles } from '../plugins/fontSize';
-import FontSizeButton from '../plugins/fontSize/FontSizeButton';
 import ColorButton from '../plugins/color/ColorButton';
 import { withColors } from '../plugins/color/withColors';
 import { ColorElement } from '../plugins/color/ColorElement';
@@ -194,7 +193,7 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
                 {...props}
               >
                 <HeadingButtonCompact />
-                <FontSizeButton />
+                {/*<FontSizeButton />*/}
                 <ColorButton />
                 <AlignmentButtons />
                 <ListButtons />
