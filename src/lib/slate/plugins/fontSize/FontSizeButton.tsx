@@ -20,10 +20,10 @@ const FormatSizeIcon = lazyLoad(() => import('@material-ui/icons/TextFields'));
 
 const styles = ({ palette }: Theme) =>
   createStyles({
-    selected: {
+    /*selected: {
       backgroundColor: `${palette.primary.main} !important`,
       color: `${palette.getContrastText(palette.primary.main)} !important`,
-    },
+    },*/
   });
 
 type FontSizeButtonProps = FontSizeButtonCustomProps &
@@ -67,7 +67,6 @@ const FontSizeButtonRaw: React.FC<FontSizeButtonProps> = props => {
             key={fontSize}
             value={fontSize}
             onClick={handleMenuItemClick(fontSize)}
-            classes={{ selected: props.classes.selected }}
           >
             {(config.fontSizesNames && config.fontSizesNames[fontSize]) ||
               fontSize}
