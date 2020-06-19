@@ -72,16 +72,16 @@ const PaddingButton: React.FC<PaddingButtonProps> = props => {
   const onSpaceAboveChange = React.useCallback(
     val => {
       setSpaceAbove(val);
-      updateCell({ above: val, below: spaceBelow });
+      updateCell({ above: val });
     },
-    [spaceBelow, updateCell]
+    [updateCell]
   );
   const onSpaceBelowChange = React.useCallback(
     val => {
       setSpaceBelow(val);
-      updateCell({ above: spaceAbove, below: val });
+      updateCell({ below: val });
     },
-    [spaceAbove, updateCell]
+    [updateCell]
   );
 
   const onCancelClick = React.useCallback(() => {
