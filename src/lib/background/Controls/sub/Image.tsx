@@ -35,7 +35,7 @@ class ImageComponent extends React.Component<BgImageComponentProps> {
 
   render() {
     const {
-      state: { isParallax = true },
+      state: { isParallax = this.props.defaultIsParallax },
     } = this.props;
     return (
       <div>

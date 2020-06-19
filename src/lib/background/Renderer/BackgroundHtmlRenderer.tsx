@@ -9,7 +9,7 @@ const getStyles = (props: BackgroundRendererProps) => {
     state: {
       bgImage,
       modeFlag = props.defaultModeFlag,
-      isParallax = true,
+      isParallax = props.defaultIsParallax,
       backgroundColor = props.defaultBackgroundColor,
       gradients = [],
     },
