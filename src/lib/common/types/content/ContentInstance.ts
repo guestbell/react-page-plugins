@@ -7,4 +7,5 @@ export interface ContentInstance {
   lang: string;
   data: string | SlateValue | EditableType;
   useDefault: boolean;
+  isValid: boolean;
 }
