@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import { HeadingButton } from './HeadingButton';
 import { HeadingLevels } from './headingLevels';
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import SlateButton from '../../Controls/buttons/SlateButton';
-import { isQuoteActive, QuoteCommands } from './withQuotes';
-import { lazyLoad } from '@react-page/core';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
+import { isQuoteActive } from './withQuotes';
+import { lazyLoad } from '@react-page/editor';
 
 export interface QuoteButtonProps {}
 
@@ -18,7 +18,7 @@ export const QuoteButton: React.FC<QuoteButtonProps> = () => {
       isActive={isActive}
       onClick={event => {
         event.preventDefault();
-        editor.exec({ type: QuoteCommands.ToggleQuote });
+        editor.toggleQuote();
       }}
       icon={<FormatQuoteIcon />}
       title="Quote"

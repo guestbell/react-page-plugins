@@ -1,11 +1,10 @@
 // import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
 import Editor from '@react-page/editor';
-// import '@react-page/ui/lib/index.css';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 // The content state
-import contents from './contents';
-import { plugins } from './plugins';
+import { contents } from './contents';
+import { cellPlugins } from './plugins';
 // import './styles.css';
 
 if (
@@ -38,7 +37,7 @@ const elements = document.querySelectorAll<HTMLDivElement>('.editable');
 elements.forEach((element, index) => {
   ReactDOM.render(
     <KeepStateEditor
-      plugins={plugins}
+      plugins={cellPlugins}
       value={contents[index]}
       // onChange={s => console.log('on change, new state', s)}
     />,
@@ -48,6 +47,6 @@ elements.forEach((element, index) => {
 
 // Render as beautified mark up (html)
 ReactDOM.render(
-  <Editor plugins={plugins} value={contents[0]} readOnly={true} />,
+  <Editor cellPlugins={cellPlugins} value={contents[0]} readOnly={true} />,
   document.getElementById('editable-static')
 );

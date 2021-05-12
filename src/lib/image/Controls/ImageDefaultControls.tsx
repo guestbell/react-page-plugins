@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { ImageControlsProps as ImageControlsCustomProps } from '../types/controls';
-import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 import ImageOrSrc from '../../common/components/imageOrSrc/ImageOrSrc';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -24,29 +23,20 @@ const modeNames = {
 
 const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
   const {
-    Renderer,
     onChange,
     readOnly,
     focused,
-    remove,
-    state: { constraintMode = ImageConstraintMode.FullWidth },
+    data: { constraintMode = ImageConstraintMode.FullWidth },
   } = props;
   const onConstraintModeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     onChange({ constraintMode: Number(e.target.value) });
   return (
     <div className="imageControls ory-prevent-blur">
-      <Renderer {...props} />
       {!readOnly && focused && (
-        <BottomToolbar
-          icon={props.IconComponent}
-          open={props.focused}
-          title={props.translations.pluginName}
-          onDelete={remove}
-          {...props}
-        >
+        <>
           <ImageOrSrc
             onChange={onChange}
-            state={props.state}
+            state={props.data}
             UploadImageField={props.UploadImageField}
           />
           <FormControl>
@@ -59,7 +49,7 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
               ))}
             </Select>
           </FormControl>
-        </BottomToolbar>
+        </>
       )}
     </div>
   );

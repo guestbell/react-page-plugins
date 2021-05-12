@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { RenderElementProps } from 'slate-react';
-import { ColorType } from './colorType';
+import { RenderLeafProps } from 'slate-react';
 
-export const ColorElement: React.FC<RenderElementProps> = ({
+export const ColorElement: React.FC<RenderLeafProps> = ({
   attributes,
   children,
-  element,
+  leaf,
 }) => {
-  if (element.type === ColorType && element.color) {
-    const color = element.color;
+  if (leaf.color) {
+    const color = leaf.color;
     return (
       <span
         {...attributes}

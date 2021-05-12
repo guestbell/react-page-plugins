@@ -6,30 +6,16 @@ import Grid from '@material-ui/core/Grid';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import * as React from 'react';
-import DraftSwitch from '../draftSwitch/DraftSwitch';
-import DuplicateButton from '../duplicateButton/DuplicateButton';
+import { DraftSwitch } from '../draftSwitch/DraftSwitch';
+import { DuplicateButton } from '../duplicateButton/DuplicateButton';
 import { SlideProps } from '@material-ui/core/Slide';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import PaddingButton from '../paddingButton/PaddingButton';
-import SelectParentButton from '../selectParentButton/SelectParentButton';
+import { PaddingButton } from '../paddingButton/PaddingButton';
+import { SelectParentButton } from '../selectParentButton/SelectParentButton';
 import classNames from 'classnames';
 import DeleteButton from '../deleteButton/DeleteButton';
-
-export interface BottomToolbarProps {
-  open?: boolean;
-
-  children?: Object;
-  className?: string;
-  title?: string;
-  anchor?: 'top' | 'bottom' | 'left' | 'right';
-  onDelete?: () => void;
-  // tslint:disable-next-line:no-any
-  icon?: any;
-  // FIXME: seems like we use more and more information about the current cell. we should refactor this
-  id: string;
-  editable?: string;
-}
+import Portal from '@material-ui/core/Portal';
+import { makeStyles } from '@material-ui/core';
+import { BottomToolbarProps, usePluginOfCell } from '@react-page/editor';
 
 const drawerSlideProps: Partial<SlideProps> = {
   unmountOnExit: true,
@@ -44,99 +30,90 @@ const drawerPaperProps: Partial<PaperProps> = {
   },
 };
 
-const styles = (theme: Theme) =>
-  createStyles({
-    childrenContainer: {
-      // width: '100%',
-      // overflow: 'auto',
-    },
-    paper: {
-      pointerEvents: 'all',
-      borderRadius: '4px 4px 0 0',
-      padding: '1rem',
-      paddingBottom: '0.5rem',
-      paddingTop: '0.5rem',
-      margin: 'auto',
-      // boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
-      position: 'relative',
-      maxWidth: 'calc(100vw - 2rem)',
-    },
-    divider: {
-      marginLeft: '-1rem',
-      marginRight: '-1rem',
-      marginTop: '0.5rem',
-      marginBottom: '0.5rem',
-    },
-    avatar: {
-      marginRight: 'auto',
-    },
-    bottomGrid: {
-      overflow: 'auto',
-    },
-    pluginName: {
-      marginRight: 'auto',
-    },
-  });
+const useStyles = makeStyles((theme: Theme) => ({
+  childrenContainer: {
+    // width: '100%',
+    // overflow: 'auto',
+  },
+  paper: {
+    pointerEvents: 'all',
+    borderRadius: '4px 4px 0 0',
+    padding: '1rem',
+    paddingBottom: '0.5rem',
+    paddingTop: '0.5rem',
+    margin: 'auto',
+    // boxShadow: '0px 1px 8px -1px rgba(0,0,0,0.4)',
+    position: 'relative',
+    maxWidth: 'calc(100vw - 2rem)',
+  },
+  divider: {
+    marginLeft: '-1rem',
+    marginRight: '-1rem',
+    marginTop: '0.5rem',
+    marginBottom: '0.5rem',
+  },
+  avatar: {
+    marginRight: 'auto',
+  },
+  bottomGrid: {
+    overflow: 'auto',
+  },
+  pluginName: {
+    marginRight: 'auto',
+  },
+}));
 
-const BottomToolbar: React.FC<BottomToolbarProps &
-  WithStyles<typeof styles>> = ({
+const BottomToolbar: React.FC<BottomToolbarProps> = ({
   open = false,
   children,
   className,
-  classes: {
-    avatar,
-    divider,
-    paper,
-    childrenContainer,
-    bottomGrid,
-    pluginName,
-  },
   anchor = 'bottom',
-  onDelete = null,
-  title,
-  icon = null,
-  id,
-  editable,
+  pluginControls,
+  nodeId,
 }) => {
+  const { paper, avatar, bottomGrid, childrenContainer, divider } = useStyles();
+  const { title, icon } = usePluginOfCell(nodeId) ?? {};
   return (
-    <Drawer
-      SlideProps={drawerSlideProps}
-      variant="persistent"
-      className={className}
-      open={open}
-      anchor={anchor}
-      PaperProps={drawerPaperProps}
-    >
-      <Paper className={classNames(paper, 'bottomToolbar')}>
-        <div className={childrenContainer}>{children}</div>
-        {React.Children.count(children) > 0 && <Divider className={divider} />}
-        <Grid
-          container={true}
-          direction="row"
-          alignItems="center"
-          wrap="nowrap"
-          className={bottomGrid}
-        >
-          {icon || title ? (
-            <Avatar
-              children={icon || (title ? title[0] : '')}
-              className={avatar}
-            />
-          ) : null}
-          {/*<Typography variant="subtitle1" className={pluginName}>
-            {title}
-          </Typography>*/}
-          <DraftSwitch id={id} editable={editable} />
-          <PaddingButton id={id} editable={editable} />
-          <SelectParentButton id={id} editable={editable} />
-          <DuplicateButton id={id} editable={editable} />
-          <DeleteButton onDelete={onDelete} />
-        </Grid>
-      </Paper>
-    </Drawer>
+    <Portal>
+      <Drawer
+        SlideProps={drawerSlideProps}
+        variant="persistent"
+        className={className}
+        open={open}
+        anchor={anchor}
+        PaperProps={drawerPaperProps}
+      >
+        <Paper className={classNames(paper, 'bottomToolbar')}>
+          <div className={childrenContainer}>
+            {children}
+            {pluginControls}
+          </div>
+          {React.Children.count(children) > 0 && (
+            <Divider className={divider} />
+          )}
+          <Grid
+            container={true}
+            direction="row"
+            alignItems="center"
+            wrap="nowrap"
+            className={bottomGrid}
+          >
+            {icon || title ? (
+              <Avatar
+                children={icon || (title ? title[0] : '')}
+                className={avatar}
+              />
+            ) : null}
+            <DraftSwitch nodeId={nodeId} />
+            <PaddingButton nodeId={nodeId} />
+            <SelectParentButton nodeId={nodeId} />
+            <DuplicateButton nodeId={nodeId} />
+            <DeleteButton nodeId={nodeId} />
+          </Grid>
+        </Paper>
+      </Drawer>
+    </Portal>
   );
 };
 
-export default withStyles(styles)(BottomToolbar) as React.FC<
-  BottomToolbarProps
->;
+export default BottomToolbar;

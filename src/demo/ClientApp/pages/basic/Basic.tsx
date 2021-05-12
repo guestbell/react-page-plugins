@@ -1,9 +1,7 @@
-import '@react-page/core/lib/index.css'; // we also want to load the stylesheets
-import '@react-page/ui/lib/index.css';
 import * as React from 'react';
 // The content state
-import contents from './contents';
-import { plugins } from './plugins';
+import { contents } from './contents';
+import { cellPlugins } from './plugins';
 import './styles.scss';
 import SlateEditor, {
   SlateEditorOnChangeHandler,
@@ -13,8 +11,10 @@ import SlateRenderer from '../../../../lib/common/components/slateRenderer/Slate
 import rules from '../../../../lib/common/components/slateRenderer/rules';
 import { Button } from 'guestbell-forms/build/components/button/Button';
 import migrations from '../../../../lib/common/slateMigrations/migrations';
-import Editor from '@react-page/editor';
-import { HTMLRenderer } from '@react-page/renderer';
+import Editor, { ValueWithLegacy } from '@react-page/editor';
+import { SlateValue } from 'build/common/types/slate/SlateValue';
+import BottomToolbar from '../../../../lib/common/components/bottomToolbar/BottomToolbar';
+import { Components } from '@react-page/editor/lib/core/types/components';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -32,9 +32,13 @@ if (
 
 export interface BasicProps {}
 
+const components: Components = {
+  BottomToolbar: props => <BottomToolbar {...props} />,
+};
+
 export const Basic: React.FC<BasicProps> = props => {
   // tslint:disable-next-line: no-any
-  const [value, setValue] = React.useState<any>([
+  const [value, setValue] = React.useState<SlateValue>([
     {
       type: 'PARAGRAPH',
       children: [
@@ -48,7 +52,7 @@ export const Basic: React.FC<BasicProps> = props => {
   const resetValue = () => {
     setValue(slateEmptyValue());
   };
-  const [content, setContent] = React.useState(contents);
+  const [content, setContent] = React.useState<ValueWithLegacy>(contents);
   return (
     <div className="container">
       <SlateEditor
@@ -58,8 +62,9 @@ export const Basic: React.FC<BasicProps> = props => {
         label="Slate editor"
         maxChars={100}
         migrations={migrations}
+        className="freeStandingEditor"
       />
-      {false && <pre>{JSON.stringify(value, null, 1)}</pre>}
+      {true && <pre>{JSON.stringify(value, null, 1)}</pre>}
       <h3>Pure render</h3>
       <div className="p-3">
         <SlateRenderer
@@ -73,16 +78,16 @@ export const Basic: React.FC<BasicProps> = props => {
       </Button>
       {false && <pre>{JSON.stringify(content, null, 1)}</pre>}
       <Editor
-        plugins={plugins}
-        defaultPlugin={plugins.content.find(
-          c => c.name === 'ory/editor/core/content/slate'
-        )}
+        cellPlugins={cellPlugins}
         value={content}
-        onChange={s => setContent(s)}
+        onChange={setContent}
         allowMoveInEditMode={true}
         allowResizeInEditMode={true}
+        components={components}
       />
-      <HTMLRenderer plugins={plugins} state={content} />
+      {false && (
+        <Editor cellPlugins={cellPlugins} value={content} readOnly={true} />
+      )}
       {/*<pre>{JSON.stringify(content, null, 2)}</pre>*/}
     </div>
   );

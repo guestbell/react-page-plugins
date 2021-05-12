@@ -13,166 +13,55 @@ import Typography from '@material-ui/core/Typography';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundControlsProps } from '../types/controls';
 import Slider from '@material-ui/core/Slider';
-import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
+import {
+  useBackgroundApi,
+  useBackgroundPreviewState,
+} from '../Provider/BackgroundProvider';
 
 export interface BackgroundControlsState {
   mode: ModeEnum;
 }
 
-class BackgroundControls extends React.Component<
-  BackgroundControlsProps,
-  BackgroundControlsState
-> {
-  constructor(props: BackgroundControlsProps) {
-    super(props);
-    this.state = {
-      mode: props.defaultMode,
-    };
-  }
+const containerStyles: React.CSSProperties = {
+  paddingLeft: 8,
+  paddingRight: 8,
+};
 
-  public render() {
-    const {
-      focused,
-      remove,
-      state: {
-        hasPadding = this.props.defaultHasPadding,
-        modeFlag = this.props.defaultModeFlag,
-        darken = this.props.defaultDarken,
-        lighten = this.props.defaultLighten,
-      },
-    } = this.props;
-    let darkenFinal =
-      this.props.darkenPreview !== undefined
-        ? this.props.darkenPreview
-        : darken;
-    let lightenFinal =
-      this.props.lightenPreview !== undefined
-        ? this.props.lightenPreview
-        : lighten;
-    return (
-      <div className="backgroundControls">
-        <BottomToolbar
-          open={focused}
-          title={this.props.translations.pluginName}
-          icon={this.props.IconComponent}
-          onDelete={remove}
-          {...this.props}
-        >
-          <Tabs
-            value={this.state.mode}
-            onChange={this.handleChangeMode}
-            centered={true}
-          >
-            {(this.props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
-              <Tab
-                icon={
-                  <ImageIcon
-                    color={
-                      (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
-                        ? 'primary'
-                        : 'action'
-                    }
-                  />
-                }
-                label="Image"
-                value={ModeEnum.IMAGE_MODE_FLAG}
-              />
-            )}
-            {(this.props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
-              <Tab
-                icon={
-                  <ColorIcon
-                    color={
-                      (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
-                        ? 'primary'
-                        : 'action'
-                    }
-                  />
-                }
-                label="Color"
-                value={ModeEnum.COLOR_MODE_FLAG}
-              />
-            )}
-            {(this.props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
-              <Tab
-                icon={
-                  <GradientIcon
-                    color={
-                      (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
-                        ? 'primary'
-                        : 'action'
-                    }
-                  />
-                }
-                label="Gradient"
-                value={ModeEnum.GRADIENT_MODE_FLAG}
-              />
-            )}
-          </Tabs>
-          <div className="py-3">{this.renderUI()}</div>
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: '1', marginRight: '8px' }}>
-              <Typography variant="body1" id="linear-gradient-darken-label">
-                Darken ({(darkenFinal * 100).toFixed(0)}
-                %)
-              </Typography>
-              <Slider
-                aria-labelledby="linear-gradient-darken-label"
-                value={darkenFinal}
-                onChange={(e, value) =>
-                  this.props.handleChangeDarkenPreview(
-                    value instanceof Array ? value[0] : value
-                  )
-                }
-                onChangeCommitted={this.props.handleChangeDarken}
-                step={0.01}
-                min={0}
-                max={1}
-              />
-            </div>
-            <div style={{ flex: '1', marginLeft: '8px' }}>
-              <Typography variant="body1" id="linear-gradient-lighten-label">
-                Lighten ({(lightenFinal * 100).toFixed(0)}
-                %)
-              </Typography>
-              <Slider
-                aria-labelledby="linear-gradient-lighten-label"
-                value={lightenFinal}
-                onChange={(e, value) =>
-                  this.props.handleChangeLightenPreview(
-                    value instanceof Array ? value[0] : value
-                  )
-                }
-                onChangeCommitted={this.props.handleChangeLighten}
-                step={0.01}
-                min={0}
-                max={1}
-              />
-            </div>
-          </div>
-          <div style={{ display: 'flex' }}>
-            {this.renderModeSwitch()}
-            <FormControlLabel
-              control={
-                <Switch
-                  onChange={this.props.handleChangeHasPadding}
-                  checked={hasPadding}
-                />
-              }
-              label="Use padding"
-            />
-          </div>
-        </BottomToolbar>
-      </div>
-    );
-  }
+const BackgroundControls: React.FC<BackgroundControlsProps> = props => {
+  const [mode, setMode] = React.useState(props.defaultMode);
+  const {
+    data: {
+      hasPadding = props.defaultHasPadding,
+      modeFlag = props.defaultModeFlag,
+      darken = props.defaultDarken,
+      lighten = props.defaultLighten,
+    },
+  } = props;
+  const previewState = useBackgroundPreviewState();
+  const {
+    handleChangeBackgroundColorPreview,
+    handleChangeDarken,
+    handleChangeDarkenPreview,
+    handleChangeGradientColorPreview,
+    handleChangeGradientDegPreview,
+    handleChangeGradientOpacityPreview,
+    handleChangeHasPadding,
+    handleChangeLighten,
+    handleChangeLightenPreview,
+    handleChangeModeSwitch,
+  } = useBackgroundApi();
+  let darkenFinal =
+    previewState.darkenPreview !== undefined
+      ? previewState.darkenPreview
+      : darken;
+  let lightenFinal =
+    previewState.lightenPreview !== undefined
+      ? previewState.lightenPreview
+      : lighten;
 
-  renderModeSwitch = () => {
-    const {
-      state: { modeFlag = this.props.defaultModeFlag },
-    } = this.props;
+  const ModeSwitch = React.useCallback(() => {
     let label = 'ON/OFF';
-    switch (this.state.mode) {
+    switch (mode) {
       case ModeEnum.COLOR_MODE_FLAG:
         // label = 'Use color'
         break;
@@ -191,31 +80,37 @@ class BackgroundControls extends React.Component<
         <FormControlLabel
           control={
             <Switch
-              onChange={this.props.handleChangeModeSwitch(
-                this.state.mode,
-                modeFlag
-              )}
-              checked={Boolean(modeFlag & this.state.mode)}
+              onChange={handleChangeModeSwitch(mode, modeFlag)}
+              checked={Boolean(modeFlag & mode)}
             />
           }
           label={label}
         />
       </>
     );
-  };
+  }, [modeFlag, mode, handleChangeModeSwitch]);
 
-  renderUI = () => {
-    switch (this.state.mode) {
+  const ensureModeOn = React.useCallback(
+    (mode: ModeEnum) => () => {
+      if ((modeFlag & mode) === 0) {
+        handleChangeModeSwitch(mode, modeFlag)();
+      }
+    },
+    [handleChangeModeSwitch, modeFlag]
+  );
+
+  const renderUI = () => {
+    switch (mode) {
       case ModeEnum.COLOR_MODE_FLAG:
         return (
           <React.Fragment>
             <ColorComponent
-              {...this.props}
-              ensureModeOn={this.ensureModeOn(ModeEnum.COLOR_MODE_FLAG)}
+              {...props}
+              ensureModeOn={ensureModeOn(ModeEnum.COLOR_MODE_FLAG)}
               onChangeBackgroundColorPreview={
-                this.props.handleChangeBackgroundColorPreview
+                handleChangeBackgroundColorPreview
               }
-              backgroundColorPreview={this.props.backgroundColorPreview}
+              backgroundColorPreview={previewState.backgroundColorPreview}
             />
           </React.Fragment>
         );
@@ -223,28 +118,24 @@ class BackgroundControls extends React.Component<
         return (
           <React.Fragment>
             <LinearGradientComponent
-              {...this.props}
-              ensureModeOn={this.ensureModeOn(ModeEnum.GRADIENT_MODE_FLAG)}
-              gradientDegPreview={this.props.gradientDegPreview}
-              gradientDegPreviewIndex={this.props.gradientDegPreviewIndex}
-              gradientOpacityPreview={this.props.gradientOpacityPreview}
+              {...props}
+              ensureModeOn={ensureModeOn(ModeEnum.GRADIENT_MODE_FLAG)}
+              gradientDegPreview={previewState.gradientDegPreview}
+              gradientDegPreviewIndex={previewState.gradientDegPreviewIndex}
+              gradientOpacityPreview={previewState.gradientOpacityPreview}
               gradientOpacityPreviewIndex={
-                this.props.gradientOpacityPreviewIndex
+                previewState.gradientOpacityPreviewIndex
               }
-              gradientColorPreview={this.props.gradientColorPreview}
-              gradientColorPreviewIndex={this.props.gradientColorPreviewIndex}
+              gradientColorPreview={previewState.gradientColorPreview}
+              gradientColorPreviewIndex={previewState.gradientColorPreviewIndex}
               gradientColorPreviewColorIndex={
-                this.props.gradientColorPreviewColorIndex
+                previewState.gradientColorPreviewColorIndex
               }
-              onChangeGradientDegPreview={
-                this.props.handleChangeGradientDegPreview
-              }
+              onChangeGradientDegPreview={handleChangeGradientDegPreview}
               onChangeGradientOpacityPreview={
-                this.props.handleChangeGradientOpacityPreview
+                handleChangeGradientOpacityPreview
               }
-              onChangeGradientColorPreview={
-                this.props.handleChangeGradientColorPreview
-              }
+              onChangeGradientColorPreview={handleChangeGradientColorPreview}
             />
           </React.Fragment>
         );
@@ -253,25 +144,119 @@ class BackgroundControls extends React.Component<
         return (
           <React.Fragment>
             <ImageComponent
-              {...this.props}
-              ensureModeOn={this.ensureModeOn(ModeEnum.IMAGE_MODE_FLAG)}
+              {...props}
+              ensureModeOn={ensureModeOn(ModeEnum.IMAGE_MODE_FLAG)}
             />
           </React.Fragment>
         );
     }
   };
 
-  ensureModeOn = (mode: ModeEnum) => () => {
-    const {
-      state: { modeFlag = this.props.defaultModeFlag },
-    } = this.props;
-    if ((modeFlag & mode) === 0) {
-      this.props.handleChangeModeSwitch(mode, modeFlag)();
-    }
-  };
-
-  handleChangeMode = (e: React.ChangeEvent, mode: number) =>
-    this.setState({ mode });
-}
+  const handleChangeMode = React.useCallback(
+    (e: React.ChangeEvent, mode: number) => setMode(mode),
+    []
+  );
+  return (
+    <div className="backgroundControls" style={containerStyles}>
+      <Tabs value={mode} onChange={handleChangeMode} centered={true}>
+        {(props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
+          <Tab
+            icon={
+              <ImageIcon
+                color={
+                  (modeFlag & ModeEnum.IMAGE_MODE_FLAG) > 0
+                    ? 'primary'
+                    : 'action'
+                }
+              />
+            }
+            label="Image"
+            value={ModeEnum.IMAGE_MODE_FLAG}
+          />
+        )}
+        {(props.enabledModes & ModeEnum.COLOR_MODE_FLAG) > 0 && (
+          <Tab
+            icon={
+              <ColorIcon
+                color={
+                  (modeFlag & ModeEnum.COLOR_MODE_FLAG) > 0
+                    ? 'primary'
+                    : 'action'
+                }
+              />
+            }
+            label="Color"
+            value={ModeEnum.COLOR_MODE_FLAG}
+          />
+        )}
+        {(props.enabledModes & ModeEnum.GRADIENT_MODE_FLAG) > 0 && (
+          <Tab
+            icon={
+              <GradientIcon
+                color={
+                  (modeFlag & ModeEnum.GRADIENT_MODE_FLAG) > 0
+                    ? 'primary'
+                    : 'action'
+                }
+              />
+            }
+            label="Gradient"
+            value={ModeEnum.GRADIENT_MODE_FLAG}
+          />
+        )}
+      </Tabs>
+      <div className="py-3">{renderUI()}</div>
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: '1', marginRight: '8px' }}>
+          <Typography variant="body1" id="linear-gradient-darken-label">
+            Darken ({(darkenFinal * 100).toFixed(0)}
+            %)
+          </Typography>
+          <Slider
+            aria-labelledby="linear-gradient-darken-label"
+            value={darkenFinal}
+            onChange={(e, value) =>
+              handleChangeDarkenPreview(
+                value instanceof Array ? value[0] : value
+              )
+            }
+            onChangeCommitted={handleChangeDarken}
+            step={0.01}
+            min={0}
+            max={1}
+          />
+        </div>
+        <div style={{ flex: '1', marginLeft: '8px' }}>
+          <Typography variant="body1" id="linear-gradient-lighten-label">
+            Lighten ({(lightenFinal * 100).toFixed(0)}
+            %)
+          </Typography>
+          <Slider
+            aria-labelledby="linear-gradient-lighten-label"
+            value={lightenFinal}
+            onChange={(e, value) =>
+              handleChangeLightenPreview(
+                value instanceof Array ? value[0] : value
+              )
+            }
+            onChangeCommitted={handleChangeLighten}
+            step={0.01}
+            min={0}
+            max={1}
+          />
+        </div>
+      </div>
+      <div style={{ display: 'flex' }}>
+        <ModeSwitch />
+        <FormControlLabel
+          control={
+            <Switch onChange={handleChangeHasPadding} checked={hasPadding} />
+          }
+          label="Use padding"
+        />
+      </div>
+    </div>
+  );
+};
 
 export default BackgroundControls;

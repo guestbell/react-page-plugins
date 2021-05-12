@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import SlateButton from '../../Controls/buttons/SlateButton';
-import { isLinkActive, getLinkUrl, LinkCommands } from './withLinks';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
+import { isLinkActive, getLinkUrl } from './withLinks';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Range } from 'slate';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 
 export interface LinkButtonProps {}
 
@@ -37,7 +37,7 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
   const clearLink = React.useCallback(
     (e: React.MouseEvent) => {
       editor.selection = selection;
-      editor.exec({ type: LinkCommands.RemoveLink });
+      editor.unwrapLink();
       handleClose();
     },
     [selection]
@@ -47,7 +47,7 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
     (e: React.MouseEvent) => {
       if (url) {
         editor.selection = selection;
-        editor.exec({ type: LinkCommands.InsertLink, url });
+        editor.wrapLink(url);
       }
       handleClose();
     },

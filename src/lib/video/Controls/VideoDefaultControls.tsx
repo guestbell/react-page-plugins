@@ -24,27 +24,44 @@ import TextField from '@material-ui/core/TextField';
 import * as React from 'react';
 import { defaultVideoState } from '../default/state';
 import { VideoControlsProps } from '../types/controls';
-import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
 import EmbeddedIcon from '@material-ui/icons/YouTube';
 import UploadedIcon from '@material-ui/icons/PlayArrow';
 
-const Form: React.SFC<VideoControlsProps> = props => {
+const Form: React.FC<VideoControlsProps> = props => {
   const {
     focused,
     readOnly,
-    changeType,
-    changeEmbeddedSrc,
-    changeUploadedSrc,
-    remove,
-    state: {
+    onChange,
+    data: {
       type = props.defaultType,
       embeddedSrc,
       uploadedSrc,
     } = defaultVideoState,
   } = props;
+
+  const changeEmbeddedSrc = React.useCallback(
+    (src: string) => {
+      onChange({ embeddedSrc: src });
+    },
+    [onChange]
+  );
+
+  const changeUploadedSrc = React.useCallback(
+    (src: string) => {
+      onChange({ uploadedSrc: src });
+    },
+    [onChange]
+  );
+
+  const changeType = React.useCallback(
+    (type: VideoTypeEnum) => {
+      onChange({ type });
+    },
+    [onChange]
+  );
 
   const handleTabTypeChange = React.useCallback(
     (e: React.ChangeEvent, tabType: number) => changeType(tabType),
@@ -64,13 +81,7 @@ const Form: React.SFC<VideoControlsProps> = props => {
   );
 
   return !readOnly && focused ? (
-    <BottomToolbar
-      open={focused}
-      title={props.translations.pluginName}
-      icon={props.IconComponent}
-      onDelete={remove}
-      {...props}
-    >
+    <>
       <Tabs value={type} onChange={handleTabTypeChange} centered={true}>
         {(props.enabledTypes & VideoTypeEnum.Embedded) > 0 && (
           <Tab
@@ -123,7 +134,7 @@ const Form: React.SFC<VideoControlsProps> = props => {
           </>
         )}
       </div>
-    </BottomToolbar>
+    </>
   ) : null;
 };
 

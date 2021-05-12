@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import SlateButton from '../../Controls/buttons/SlateButton';
-import { isHeadingActive, HeadingLevels, HeadingCommands } from './';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
+import { isHeadingActive, HeadingLevels } from './';
 
 export interface HeadingButtonProps {
   icon: JSX.Element;
@@ -19,7 +19,7 @@ export const HeadingButton: React.FC<HeadingButtonProps> = ({
       isActive={isActive}
       onClick={event => {
         event.preventDefault();
-        editor.exec({ type: HeadingCommands.ToggleHeading, level });
+        editor.wrapHeading(level);
       }}
       icon={icon}
     />

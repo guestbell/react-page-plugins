@@ -1,10 +1,6 @@
 import { Editor, Transforms, Text } from 'slate';
+import { omitFirstArg } from '../../types/omitFirstArg';
 import { EmphasizeTypes } from './emphasizeTypes';
-import { ReactEditor } from 'slate-react';
-
-export const EmphasizeCommands = {
-  ToggleEmphasize: 'toggle_emphasize',
-};
 
 export const isEmphasizeActive = (editor: Editor, type: EmphasizeTypes) => {
   const [mark] = Editor.nodes(editor, {
@@ -14,29 +10,23 @@ export const isEmphasizeActive = (editor: Editor, type: EmphasizeTypes) => {
   return !!mark;
 };
 
-export const withEmphasize = (editor: ReactEditor) => {
-  const { exec } = editor;
+export const toggleEmphasis = (editor: Editor, type: EmphasizeTypes) => {
+  const isActive = isEmphasizeActive(editor, type);
+  Transforms.setNodes(
+    editor,
+    { [type]: isActive ? null : true },
+    { match: Text.isText, split: true }
+  );
+};
 
-  editor.exec = command => {
-    switch (command.type) {
-      case EmphasizeCommands.ToggleEmphasize: {
-        const { mark } = command;
-        const isActive = isEmphasizeActive(editor, mark);
-        Transforms.setNodes(
-          editor,
-          { [mark]: isActive ? null : true },
-          { match: Text.isText, split: true }
-        );
-        break;
-      }
+export interface EmphasizeEditor {
+  isEmphasizeActive: omitFirstArg<typeof isEmphasizeActive>;
+  toggleEmphasis: omitFirstArg<typeof toggleEmphasis>;
+}
 
-      default: {
-        exec(command);
-        break;
-      }
-    }
-  };
-
+export const withEmphasize = (editor: Editor) => {
+  editor.isEmphasizeActive = isEmphasizeActive.bind(null, editor);
+  editor.toggleEmphasis = toggleEmphasis.bind(null, editor);
   return editor;
 };
 

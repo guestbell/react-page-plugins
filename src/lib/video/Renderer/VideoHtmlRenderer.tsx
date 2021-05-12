@@ -24,7 +24,7 @@ import * as React from 'react';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import { iconStyle } from '../common/styles';
 
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 
 import { VideoHtmlRendererProps } from '../types/renderer';
 import PaddingComponent from '../../common/utils/PaddingComponent';
@@ -36,7 +36,7 @@ const ReactPlayer = lazyLoad(() => import('react-player'));
 
 const Display: React.SFC<VideoHtmlRendererProps> = props => {
   const {
-    state: {
+    data: {
       type = props.defaultType,
       embeddedSrc,
       uploadedSrc,
@@ -44,7 +44,7 @@ const Display: React.SFC<VideoHtmlRendererProps> = props => {
     readOnly,
   } = props;
   return (
-    <PaddingComponent state={props.state}>
+    <PaddingComponent state={props.data}>
       {type === VideoTypeEnum.Embedded ? (
         embeddedSrc ? (
           <div

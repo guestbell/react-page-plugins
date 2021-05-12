@@ -19,9 +19,9 @@ class ImageComponent extends React.Component<BgImageComponentProps> {
     this.props.ensureModeOn();
     this.props.onChange({
       isParallax:
-        this.props.state.isParallax === undefined
+        this.props.data.isParallax === undefined
           ? false
-          : !this.props.state.isParallax,
+          : !this.props.data.isParallax,
     });
   };
 
@@ -35,7 +35,7 @@ class ImageComponent extends React.Component<BgImageComponentProps> {
 
   render() {
     const {
-      state: { isParallax = this.props.defaultIsParallax },
+      data: { isParallax = this.props.defaultIsParallax },
     } = this.props;
     return (
       <div>
@@ -44,9 +44,9 @@ class ImageComponent extends React.Component<BgImageComponentProps> {
           <ImageOrSrc
             onChange={this.imageOrSrcOnChange}
             state={{
-              imageId: this.props.state.bgImageId,
-              image: this.props.state.bgImage,
-              src: this.props.state.bgSrc,
+              imageId: this.props.data.bgImageId,
+              image: this.props.data.bgImage,
+              src: this.props.data.bgSrc,
             }}
             UploadImageField={this.props.UploadImageField}
             hideSrcSetField={true}

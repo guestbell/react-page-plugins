@@ -1,41 +1,43 @@
 import * as React from 'react';
 
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import Slate from './Component';
 import { SlateSettings } from './types/settings';
-import { SlateProps } from './types/component';
 import { SlateState } from './types/state';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import { SLATE_VERSION } from '../common/constants/SlateConstants';
 import { slateEmptyValue } from '../common/components/slateEditor/slateEmptyValue';
+import { CellPlugin } from '@react-page/editor';
+import SlateProvider from './Provider/SlateProvider';
 
 const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 
+const id = 'ory/editor/core/content/slate';
+const version = 3;
+
 const createPlugin: (
   settings: SlateSettings
-) => ContentPluginConfig<SlateState> = settings => {
+) => CellPlugin<SlateState> = settings => {
   const mergedSettings = { ...defaultSettings, ...settings };
+  const { Controls, Renderer, ...rest } = mergedSettings;
   const createInitialState = () => ({
     version: SLATE_VERSION,
     value: slateEmptyValue(),
   });
-  const WrappedComponent: React.SFC<SlateProps> = props => (
-    <Slate
-      {...props}
-      {...mergedSettings}
-      createInitialState={createInitialState}
-    />
-  );
   return {
-    Component: WrappedComponent,
-    name: 'ory/editor/core/content/slate',
-    version: '0.0.3',
+    id,
+    version,
     IconComponent: <Subject />,
-    text: mergedSettings.translations.pluginName,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
+    Provider: props => <SlateProvider {...props} />,
+    Renderer: props => <Renderer {...props} {...rest} />,
+    controls: {
+      type: 'custom',
+      Component: props => <Controls {...props} {...rest} />,
+    },
     createInitialState,
-  };
+    allowClickInside: true,
+  } as CellPlugin<SlateState>;
 };
 
 export default createPlugin;

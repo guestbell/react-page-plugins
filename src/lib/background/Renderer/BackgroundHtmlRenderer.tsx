@@ -1,12 +1,18 @@
-import { colorToString } from '@react-page/ui';
+import { colorToString } from '@react-page/editor';
 import * as React from 'react';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundRendererProps } from '../types/renderer';
 import PaddingComponent from '../../common/utils/PaddingComponent';
+import { useBackgroundPreviewState } from '../Provider/BackgroundProvider';
+import { BackgroundPreviewState } from '../types/previewState';
+import { BackgroundProps } from '../types/component';
 
-const getStyles = (props: BackgroundRendererProps) => {
+const getStyles = (
+  props: BackgroundProps,
+  previewState: BackgroundPreviewState
+) => {
   const {
-    state: {
+    data: {
       bgImage,
       modeFlag = props.defaultModeFlag,
       isParallax = props.defaultIsParallax,
@@ -22,14 +28,14 @@ const getStyles = (props: BackgroundRendererProps) => {
         const firstColor = g.colors[0].color;
         const firstColorStr = colorToString(firstColor);
         const deg =
-          i === props.gradientDegPreviewIndex &&
-          props.gradientDegPreview !== undefined
-            ? props.gradientDegPreview
+          i === previewState.gradientDegPreviewIndex &&
+          previewState.gradientDegPreview !== undefined
+            ? previewState.gradientDegPreview
             : g.deg;
         const opacity =
-          i === props.gradientOpacityPreviewIndex &&
-          props.gradientOpacityPreview !== undefined
-            ? props.gradientOpacityPreview
+          i === previewState.gradientOpacityPreviewIndex &&
+          previewState.gradientOpacityPreview !== undefined
+            ? previewState.gradientOpacityPreview
             : g.opacity;
         return (
           'linear-gradient(' +
@@ -39,10 +45,10 @@ const getStyles = (props: BackgroundRendererProps) => {
             ? g.colors
                 .map((c, cpIndex) => {
                   const color =
-                    i === props.gradientColorPreviewIndex &&
-                    cpIndex === props.gradientColorPreviewColorIndex &&
-                    props.gradientColorPreview !== undefined
-                      ? props.gradientColorPreview
+                    i === previewState.gradientColorPreviewIndex &&
+                    cpIndex === previewState.gradientColorPreviewColorIndex &&
+                    previewState.gradientColorPreview !== undefined
+                      ? previewState.gradientColorPreview
                       : c.color;
                   const colorWithOpacity = {
                     ...color,
@@ -62,8 +68,8 @@ const getStyles = (props: BackgroundRendererProps) => {
   }
   if (modeFlag & ModeEnum.COLOR_MODE_FLAG) {
     const colorStr = colorToString(
-      props.backgroundColorPreview
-        ? props.backgroundColorPreview
+      previewState.backgroundColorPreview
+        ? previewState.backgroundColorPreview
         : backgroundColor
     );
     const modeStr = `linear-gradient(${colorStr}, ${colorStr})`;
@@ -75,7 +81,7 @@ const getStyles = (props: BackgroundRendererProps) => {
     };
   }
   if (modeFlag & ModeEnum.IMAGE_MODE_FLAG) {
-    const backgroundFinal = bgImage ? bgImage.src : props.state.bgSrc;
+    const backgroundFinal = bgImage ? bgImage.src : props.data.bgSrc;
     const modeStr =
       `url('${backgroundFinal}') center / cover no-repeat` +
       (isParallax ? ' fixed' : '');
@@ -89,22 +95,30 @@ const getStyles = (props: BackgroundRendererProps) => {
   return styles;
 };
 
-const BackgroundHtmlRenderer: React.SFC<BackgroundRendererProps> = props => {
+const BackgroundHtmlRenderer: React.FC<BackgroundRendererProps> = props => {
   const {
     children,
-    state: {
+    data: {
       darken = props.defaultDarken,
       lighten = props.defaultLighten,
       hasPadding = props.defaultHasPadding,
     },
   } = props;
+  const previewState = useBackgroundPreviewState();
   let darkenFinal =
-    props.darkenPreview !== undefined ? props.darkenPreview : darken;
+    previewState.darkenPreview !== undefined
+      ? previewState.darkenPreview
+      : darken;
   let lightenFinal =
-    props.lightenPreview !== undefined ? props.lightenPreview : lighten;
-  const containerStyles = getStyles(props);
+    previewState.lightenPreview !== undefined
+      ? previewState.lightenPreview
+      : lighten;
+  const containerStyles = React.useMemo(() => getStyles(props, previewState), [
+    props,
+    previewState,
+  ]);
   return (
-    <PaddingComponent state={props.state}>
+    <PaddingComponent state={props.data}>
       <div
         className="ory-plugins-layout-background"
         style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}

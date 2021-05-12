@@ -20,9 +20,9 @@
  *
  */
 // tslint:disable:max-line-length
-import { EditableType } from '@react-page/core/lib/types/editable';
+import { ValueWithLegacy } from '@react-page/editor';
 
-const contents: EditableType = {
+export const contents: ValueWithLegacy = {
   id: '1',
   cells: [
     {
@@ -218,25 +218,14 @@ const contents: EditableType = {
                                               type: 'HEADING',
                                               children: [
                                                 {
-                                                  text: '',
-                                                },
-                                                {
-                                                  type: 'COLOR',
                                                   color: {
                                                     r: 255,
                                                     g: 255,
                                                     b: 255,
                                                     a: 1,
                                                   },
-                                                  children: [
-                                                    {
-                                                      text: 'Test',
-                                                      BOLD: true,
-                                                    },
-                                                  ],
-                                                },
-                                                {
-                                                  text: '',
+                                                  text: 'Test',
+                                                  BOLD: true,
                                                 },
                                               ],
                                               alignment: 'center',
@@ -246,25 +235,13 @@ const contents: EditableType = {
                                               type: 'HEADING',
                                               children: [
                                                 {
-                                                  text: '',
-                                                },
-                                                {
-                                                  type: 'COLOR',
+                                                  text: 'True Exotic Paradise',
                                                   color: {
                                                     r: 255,
                                                     g: 255,
                                                     b: 255,
                                                     a: 1,
                                                   },
-                                                  children: [
-                                                    {
-                                                      text:
-                                                        'True Exotic Paradise',
-                                                    },
-                                                  ],
-                                                },
-                                                {
-                                                  text: '',
                                                 },
                                               ],
                                               alignment: 'center',
@@ -1253,4 +1230,3 @@ const contents: EditableType = {
     },
   ],
 };
-export default contents;

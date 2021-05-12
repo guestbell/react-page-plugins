@@ -8,7 +8,7 @@ export type ImageSettings = {
   Renderer: React.ComponentType<ImageRendererProps>;
   Controls: React.ComponentType<ImageControlsProps>;
   translations?: Translations;
-  IconComponent?: React.ReactNode;
+  icon?: React.ReactNode;
 
   theme?: Theme;
   UploadImageField?: UploadImageField;

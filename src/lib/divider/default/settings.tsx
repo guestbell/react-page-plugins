@@ -1,4 +1,6 @@
+import { lazyLoad } from '@react-page/editor';
 import * as React from 'react';
+const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
 
 export const defaultTranslations = {
   pluginName: 'Divider',
@@ -7,6 +9,7 @@ export const defaultTranslations = {
 
 export const defaultSettings = {
   translations: defaultTranslations,
+  icon: <Remove />,
   Controls: () => <>Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer for this plugin was not provided</>,
 };

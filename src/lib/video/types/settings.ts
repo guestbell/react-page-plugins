@@ -10,7 +10,7 @@ export interface VideoSettings {
   placeholder?: string;
   label?: string;
   translations?: Translations;
-  IconComponent?: React.ReactNode;
+  icon?: React.ReactNode;
   theme?: Theme;
   enabledTypes?: VideoTypeEnum;
   defaultType?: VideoTypeEnum;

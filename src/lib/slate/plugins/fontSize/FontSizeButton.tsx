@@ -1,33 +1,16 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import {
-  FontSizePluginConfig,
-  getActiveFontSizes,
-  isFontSizeActive,
-  FontSizeCommands,
-} from './';
+import { FontSizePluginConfig, getActiveFontSizes, isFontSizeActive } from './';
 import MenuItem from '@material-ui/core/MenuItem';
-import { lazyLoad } from '@react-page/core';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
-import SlateButton from '../../Controls/buttons/SlateButton';
+import { lazyLoad } from '@react-page/editor';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
 import Menu from '@material-ui/core/Menu';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 export interface FontSizeButtonCustomProps {}
 
 const FormatSizeIcon = lazyLoad(() => import('@material-ui/icons/TextFields'));
 
-const styles = ({ palette }: Theme) =>
-  createStyles({
-    /*selected: {
-      backgroundColor: `${palette.primary.main} !important`,
-      color: `${palette.getContrastText(palette.primary.main)} !important`,
-    },*/
-  });
-
-type FontSizeButtonProps = FontSizeButtonCustomProps &
-  WithStyles<typeof styles>;
+type FontSizeButtonProps = FontSizeButtonCustomProps;
 
 const FontSizeButtonRaw: React.FC<FontSizeButtonProps> = props => {
   const editor = useSlate();
@@ -44,7 +27,7 @@ const FontSizeButtonRaw: React.FC<FontSizeButtonProps> = props => {
   const handleMenuItemClick = (fontSize: number) => (
     event: React.MouseEvent<HTMLElement>
   ) => {
-    editor.exec({ type: FontSizeCommands.ChangeFontSize, fontSize });
+    editor.changeFontSize(fontSize);
     handleClose();
   };
   return (
@@ -77,4 +60,4 @@ const FontSizeButtonRaw: React.FC<FontSizeButtonProps> = props => {
   );
 };
 
-export default withStyles(styles)(FontSizeButtonRaw);
+export default FontSizeButtonRaw;

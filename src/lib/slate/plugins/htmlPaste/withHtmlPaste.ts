@@ -1,15 +1,14 @@
 import { jsx } from 'slate-hyperscript';
-import { Editor } from 'slate';
+import { Editor, Text, Node as SlateNode } from 'slate';
 import { ParagraphType } from '../paragraph/withParagraph';
 import { ListTypes } from '../lists/listTypes';
 import { HeadingType } from '../heading/headingType';
 import { QuoteType } from '../quote/quoteType';
 import { LinkType } from '../links/linkType';
 import { EmphasizeTypes } from '../emphasize/emphasizeTypes';
-import { ReactEditor } from 'slate-react';
 
 const ELEMENT_TAGS = {
-  A: el => ({ type: LinkType, url: el.getAttribute('href') }),
+  A: (el: Element) => ({ type: LinkType, url: el.getAttribute('href') }),
   BLOCKQUOTE: () => ({ type: QuoteType }),
   H1: () => ({ type: HeadingType, level: 1 }),
   H2: () => ({ type: HeadingType, level: 2 }),
@@ -48,10 +47,9 @@ export const deserialize = (el: Node) => {
   }
 
   const { nodeName } = el;
-  let parent = el;
+  const parent = el;
 
-  // tslint:disable-next-line: no-any
-  let children: any[] = Array.from(parent.childNodes).map(deserialize);
+  const children: unknown[] = Array.from(parent.childNodes).map(deserialize);
 
   if (el.nodeName === 'BODY') {
     if (!checkEmpty(children[0])) {
@@ -76,8 +74,12 @@ export const deserialize = (el: Node) => {
   return children;
 };
 
-export const withHtml = (editor: ReactEditor) => {
-  const { exec, isInline, isVoid } = editor;
+export const imageType = 'image';
+
+export interface HtmlEditor {}
+
+export const withHtml = (editor: Editor) => {
+  const { isInline, isVoid, insertData } = editor;
 
   editor.isInline = element => {
     return element.type === LinkType ? true : isInline(element);
@@ -86,40 +88,32 @@ export const withHtml = (editor: ReactEditor) => {
   editor.isVoid = element => {
     return element.type === 'image' ? true : isVoid(element);
   };
+  editor.insertData = data => {
+    const html = data.getData('text/html');
 
-  editor.exec = command => {
-    if (command.type === 'insert_data') {
-      const { data } = command;
-      const html = data.getData('text/html');
+    if (html) {
+      const parsed = new DOMParser().parseFromString(html, 'text/html');
+      let fragment = (deserialize(parsed.body) as unknown) as SlateNode[];
+      const selection = editor.selection;
 
-      if (html) {
-        const parsed = new DOMParser().parseFromString(html, 'text/html');
-        // tslint:disable-next-line: no-any
-        let fragment = (deserialize(parsed.body) as unknown) as any[];
-        const selection = editor.selection;
-
-        const selectedNode = Editor.node(editor, selection)[0];
-        const selectedNodeEmpty =
-          selectedNode &&
-          selectedNode.text !== undefined &&
-          selectedNode.text.length === 0
-            ? true
-            : false;
-        if (!selectedNodeEmpty && fragment.length > 1) {
-          fragment = fragment.slice(1);
-        }
-        // tslint:disable-next-line: no-any
-        Editor.insertFragment(editor, fragment as any);
-        if (selectedNodeEmpty && fragment.length > 1) {
-          editor.selection = selection;
-          editor.deleteFragment();
-        }
-        return;
+      const selectedNode = Editor.node(editor, selection)[0] as Text;
+      const selectedNodeEmpty =
+        selectedNode &&
+        selectedNode.text !== undefined &&
+        selectedNode.text.length === 0
+          ? true
+          : false;
+      if (!selectedNodeEmpty && fragment.length > 1) {
+        fragment = fragment.slice(1);
       }
+      Editor.insertFragment(editor, fragment);
+      if (selectedNodeEmpty && fragment.length > 1) {
+        editor.selection = selection;
+        editor.deleteFragment();
+      }
+      return;
     }
-
-    exec(command);
+    insertData(data);
   };
-
   return editor;
 };

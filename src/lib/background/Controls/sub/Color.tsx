@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { ColorPicker } from '@react-page/ui';
 import { BackgroundProps } from '../../types/component';
-import { RGBColor } from '@react-page/ui/lib/ColorPicker/types';
+import { RGBColor, ColorPicker } from '@react-page/editor';
 
 export interface ColorComponentProps {
   onChangeBackgroundColorPreview: (color?: RGBColor) => void;
@@ -26,7 +25,7 @@ class ColorComponent extends React.Component<
   render() {
     const {
       backgroundColorPreview,
-      state: { backgroundColor = this.props.defaultBackgroundColor },
+      data: { backgroundColor = this.props.defaultBackgroundColor },
     } = this.props;
     return (
       <div style={{ display: 'flex' }}>

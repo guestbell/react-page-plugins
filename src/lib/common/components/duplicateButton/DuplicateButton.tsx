@@ -1,29 +1,18 @@
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, Tooltip } from '@material-ui/core';
 import Icon from '@material-ui/icons/FileCopy';
-import { Actions, connect, Selectors } from '@react-page/core';
 import React from 'react';
-import { createStructuredSelector } from 'reselect';
+import { useDuplicateCell, useUiTranslator } from '@react-page/editor';
 
-const DuplicateButton = ({ id, node, duplicateCell }) => {
-  return node ? (
-    <IconButton
-      className="bottomToolbar__duplicateButton"
-      onClick={() => duplicateCell(node, node)}
-      aria-label="delete"
-      color="default"
-      title="Duplicate"
-    >
-      <Icon />
-    </IconButton>
-  ) : null;
-};
-
-const mapStateToProps = createStructuredSelector({
-  node: Selectors.Editable.node,
-});
-
-const mapDispatchToProps = {
-  duplicateCell: Actions.Cell.duplicateCell,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DuplicateButton);
+export const DuplicateButton: React.FC<{ nodeId: string }> = React.memo(
+  ({ nodeId }) => {
+    const duplicateCell = useDuplicateCell(nodeId);
+    const { t } = useUiTranslator();
+    return (
+      <Tooltip title={t('Duplicate Plugin')}>
+        <IconButton onClick={duplicateCell} aria-label="delete" color="default">
+          <Icon />
+        </IconButton>
+      </Tooltip>
+    );
+  }
+);

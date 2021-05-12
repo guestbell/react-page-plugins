@@ -1,6 +1,6 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
 import { AlignmentTypes } from './alignmentTypes';
-import { ReactEditor } from 'slate-react';
+import { omitFirstArg } from '../../types/omitFirstArg';
 
 export const AlignmentCommands = {
   ToggleAlignment: 'toggle_alignment',
@@ -11,7 +11,7 @@ export const isAlignmentActive = (
   alignment: AlignmentTypes
 ) => {
   const [node] = Editor.nodes(editor, {
-    match: elem => elem.alignment === alignment,
+    match: (elem: Element) => elem.alignment === alignment,
     mode: 'all',
   });
   return !!node;
@@ -28,21 +28,14 @@ const toggleAlignment = (editor: Editor, alignment: AlignmentTypes) => {
   // Editor.collapse(editor, { edge: 'end' });
 };
 
-export const withAlignments = (editor: ReactEditor) => {
-  const { exec } = editor;
+export interface AlignmentEditor {
+  isAlignmentActive: omitFirstArg<typeof isAlignmentActive>;
+  toggleAlignment: omitFirstArg<typeof toggleAlignment>;
+}
 
-  editor.exec = command => {
-    if (command.type === AlignmentCommands.ToggleAlignment) {
-      const { alignment } = command;
-
-      if (editor.selection) {
-        toggleAlignment(editor, alignment);
-      }
-
-      return;
-    }
-    exec(command);
-  };
+export const withAlignments = (editor: Editor) => {
+  editor.toggleAlignment = toggleAlignment.bind(null, editor);
+  editor.isAlignmentActive = isAlignmentActive.bind(null, editor);
 
   return editor;
 };

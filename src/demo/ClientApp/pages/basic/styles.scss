@@ -39,3 +39,21 @@ body {
   background: white;
   padding: 0 24px;
 }
+
+.freeStandingEditor {
+  .slate-editable {
+    background: #eee;
+  }
+}
+
+.react-page-cell-insert-new {
+  display: none !important;
+}
+
+.ory-plugins-layout-background__backstretch + .react-page-cell-insert-new {
+  display: flex !important;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}

@@ -22,12 +22,12 @@
 
 import createPlugin from './createPlugin';
 
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
+import { CellPlugin } from '@react-page/editor';
 
 const ImageDefaultControls = lazyLoad(() =>
   import('./Controls/ImageDefaultControls')
@@ -35,7 +35,7 @@ const ImageDefaultControls = lazyLoad(() =>
 
 const imagePlugin: (
   settings?: Partial<ImageSettings>
-) => ContentPluginConfig<ImageState> = settings =>
+) => CellPlugin<ImageState> = settings =>
   createPlugin({
     Renderer: ImageHtmlRenderer,
     Controls: ImageDefaultControls,

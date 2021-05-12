@@ -10,6 +10,7 @@ import { addFontSizeStyles } from '../../../slate/plugins/fontSize/addFontSizeSt
 import { defaultConfig } from '../../../slate/plugins/fontSize/fontSizeConfig';
 import { LinkType } from '../../../slate/plugins/links/linkType';
 import { ColorType } from '../../../slate/plugins/color/colorType';
+import { addColorStyles } from '../../../slate/plugins/color';
 
 const BLOCK_TAGS = {
   a: LinkType,
@@ -30,38 +31,31 @@ const MARK_TAGS = {
 };
 
 const TEXT_RULE = (text: Text) => {
-  let children: JSX.Element | string = text.text;
+  let children: JSX.Element;
+  let isWrapped = false;
   if (text[MARK_TAGS.em]) {
-    children = <i>{children}</i>;
+    children = <i>{children ?? text.text}</i>;
+    isWrapped = true;
   }
   if (text[MARK_TAGS.strong]) {
-    children = <b>{children}</b>;
+    children = <b>{children ?? text.text}</b>;
+    isWrapped = true;
   }
   if (text[MARK_TAGS.u]) {
-    children = <u>{children}</u>;
+    children = <u>{children ?? text.text}</u>;
+    isWrapped = true;
   }
-  return <span>{children}</span>;
+  if (!isWrapped) {
+    children = <span>{text.text}</span>;
+  }
+  return addColorStyles(text, children);
 };
 
 const BLOCK_RULE = (node: Element, children: JSX.Element) => {
   let comp: JSX.Element;
   switch (node.type) {
-    case BLOCK_TAGS.color:
-      const color = node.color;
-      comp = (
-        <span
-          style={
-            color && {
-              color: `rgba(${color.r},${color.g},${color.b},${color.a})`,
-            }
-          }
-        >
-          {children}
-        </span>
-      );
-      break;
     case BLOCK_TAGS.a:
-      comp = <a href={node.url}>{children}</a>;
+      comp = <a href={node.url as string}>{children}</a>;
       break;
     case BLOCK_TAGS.p:
       comp = <p>{children}</p>;

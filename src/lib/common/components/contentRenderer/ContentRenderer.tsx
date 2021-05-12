@@ -7,16 +7,14 @@ import SlateRenderer, {
 import migrations from '../../slateMigrations/migrations';
 import { SlateValue } from '../../types/slate/SlateValue';
 import rules from '../slateRenderer/rules';
-import { HTMLRenderer } from '@react-page/renderer';
-import { EditableType } from '@react-page/core/lib/types/editable';
-import { Plugins } from '@react-page/core/lib/service/plugin/classes';
+import Editor, { CellPlugin, ValueWithLegacy } from '@react-page/editor';
 
 export interface ContentRendererProps {
   value: Content;
   lang: string;
   defaultLang: string;
   slateProps?: SlateRendererProps;
-  reactPagePlugins?: Plugins;
+  reactPagePlugins?: CellPlugin[];
   showInvalid?: boolean;
 }
 
@@ -47,9 +45,10 @@ const ContentRenderer: React.FC<ContentRendererProps> = props => {
   }
   if (value.type === ContentType.ReactPage) {
     return (
-      <HTMLRenderer
-        state={instance.data as EditableType}
-        plugins={props.reactPagePlugins}
+      <Editor
+        value={instance.data as ValueWithLegacy}
+        cellPlugins={props.reactPagePlugins}
+        readOnly={true}
       />
     );
   }

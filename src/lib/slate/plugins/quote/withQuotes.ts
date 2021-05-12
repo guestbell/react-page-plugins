@@ -1,55 +1,47 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
+import { ElementType } from '../../../declarations/slate';
+import { omitFirstArg } from '../../types/omitFirstArg';
+import { ParagraphType } from '../paragraph/withParagraph';
 import { QuoteType } from './quoteType';
-import { ReactEditor } from 'slate-react';
 
 export const isQuoteActive = (editor: Editor) => {
   const [quote] = Editor.nodes(editor, {
-    match: elem => elem.type === QuoteType,
+    match: (elem: Element) => elem.type === QuoteType,
   });
   return !!quote;
-};
-
-export const QuoteCommands = {
-  ToggleQuote: 'toggle_quote',
 };
 
 const toggleQuote = (editor: Editor) => {
   if (isQuoteActive(editor)) {
     Transforms.setNodes(editor, {
-      type: editor.quotesConfig && editor.quotesConfig.defaultBlockType,
+      type: editor.quotesConfig?.defaultBlockType,
     });
     return;
   }
 
-  const quote = { type: QuoteType };
+  const quote: Element = { type: QuoteType };
   Transforms.setNodes(editor, quote);
   // Editor.collapse(editor, { edge: 'end' });
 };
 
 export interface QuotesPluginConfig {
-  defaultBlockType: string;
+  defaultBlockType: ElementType;
 }
 
 export const defaultConfig: QuotesPluginConfig = {
-  defaultBlockType: 'PARAGRAPH',
+  defaultBlockType: ParagraphType,
 };
 
-export const withQuotes = (config?: QuotesPluginConfig) => (
-  editor: ReactEditor
-) => {
+export interface QuotesEditor {
+  quotesConfig: QuotesPluginConfig;
+  toggleQuote: omitFirstArg<typeof toggleQuote>;
+  isQuoteActive: omitFirstArg<typeof isQuoteActive>;
+}
+
+export const withQuotes = (config?: QuotesPluginConfig) => (editor: Editor) => {
   config = { ...defaultConfig, ...config };
-  const { exec } = editor;
-
-  editor.exec = command => {
-    if (command.type === QuoteCommands.ToggleQuote) {
-      if (editor.selection) {
-        toggleQuote(editor);
-      }
-
-      return;
-    }
-    exec(command);
-  };
+  editor.toggleQuote = toggleQuote.bind(null, editor);
+  editor.isQuoteActive = isQuoteActive.bind(null, editor);
   editor.quotesConfig = config;
   return editor;
 };

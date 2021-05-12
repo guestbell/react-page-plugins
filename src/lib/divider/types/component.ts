@@ -1,5 +1,6 @@
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { DividerState } from './state';
 import { DividerSettings } from './settings';
+import { CellPluginComponentProps } from '@react-page/editor';
 
-export type DividerProps = ContentPluginProps<DividerState> & DividerSettings;
+export type DividerProps = CellPluginComponentProps<DividerState> &
+  Omit<DividerSettings, 'Renderer' | 'Controls'>;

@@ -20,11 +20,8 @@
  *
  */
 
-import { Plugins } from '@react-page/core';
 // The background plugin
 import background, { ModeEnum } from '../../../../lib/background/index';
-// The native handler plugin
-import native from '@react-page/plugins-default-native';
 // The divider plugin
 import divider from '../../../../lib/divider';
 // The image plugin
@@ -33,31 +30,23 @@ import { imagePlugin } from '../../../../lib/image/index';
 import spacer from '../../../../lib/spacer/index';
 // The video plugin
 import video from '../../../../lib/video/index';
-import { defaultSlate } from './slate';
+import { slatePlugin } from './slate';
 import { muiTheme } from '../../theme/theme';
+import { CellPlugin } from '@react-page/editor';
 
 // Define which plugins we want to use.
 
-export const plugins: Plugins = {
-  content: [
-    defaultSlate,
-    spacer({ theme: muiTheme }),
-    imagePlugin({ theme: muiTheme }),
-    video({ theme: muiTheme }),
-    divider({ theme: muiTheme }),
-  ],
-  layout: [
-    background({
-      defaultPlugin: defaultSlate,
-      enabledModes:
-        ModeEnum.COLOR_MODE_FLAG |
-        ModeEnum.IMAGE_MODE_FLAG |
-        ModeEnum.GRADIENT_MODE_FLAG,
-      theme: muiTheme,
-    }),
-  ],
-
-  // If you pass the native key the editor will be able to handle native drag and drop events (such as links, text, etc).
-  // The native plugin will then be responsible to properly display the data which was dropped onto the editor.
-  native,
-};
+export const cellPlugins: CellPlugin[] = [
+  slatePlugin,
+  background({
+    enabledModes:
+      ModeEnum.COLOR_MODE_FLAG |
+      ModeEnum.IMAGE_MODE_FLAG |
+      ModeEnum.GRADIENT_MODE_FLAG,
+    theme: muiTheme,
+  }),
+  imagePlugin({ theme: muiTheme }),
+  spacer({ theme: muiTheme }),
+  divider({ theme: muiTheme }),
+  video({ theme: muiTheme }),
+];

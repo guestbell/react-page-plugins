@@ -1,43 +1,26 @@
 import * as React from 'react';
 
 import { SlateControlsProps as SlateControlsCustomProps } from '../types/controls';
-import {
-  withReact,
-  Slate,
-  Editable,
-  RenderElementProps,
-  useEditor,
-  RenderLeafProps,
-  ReactEditor,
-} from 'slate-react';
+import { withReact, Slate, Editable } from 'slate-react';
 import { createEditor, Node } from 'slate';
 import debounce from 'lodash/debounce';
-import { HoveringToolbar } from './hoveringToolbar/HoveringToolbar';
+import { HoveringToolbar } from '../../common/components/slateEditor/HoveringToolbar';
 import {
   withEmphasize,
   MARK_HOTKEYS,
-  EmphasizeCommands,
 } from '../plugins/emphasize/withEmphasize';
-import { Emphasize } from '../plugins/emphasize/Emphasize';
 import { withLinks } from '../plugins/links/withLinks';
-import { Link } from '../plugins/links/Link';
 import isHotkey from 'is-hotkey';
 import { AlignmentButtons } from '../plugins/alignment/AlignmentButtons';
-import { withAlignments, addAlignmentStyles } from '../plugins/alignment';
-import { Heading } from '../plugins/heading/Heading';
-import { Paragraph } from '../plugins/paragraph/Paragraph';
+import { withAlignments } from '../plugins/alignment';
 import { withHeadings } from '../plugins/heading/withHeadings';
-import { List } from '../plugins/lists/List';
 import { withLists } from '../plugins/lists/withLists';
 import { ListButtons } from '../plugins/lists/ListButtons';
-import { withFontSizes, addFontSizeStyles } from '../plugins/fontSize';
+import { withFontSizes } from '../plugins/fontSize';
 import ColorButton from '../plugins/color/ColorButton';
 import { withColors } from '../plugins/color/withColors';
-import { ColorElement } from '../plugins/color/ColorElement';
 import { withQuotes } from '../plugins/quote/withQuotes';
-import { Quote } from '../plugins/quote/Quote';
 import { QuoteButton } from '../plugins/quote/QuoteButton';
-import BottomToolbar from '../../common/components/bottomToolbar/BottomToolbar';
 import { withHtml } from '../plugins/htmlPaste/withHtmlPaste';
 import { LinkButton } from '../plugins/links/LinkButton';
 import HeadingButtonCompact from '../plugins/heading/HeadingButtonCompact';
@@ -49,38 +32,19 @@ import migrations from '../../common/slateMigrations/migrations';
 import { SlateValue } from '../../common/types/slate/SlateValue';
 import { Migrator } from '../../common/slateMigrations/Migrator';
 import PaddingComponent from '../../common/utils/PaddingComponent';
+import {
+  renderElement,
+  renderLeaf,
+} from '../../common/components/slateEditor/Components';
 
 type SlateControlsProps = SlateControlsCustomProps;
 
 const allHotkeys = { ...MARK_HOTKEYS };
 
-export const renderElement: React.FC<RenderElementProps> = props => {
-  const { element } = props;
-  const editor = useEditor();
-  const comp =
-    Link(props) ||
-    Heading(props) ||
-    List(props) ||
-    ColorElement(props) ||
-    Quote(props) ||
-    Paragraph(props);
-  return addFontSizeStyles(
-    editor.fontSizeConfig,
-    element,
-    addAlignmentStyles(element, comp)
-  );
-};
-
-export const renderLeaf: React.FC<RenderLeafProps> = props => {
-  const { attributes } = props;
-  const children = Emphasize(props);
-  return <span {...attributes}>{children}</span>;
-};
-
-const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
-  const { readOnly, focused, remove, translations, onChange } = props;
+const SlateDefaultControls: React.FC<SlateControlsProps> = props => {
+  const { readOnly, focused, translations, onChange } = props;
   const editor = React.useRef(
-    withHistory<ReactEditor>(
+    withHistory(
       withHtml(
         withQuotes()(
           withColors(
@@ -100,10 +64,10 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   ).current;
 
   const [value, setValue] = React.useState(
-    (props.state.value &&
-      Array.isArray(props.state.value) &&
-      props.state.value.every(node => Node.isNode(node)) &&
-      props.state.value) ||
+    (props.data.value &&
+      Array.isArray(props.data.value) &&
+      props.data.value.every(node => Node.isNode(node)) &&
+      props.data.value) ||
       slateEmptyValue()
   );
 
@@ -119,7 +83,7 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   // This is the initial check and/or migration
   React.useEffect(() => {
     let isDirty = false;
-    let newValue: SlateValue = props.state.value;
+    let newValue: SlateValue = props.data.value;
     if (
       !value ||
       !Array.isArray(value) ||
@@ -129,8 +93,8 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
       isDirty = true;
     } else {
       const migrationResult = Migrator.migrateState(
-        props.state.version,
-        props.state.value,
+        props.data.version,
+        props.data.value,
         migrations
       );
       isDirty = migrationResult.changed;
@@ -142,14 +106,9 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
   }, []);
 
   return (
-    <PaddingComponent state={props.state}>
+    <PaddingComponent state={props.data}>
       <div className="slateControls ory-prevent-blur">
-        <Slate
-          editor={editor}
-          value={value}
-          onChange={stateChanged}
-          migrations={migrations}
-        >
+        <Slate editor={editor} value={value} onChange={stateChanged}>
           <Editable
             readOnly={props.readOnly}
             placeholder={translations.textPlaceholder}
@@ -159,20 +118,14 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
               for (const hotkey in allHotkeys) {
                 if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
                   event.preventDefault();
-                  editor.exec({
-                    type: EmphasizeCommands.ToggleEmphasize,
-                    mark: { type: MARK_HOTKEYS[hotkey] },
-                  });
+                  editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
                 }
               }
               if (
                 isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
               ) {
                 event.preventDefault();
-                editor.exec({
-                  type: 'insert_text',
-                  text: '\n',
-                });
+                editor.insertText('\n');
               }
             }}
           />
@@ -185,21 +138,13 @@ const SlateDefaultControls: React.SFC<SlateControlsProps> = props => {
                 <LinkButton />
                 <ColorButton />
               </HoveringToolbar>
-              <BottomToolbar
-                icon={props.IconComponent}
-                open={props.focused}
-                title={props.translations.pluginName}
-                onDelete={remove}
-                {...props}
-              >
-                <HeadingButtonCompact />
-                {/*<FontSizeButton />*/}
-                <ColorButton />
-                <AlignmentButtons />
-                <ListButtons />
-                <LinkButton />
-                <QuoteButton />
-              </BottomToolbar>
+              <HeadingButtonCompact />
+              {/*<FontSizeButton />*/}
+              <ColorButton />
+              <AlignmentButtons />
+              <ListButtons />
+              <LinkButton />
+              <QuoteButton />
             </>
           )}
           {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}

@@ -1,40 +1,40 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import SlateButton from '../../Controls/buttons/SlateButton';
-import { isColorActive, ColorCommands, getActiveColors } from './withColors';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
+import { isColorActive, getActiveColors } from './withColors';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { lazyLoad } from '@react-page/core';
-import { ChromePicker, Color, ColorResult } from 'react-color';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
+import { lazyLoad } from '@react-page/editor';
+import { ChromePicker, ColorResult, RGBColor } from 'react-color';
 import { Range } from 'slate';
+import { makeStyles } from '@material-ui/styles';
 
 export interface ColorButtonCustomProps {}
 
-const styles = createStyles({
+const useStyles = makeStyles({
   chromePicker: {
     boxShadow: 'none !important',
   },
 });
 
 // Because types are broken and not accepting className
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ChromePickerUntyped = ChromePicker as any;
 
-type ColorButtonProps = ColorButtonCustomProps & WithStyles<typeof styles>;
+type ColorButtonProps = ColorButtonCustomProps;
 
 const FormatColorTextIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatColorText')
 );
 
 export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
-  const { classes } = props;
+  const classes = useStyles();
   const editor = useSlate();
   const [open, setOpen] = React.useState(false);
   const [selection, setSelection] = React.useState<Range>(editor.selection);
+  const [isActive, setActive] = React.useState(isColorActive(editor));
   const handleClickOpen = () => {
     const colors = getActiveColors(editor);
     if (colors && colors[0]) {
@@ -48,29 +48,33 @@ export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
     setOpen(false);
   };
 
-  const changeColor = (colorResult: ColorResult) => {
+  const changeColor = (colorResult: ColorResult, e: React.ChangeEvent) => {
+    e.preventDefault();
     setColor(colorResult.rgb);
   };
 
   const clearColor = () => {
     editor.selection = selection;
-    editor.exec({ type: ColorCommands.ClearColor });
+    editor.unwrapColor();
     handleClose();
   };
 
   const commitColor = () => {
     editor.selection = selection;
-    editor.exec({ type: ColorCommands.SetColor, color: color });
+    editor.wrapColor(color);
     handleClose();
   };
 
-  const [color, setColor] = React.useState<Color>({
+  const [color, setColor] = React.useState<RGBColor>({
     r: 16,
     g: 189,
     b: 199,
     a: 1,
   });
-  const isActive = isColorActive(editor);
+  const isActiveNow = isColorActive(editor);
+  if (!open && isActiveNow !== isActive) {
+    setActive(isColorActive(editor));
+  }
   return (
     <>
       <SlateButton
@@ -100,4 +104,4 @@ export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
   );
 };
 
-export default withStyles(styles)(ColorButtonRaw);
+export default ColorButtonRaw;

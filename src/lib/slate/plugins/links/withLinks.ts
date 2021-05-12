@@ -1,28 +1,25 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
+import { omitFirstArg } from '../../types/omitFirstArg';
 import { LinkType } from './linkType';
-import { ReactEditor } from 'slate-react';
 
 export const isLinkActive = (editor: Editor) => {
   const [link] = Editor.nodes(editor, {
-    match: elem => elem.type === LinkType,
+    match: (elem: Element) => elem.type === LinkType,
   });
   return !!link;
 };
 
 export const getLinkUrl = (editor: Editor): string => {
-  const [link] = Editor.nodes(editor, {
-    match: elem => elem.type === LinkType,
+  const [link] = Editor.nodes<Element>(editor, {
+    match: (elem: Element) => elem.type === LinkType,
   });
   return link && link[0] && link[0].url;
 };
 
-export const LinkCommands = {
-  InsertLink: 'insert_link',
-  RemoveLink: 'remove_link',
-};
-
 const unwrapLink = (editor: Editor) => {
-  Transforms.unwrapNodes(editor, { match: elem => elem.type === LinkType });
+  Transforms.unwrapNodes(editor, {
+    match: (elem: Element) => elem.type === LinkType,
+  });
 };
 
 const wrapLink = (editor: Editor, url: string) => {
@@ -30,38 +27,23 @@ const wrapLink = (editor: Editor, url: string) => {
     unwrapLink(editor);
   }
 
-  const link = { type: LinkType, url, children: [] };
+  const link: Element = { type: LinkType, url, children: [] };
   Transforms.wrapNodes(editor, link, { split: true });
   // Editor.collapse(editor, { edge: 'end' });
 };
 
-export const withLinks = (editor: ReactEditor) => {
-  const { exec, isInline } = editor;
+export interface LinksEditor {
+  unwrapLink: omitFirstArg<typeof unwrapLink>;
+  wrapLink: omitFirstArg<typeof wrapLink>;
+}
+
+export const withLinks = (editor: Editor) => {
+  const { isInline } = editor;
 
   editor.isInline = element => {
     return element.type === LinkType ? true : isInline(element);
   };
-
-  editor.exec = command => {
-    if (command.type === LinkCommands.InsertLink) {
-      const { url } = command;
-
-      if (editor.selection) {
-        wrapLink(editor, url);
-      }
-
-      return;
-    }
-
-    if (command.type === LinkCommands.RemoveLink) {
-      if (editor.selection) {
-        unwrapLink(editor);
-      }
-
-      return;
-    }
-    exec(command);
-  };
-
+  editor.wrapLink = wrapLink.bind(null, editor);
+  editor.unwrapLink = unwrapLink.bind(null, editor);
   return editor;
 };

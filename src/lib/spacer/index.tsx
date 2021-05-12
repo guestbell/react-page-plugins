@@ -23,20 +23,12 @@
 import createPlugin from './createPlugin';
 
 import SpacerHtmlRenderer from './Renderer/SpacerHtmlRenderer';
-import { lazyLoad } from '@react-page/core';
 import { SpacerSettings } from './types/settings';
 import { MakeOptional } from '../common/types/makeOptional';
 
-const SpacerDefaultControls = lazyLoad(() =>
-  import('./Controls/SpacerDefaultControls')
-);
-
-export default (
-  settings?: MakeOptional<SpacerSettings, 'Renderer' | 'Controls'>
-) => {
+export default (settings?: MakeOptional<SpacerSettings, 'Renderer'>) => {
   const plugin = createPlugin({
     Renderer: SpacerHtmlRenderer,
-    Controls: SpacerDefaultControls,
     ...settings,
   });
   return plugin;

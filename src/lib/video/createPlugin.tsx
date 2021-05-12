@@ -21,50 +21,29 @@
  */
 
 import * as React from 'react';
-import Spacer from './Component/index';
 
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
 import { VideoSettings } from './types/settings';
-import { VideoProps } from './types/component';
 import { VideoState } from './types/state';
 import { defaultSettings } from './default/settings';
+import { CellPlugin } from '@react-page/editor';
 
 const createPlugin: (
   settings: VideoSettings
-) => ContentPluginConfig<VideoState> = settings => {
+) => CellPlugin<VideoState> = settings => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.SFC<VideoProps> = props => (
-    <Spacer {...props} {...mergedSettings} />
-  );
+  const { Renderer, Controls, ...rest } = mergedSettings;
   return {
-    Component: WrappedComponent,
-    name: 'ory/editor/core/content/video',
-    version: '0.0.1',
-    IconComponent: mergedSettings.IconComponent,
-    text: mergedSettings.translations.pluginName,
+    Renderer,
+    controls: {
+      type: 'custom',
+      Component: props => <Controls {...rest} {...props} />,
+    },
+    id: 'ory/editor/core/content/video',
+    version: 1,
+    IconComponent: mergedSettings.icon,
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,
-
-    handleRemoveHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>
-      Promise.reject(),
-    handleFocusPreviousHotKey: (
-      _: Event,
-      __: ContentPluginProps
-    ): Promise<void> => Promise.reject(),
-    handleFocusNextHotKey: (_: Event, __: ContentPluginProps): Promise<void> =>
-      Promise.reject(),
-
-    // We need this because otherwise we lose hotkey focus on elements like spoilers.
-    // This could probably be solved in an easier way by listening to window.document?
-    //
-    // tslint:disable-next-line:no-any
-    handleFocus: (props: any, source: any, ref: HTMLElement) => {
-      if (!ref) {
-        return;
-      }
-      setTimeout(() => ref.focus());
-    },
   };
 };
 

@@ -1,11 +1,20 @@
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Actions, connect, Selectors } from '@react-page/core';
 import React from 'react';
-import { createStructuredSelector } from 'reselect';
+import { useCellProps, useSetDraft } from '@react-page/editor';
 
-const DraftSwitch = ({ id, node, setDraft }) => {
-  return node ? (
+export const DraftSwitch = ({
+  nodeId,
+  lang,
+}: {
+  nodeId: string;
+  lang?: string;
+}) => {
+  const cell = useCellProps(nodeId, c => ({
+    isDraft: c.isDraft,
+  }));
+  const setDraft = useSetDraft(nodeId);
+  return cell ? (
     <FormControlLabel
       className="bottomToolbar__draftSwitch"
       style={{ marginRight: 0 }}
@@ -13,9 +22,9 @@ const DraftSwitch = ({ id, node, setDraft }) => {
       control={
         <Switch
           color="primary"
-          checked={Boolean(node.isDraft)}
+          checked={Boolean(cell.isDraft)}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDraft(id, e.target.checked)
+            setDraft(e.target.checked, undefined)
           }
         />
       }
@@ -23,13 +32,3 @@ const DraftSwitch = ({ id, node, setDraft }) => {
     />
   ) : null;
 };
-
-const mapStateToProps = createStructuredSelector({
-  node: Selectors.Editable.node,
-});
-
-const mapDispatchToProps = {
-  setDraft: Actions.Cell.updateCellIsDraft,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DraftSwitch);

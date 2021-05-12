@@ -1,23 +1,19 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms, Element } from 'slate';
 import { HeadingLevels } from './headingLevels';
 import { HeadingType } from './headingType';
 import { ParagraphType } from '../paragraph/withParagraph';
-import { ReactEditor } from 'slate-react';
-
-export const HeadingCommands = {
-  ToggleHeading: 'toggle_heading',
-};
+import { omitFirstArg } from '../../types/omitFirstArg';
 
 export const isHeadingActive = (editor: Editor, level: HeadingLevels) => {
   const [heading] = Editor.nodes(editor, {
-    match: elem => elem.type === HeadingType && elem.level === level,
+    match: (elem: Element) => elem.type === HeadingType && elem.level === level,
   });
   return !!heading;
 };
 
 export const getActiveHeadings = (editor: Editor): HeadingLevels[] => {
-  const nodes = Editor.nodes(editor, {
-    match: elem => elem.type === HeadingType,
+  const nodes = Editor.nodes<Element>(editor, {
+    match: (elem: Element) => elem.type === HeadingType,
     mode: 'all',
   });
   let headings = [];
@@ -39,7 +35,7 @@ const wrapHeading = (editor: Editor, level: HeadingLevels) => {
     return;
   }
 
-  const heading = { type: HeadingType, level };
+  const heading: Element = { type: HeadingType, level };
   Transforms.setNodes(editor, heading);
   // Editor.collapse(editor, { edge: 'end' });
 };
@@ -54,24 +50,23 @@ export const defaultOptions: HeadingPluginOptions = {
   headingsNames: { 1: 'H1', 2: 'H2', 3: 'H3', 4: 'H4', 5: 'H5', 6: 'H6' },
 };
 
+export interface HeadingsEditor {
+  headingsConfig: HeadingPluginOptions;
+  wrapHeading: omitFirstArg<typeof wrapHeading>;
+  unwrapHeading: omitFirstArg<typeof unwrapHeading>;
+  isHeadingActive: omitFirstArg<typeof isHeadingActive>;
+  getActiveHeadings: omitFirstArg<typeof getActiveHeadings>;
+}
+
 export const withHeadings = (options?: HeadingPluginOptions) => (
-  editor: ReactEditor
+  editor: Editor
 ) => {
   options = { ...defaultOptions, ...options };
-  const { exec } = editor;
 
-  editor.exec = command => {
-    if (command.type === HeadingCommands.ToggleHeading) {
-      const { level } = command;
-
-      if (editor.selection) {
-        wrapHeading(editor, level);
-      }
-
-      return;
-    }
-    exec(command);
-  };
+  editor.wrapHeading = wrapHeading.bind(null, editor);
+  editor.unwrapHeading = unwrapHeading.bind(null, editor);
+  editor.isHeadingActive = isHeadingActive.bind(null, editor);
+  editor.getActiveHeadings = getActiveHeadings.bind(null, editor);
 
   editor.headingsConfig = options;
   return editor;

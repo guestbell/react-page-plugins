@@ -9,20 +9,13 @@ import {
   withEmphasize,
   MARK_HOTKEYS,
   EmphasizeTypes,
-  EmphasizeCommands,
 } from '../../../slate/plugins/emphasize';
-import { withReact, Slate, Editable, ReactEditor } from 'slate-react';
+import { withReact, Slate, Editable } from 'slate-react';
 import isHotkey from 'is-hotkey';
-import {
-  renderLeaf,
-  renderElement,
-} from '../../../slate/Controls/SlateDefaultControls';
-import { HoveringToolbar } from '../../../slate/Controls/hoveringToolbar/HoveringToolbar';
+import { HoveringToolbar } from './HoveringToolbar';
 import FontSizeButton from '../../../slate/plugins/fontSize/FontSizeButton';
 import { AlignmentButtons } from '../../../slate/plugins/alignment/AlignmentButtons';
 import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButton';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import InputGroup from 'guestbell-forms/build/components/inputGroup';
@@ -35,6 +28,14 @@ import { Migration } from '../../slateMigrations/Migration';
 import { slateEmptyValue } from './slateEmptyValue';
 import { withColors } from '../../../slate/plugins/color';
 import ColorButton from '../../../slate/plugins/color/ColorButton';
+import { makeStyles } from '@material-ui/core';
+import { withHtml } from '../../../slate/plugins/htmlPaste/withHtmlPaste';
+import { withQuotes } from '../../../slate/plugins/quote';
+import HeadingButtonCompact from '../../../slate/plugins/heading/HeadingButtonCompact';
+import { ListButtons } from '../../../slate/plugins/lists/ListButtons';
+import { LinkButton } from '../../../slate/plugins/links/LinkButton';
+import { QuoteButton } from '../../../slate/plugins/quote/QuoteButton';
+import { renderElement, renderLeaf } from './Components';
 
 export type SlateEditorOnChangeHandler = (val: {
   value: SlateValue;
@@ -42,9 +43,28 @@ export type SlateEditorOnChangeHandler = (val: {
   isValid: boolean;
 }) => void;
 
+export enum ToolbarButtonTypes {
+  Link = 1,
+  Heading = 2,
+  Lists = 4,
+  Color = 8,
+  Alignment = 16,
+  Quote = 32,
+  FontSize = 64,
+}
+
+export enum HoverButtonTypes {
+  Bold = 1,
+  Italic = 2,
+  Underline = 4,
+  Link = 8,
+  Color = 16,
+}
+
 export interface SlateEditorCustomProps {
   value: SlateValue;
   onChange: SlateEditorOnChangeHandler;
+  className?: string;
   placeholder?: string;
   label?: JSX.Element | string;
   title?: JSX.Element | string;
@@ -52,68 +72,88 @@ export interface SlateEditorCustomProps {
   version?: number;
   migrations?: Migration[];
   extraToolbarButtons?: JSX.Element;
+  extraHoverButtons?: JSX.Element;
+  toolbarButtons?: ToolbarButtonTypes;
+  hoverButtons?: HoverButtonTypes;
 }
 
-const styles = ({ spacing, palette, typography }: Theme) =>
-  createStyles({
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    label: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: spacing(),
-      fontSize: '1.2rem',
-      transition: '0.5s color',
-    },
-    labelFocused: {
-      color: palette.primary.main,
-    },
-    editable: {
-      padding: spacing(2),
-      background: palette.grey[100],
-    },
-    characterCountContainer: {
-      position: 'absolute',
-      right: 3,
-      bottom: 3,
-      fontSize: typography.caption.fontSize,
-      color: palette.grey[500],
-      transition: '0.5s color',
-    },
-    characterCountContainerWarning: {
-      color: yellow[700],
-    },
-    characterCountContainerError: {
-      color: red[700],
-    },
-    root: {
-      position: 'relative',
-    },
-  });
+const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
+  toolbar: {
+    marginBottom: spacing(3),
+    alignItems: 'center',
+    backgroundColor: palette.background.paper,
+  },
+  label: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: spacing(),
+    fontSize: '1.2rem',
+    transition: '0.5s color',
+  },
+  labelFocused: {
+    color: palette.primary.main,
+  },
+  editable: {
+    padding: spacing(2),
+    // background: palette.grey[100],
+  },
+  characterCountContainer: {
+    position: 'absolute',
+    right: 3,
+    bottom: 3,
+    fontSize: typography.caption.fontSize,
+    color: palette.grey[500],
+    transition: '0.5s color',
+  },
+  characterCountContainerWarning: {
+    color: yellow[700],
+  },
+  characterCountContainerError: {
+    color: red[700],
+  },
+  root: {
+    position: 'relative',
+  },
+}));
 
 const allHotkeys = { ...MARK_HOTKEYS };
 
-type SlateEditorProps = SlateEditorCustomProps & WithStyles<typeof styles>;
+type SlateEditorProps = SlateEditorCustomProps;
 
 const SlateEditor: React.FC<SlateEditorProps> = props => {
-  const { classes, migrations, extraToolbarButtons, version } = props;
-  const editor: ReactEditor = React.useRef(
-    withHistory<ReactEditor>(
-      withFontSizes()(
-        withLists(
-          withColors(
-            withHeadings()(
-              withAlignments(
-                withLinks(withEmphasize(withReact(createEditor())))
+  const {
+    migrations,
+    extraToolbarButtons,
+    version,
+    toolbarButtons = ToolbarButtonTypes.FontSize | ToolbarButtonTypes.Alignment,
+    hoverButtons = HoverButtonTypes.Bold |
+      HoverButtonTypes.Italic |
+      HoverButtonTypes.Underline |
+      HoverButtonTypes.Color,
+    className,
+  } = props;
+  const classes = useStyles();
+  const editor = React.useMemo(
+    () =>
+      withHistory(
+        withHtml(
+          withQuotes()(
+            withColors(
+              withFontSizes()(
+                withLists(
+                  withHeadings()(
+                    withAlignments(
+                      withLinks(withEmphasize(withReact(createEditor())))
+                    )
+                  )
+                )
               )
             )
           )
         )
-      )
-    )
-  ).current;
+      ),
+    []
+  );
 
   let allowNewChar = true;
   let chars = 0;
@@ -174,7 +214,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   }, [props.value]);
 
   const onChange = React.useCallback(
-    (val: Node[]) => {
+    (val: SlateValue) => {
       // This might possibly be stupid but right now, it triggers on every focus which causes
       // problems with re-rendering components and losing focus in modals (link, color)
       if (JSON.stringify(value) !== JSON.stringify(val)) {
@@ -189,12 +229,11 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     },
     [props.onChange, value]
   );
-
   return (
     value && (
       <InputGroup title={props.title}>
         <Slate editor={editor} value={value} onChange={onChange}>
-          <div className={classNames('slate-editor', classes.root)}>
+          <div className={classNames('slate-editor', className, classes.root)}>
             <div className={classes.toolbar}>
               {props.label && (
                 <div
@@ -206,15 +245,31 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                   {props.label}
                 </div>
               )}
-              {/*<HeadingButtonCompact />*/}
-              <FontSizeButton />
-              <AlignmentButtons />
-              {/*<ListButtons />*/}
-              {/*<LinkButton />*/}
+              {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
+                <HeadingButtonCompact />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
+                <FontSizeButton />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
+                <ColorButton />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
+                <AlignmentButtons />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
+                <ListButtons />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && (
+                <LinkButton />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
+                <QuoteButton />
+              )}
               {extraToolbarButtons}
             </div>
             <Editable
-              className={classNames(classes.editable)}
+              className={classNames('slate-editable', classes.editable)}
               renderLeaf={renderLeaf}
               renderElement={renderElement}
               onKeyDown={event => {
@@ -227,20 +282,14 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 for (const hotkey in allHotkeys) {
                   if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
                     event.preventDefault();
-                    editor.exec({
-                      type: EmphasizeCommands.ToggleEmphasize,
-                      mark: { type: MARK_HOTKEYS[hotkey] },
-                    });
+                    editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
                   }
                 }
                 if (
                   isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
                 ) {
                   event.preventDefault();
-                  editor.exec({
-                    type: 'insert_text',
-                    text: '\n',
-                  });
+                  editor.insertText('\n');
                 }
               }}
             />
@@ -260,15 +309,20 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 {chars}/{props.maxChars}
               </div>
             )}
-            {editor.selection && (
-              <HoveringToolbar>
+            <HoveringToolbar>
+              {(hoverButtons & HoverButtonTypes.Bold) !== 0 && (
                 <EmphasizeButton type={EmphasizeTypes.Bold} />
+              )}
+              {(hoverButtons & HoverButtonTypes.Italic) !== 0 && (
                 <EmphasizeButton type={EmphasizeTypes.Italic} />
+              )}
+              {(hoverButtons & HoverButtonTypes.Underline) !== 0 && (
                 <EmphasizeButton type={EmphasizeTypes.Underline} />
-                {/*<LinkButton />*/}
-                <ColorButton />
-              </HoveringToolbar>
-            )}
+              )}
+              {(hoverButtons & HoverButtonTypes.Link) !== 0 && <LinkButton />}
+              {(hoverButtons & HoverButtonTypes.Color) !== 0 && <ColorButton />}
+              {props.extraHoverButtons}
+            </HoveringToolbar>
             {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
           </div>
         </Slate>
@@ -277,6 +331,4 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   );
 };
 
-export default withStyles(styles)(SlateEditor) as React.ComponentType<
-  SlateEditorCustomProps & Partial<WithStyles<typeof styles>>
->;
+export default SlateEditor;

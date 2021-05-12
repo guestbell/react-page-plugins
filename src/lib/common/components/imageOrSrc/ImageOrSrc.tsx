@@ -1,6 +1,4 @@
 import * as React from 'react';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import CreateIcon from '@material-ui/icons/Create';
 import ImageIcon from '@material-ui/icons/Image';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
@@ -10,6 +8,7 @@ import Text from 'guestbell-forms/build/components/text/Text';
 import WarningIcon from '@material-ui/icons/Warning';
 import yellow from '@material-ui/core/colors/yellow';
 import Button from 'guestbell-forms/build/components/button/Button';
+import { makeStyles } from '@material-ui/styles';
 
 export interface ImageOrSrcOryState {
   imageId?: number;
@@ -26,39 +25,39 @@ export interface ImageOrSrcCustomProps {
   hideSrcSetField?: boolean;
 }
 
-const styles = ({ palette, spacing }: Theme) =>
-  createStyles({
-    root: {
-      position: 'relative',
-      paddingRight: '1.5rem',
-    },
-    switchImageButton: {
-      // tslint:disable-next-line: no-any
-      position: 'absolute !important' as any,
-      right: -spacing(1),
-      top: '50%',
-      transform: 'translateY(-50%)',
-      color: palette.action.active + ' !important',
-    },
-    warningContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: spacing(2),
-      backgroundColor: yellow[300],
-      marginBottom: spacing(2),
-    },
-  });
+const useStyles = makeStyles(({ palette, spacing }: Theme) => ({
+  root: {
+    position: 'relative',
+    paddingRight: '1.5rem',
+  },
+  switchImageButton: {
+    // tslint:disable-next-line: no-any
+    position: 'absolute !important' as any,
+    right: -spacing(1),
+    top: '50%',
+    transform: 'translateY(-50%)',
+    color: palette.action.active + ' !important',
+  },
+  warningContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing(2),
+    backgroundColor: yellow[300],
+    marginBottom: spacing(2),
+  },
+}));
 
-export type ImageOrSrcProps = ImageOrSrcCustomProps & WithStyles<typeof styles>;
+export type ImageOrSrcProps = ImageOrSrcCustomProps;
 
 enum ImageTabEnum {
   ImageUploadButton = 0,
   ImageSrc = 1,
 }
 
-const ImageOrSrc: React.SFC<ImageOrSrcProps> = props => {
-  const { classes, onChange } = props;
+const ImageOrSrc: React.FC<ImageOrSrcProps> = props => {
+  const { onChange } = props;
+  const classes = useStyles();
   const [imageTab, setImageTab] = React.useState<ImageTabEnum>(
     ImageTabEnum.ImageUploadButton
   );
@@ -140,6 +139,4 @@ const ImageOrSrc: React.SFC<ImageOrSrcProps> = props => {
   );
 };
 
-export default withStyles(styles)(ImageOrSrc) as React.ComponentType<
-  ImageOrSrcCustomProps
->;
+export default ImageOrSrc;

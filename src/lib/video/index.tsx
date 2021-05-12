@@ -22,7 +22,7 @@
 
 import createPlugin from './createPlugin';
 
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 
 import VideoHtmlRenderer from './Renderer/VideoHtmlRenderer';
 import { MakeOptional } from '../common/types/makeOptional';

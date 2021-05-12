@@ -23,37 +23,33 @@ import * as React from 'react';
 
 import { BackgroundSettings } from './types/settings';
 import { BackgroundState } from './types/state';
-import { BackgroundProps } from './types/component';
-import BackgroundComponent from './Component';
 import { defaultSettings } from './default/settings';
-import { LayoutPluginConfig, lazyLoad } from '@react-page/core';
+import { CellPlugin } from '@react-page/editor';
+import { BackgroundProvider } from './Provider/BackgroundProvider';
 
-const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
-
-const createPlugin = (settings: BackgroundSettings) => {
+const createCell = (settings: BackgroundSettings) => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const plugin: LayoutPluginConfig<BackgroundState> = {
-    Component: (props: BackgroundProps) => (
-      <BackgroundComponent {...props} {...mergedSettings} />
-    ),
+  const { Controls, Renderer, ...rest } = mergedSettings;
 
-    name: 'ory/editor/core/layout/background',
-    version: '0.0.1',
+  const plugin: CellPlugin<BackgroundState> = {
+    Provider: props => <BackgroundProvider {...props} {...rest} />,
+    controls: {
+      type: 'custom',
+      Component: props => <Controls {...props} {...rest} />,
+    },
+    Renderer: props => <Renderer {...props} {...rest} />,
 
-    text: mergedSettings.translations.pluginName,
+    id: 'ory/editor/core/layout/background',
+    version: 1,
+
+    title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-    IconComponent: <Icon />,
+    icon: mergedSettings.icon,
 
-    createInitialChildren:
-      settings.getInitialChildren ||
-      (() => {
-        return [[{ content: { plugin: settings.defaultPlugin } }]];
-      }),
-
-    handleFocusNextHotKey: () => Promise.reject(),
-    handleFocusPreviousHotKey: () => Promise.reject(),
+    createInitialChildren: settings.getInitialChildren,
+    cellStyle: mergedSettings.cellStyle,
   };
   return plugin;
 };
 
-export default createPlugin;
+export default createCell;

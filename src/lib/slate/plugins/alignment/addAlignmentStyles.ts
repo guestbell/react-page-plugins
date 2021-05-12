@@ -1,6 +1,6 @@
 import { Element } from 'slate';
 import React from 'react';
-var classnames = require('classnames');
+import classnames from 'classnames';
 
 export const addAlignmentStyles = (element: Element, children: JSX.Element) => {
   const { alignment } = element;

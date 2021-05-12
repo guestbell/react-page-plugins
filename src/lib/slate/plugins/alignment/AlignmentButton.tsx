@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import SlateButton from '../../Controls/buttons/SlateButton';
-import { isAlignmentActive, AlignmentTypes, AlignmentCommands } from './';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
+import { isAlignmentActive, AlignmentTypes } from './';
 
 export interface AlignmentButtonProps {
   alignment: AlignmentTypes;
@@ -25,7 +25,7 @@ export const AlignmentButton: React.FC<AlignmentButtonProps> = ({
       isActive={isAlignmentActive(editor, alignment)}
       onClick={event => {
         event.preventDefault();
-        editor.exec({ type: AlignmentCommands.ToggleAlignment, alignment });
+        editor.toggleAlignment(alignment);
       }}
       icon={icon}
       title={names[alignment]}

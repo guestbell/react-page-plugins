@@ -1,2 +1,3 @@
-// tslint:disable-next-line: no-any
-export type SlateValue = any[];
+import { Descendant } from 'slate';
+
+export type SlateValue = Descendant[];

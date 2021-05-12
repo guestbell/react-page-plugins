@@ -1,5 +1,6 @@
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { ImageState } from './state';
 import { ImageSettings } from './settings';
+import { CellPluginComponentProps } from '@react-page/editor';
 
-export type ImageProps = ContentPluginProps<ImageState> & ImageSettings;
+export type ImageProps = CellPluginComponentProps<ImageState> &
+  Pick<ImageSettings, 'UploadImageField' | 'translations' | 'icon'>;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { VideoSettings } from '../types/settings';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
 
 const PlayArrow = lazyLoad(() => import('@material-ui/icons/PlayArrow'));
@@ -22,7 +22,7 @@ export const defaultSettings: VideoSettings = {
   Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   translations: defaultTranslations,
-  IconComponent: <PlayArrow />,
+  icon: <PlayArrow />,
   enabledTypes: VideoTypeEnum.Embedded | VideoTypeEnum.Uploaded,
   defaultType: VideoTypeEnum.Embedded,
 };

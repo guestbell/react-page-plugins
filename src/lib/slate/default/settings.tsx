@@ -1,4 +1,9 @@
 import * as React from 'react';
+import {
+  HoverButtonTypes,
+  ToolbarButtonTypes,
+} from '../../common/components/slateEditor/SlateEditor';
+import { SlateSettings } from '../types/settings';
 
 export const defaultTranslations = {
   pluginName: 'Text',
@@ -6,8 +11,19 @@ export const defaultTranslations = {
   textPlaceholder: 'Write here ...',
 };
 
-export const defaultSettings = {
+export const defaultSettings: SlateSettings = {
   translations: defaultTranslations,
   Controls: () => <>Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer for this plugin was not provided</>,
+  toolbarButtons:
+    ToolbarButtonTypes.Alignment |
+    ToolbarButtonTypes.Heading |
+    ToolbarButtonTypes.Link |
+    ToolbarButtonTypes.Lists |
+    ToolbarButtonTypes.Quote,
+  hoverButtons:
+    HoverButtonTypes.Bold |
+    HoverButtonTypes.Italic |
+    HoverButtonTypes.Underline |
+    HoverButtonTypes.Color,
 };

@@ -1,5 +1,6 @@
-import { ContentPluginProps } from '@react-page/core/lib/service/plugin/classes';
 import { SlateState } from './state';
 import { SlateSettings } from './settings';
+import { CellPluginComponentProps } from '@react-page/editor';
 
-export type SlateProps = ContentPluginProps<SlateState> & SlateSettings;
+export type SlateProps = CellPluginComponentProps<SlateState> &
+  Omit<SlateSettings, 'Renderer' | 'Controls'>;

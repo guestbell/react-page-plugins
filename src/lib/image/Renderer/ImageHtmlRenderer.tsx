@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ImageRendererProps } from '../types/renderer';
 import { iconStyle } from './../common/styles';
-import { lazyLoad } from '@react-page/core';
+import { lazyLoad } from '@react-page/editor';
 import classNames from 'classnames';
 import { ImageConstraintMode } from '../types/state';
 import PaddingComponent from '../../common/utils/PaddingComponent';
@@ -9,8 +9,8 @@ import PaddingComponent from '../../common/utils/PaddingComponent';
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
 const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
-  const { isEditMode, state } = props;
-  if (!state.image && !state.src) {
+  const { isEditMode, data } = props;
+  if (!data.image && !data.src) {
     return (
       <div>
         <div className="ory-plugins-content-image-placeholder">
@@ -22,30 +22,30 @@ const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
   let Image: JSX.Element;
   const className = classNames('ory-plugins-content-image', {
     'ory-plugins-content-image--fw':
-      state.constraintMode === undefined ||
-      state.constraintMode === ImageConstraintMode.FullWidth,
+      data.constraintMode === undefined ||
+      data.constraintMode === ImageConstraintMode.FullWidth,
     'ory-plugins-content-image--small-height':
-      state.constraintMode === ImageConstraintMode.SmallHeight,
+      data.constraintMode === ImageConstraintMode.SmallHeight,
     'ory-plugins-content-image--medium-height':
-      state.constraintMode === ImageConstraintMode.MediumHeight,
+      data.constraintMode === ImageConstraintMode.MediumHeight,
     'ory-plugins-content-image--big-height':
-      state.constraintMode === ImageConstraintMode.BigHeight,
+      data.constraintMode === ImageConstraintMode.BigHeight,
   });
-  if (state.image) {
+  if (data.image) {
     Image = (
       <img
         className={className}
-        src={state.image.src}
-        srcSet={state.image.srcSet}
+        src={data.image.src}
+        srcSet={data.image.srcSet}
       />
     );
   } else {
-    Image = <img className={className} src={state.src} srcSet={state.srcSet} />;
+    Image = <img className={className} src={data.src} srcSet={data.srcSet} />;
   }
   return (
-    <PaddingComponent state={props.state}>
+    <PaddingComponent state={props.data}>
       <div className="ory-plugins-content-image__container">
-        {state.href && !isEditMode ? <a href={state.href}>{Image}</a> : Image}
+        {data.href && !isEditMode ? <a href={data.href}>{Image}</a> : Image}
       </div>
     </PaddingComponent>
   );

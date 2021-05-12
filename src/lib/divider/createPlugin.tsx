@@ -1,27 +1,24 @@
 import * as React from 'react';
 
-import { ContentPluginConfig } from '@react-page/core/lib/service/plugin/classes';
-import Divider from './Component';
 import { DividerSettings } from './types/settings';
-import { DividerProps } from './types/component';
 import { DividerState } from './types/state';
 import { defaultSettings } from './default/settings';
-import { lazyLoad } from '@react-page/core';
-
-const Remove = lazyLoad(() => import('@material-ui/icons/Remove'));
+import { CellPlugin } from '@react-page/editor';
 
 const createPlugin: (
   settings: DividerSettings
-) => ContentPluginConfig<DividerState> = settings => {
+) => CellPlugin<DividerState> = settings => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const WrappedComponent: React.SFC<DividerProps> = props => (
-    <Divider {...props} {...mergedSettings} />
-  );
+  const { Controls, Renderer, ...rest } = mergedSettings;
   return {
-    Component: WrappedComponent,
-    name: 'ory/editor/core/content/divider',
-    version: '0.0.1',
-    IconComponent: <Remove />,
+    Renderer: Renderer,
+    controls: {
+      type: 'custom',
+      Component: props => <Controls {...props} {...rest} />,
+    },
+    id: 'ory/editor/core/content/divider',
+    version: 1,
+    IconComponent: rest.icon,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
   };

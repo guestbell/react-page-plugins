@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
-import SlateButton from '../../Controls/buttons/SlateButton';
-import { isListActive, ListTypes, ListCommands } from './';
+import SlateButton from '../../../common/components/slateEditor/SlateButton';
+import { isListActive, ListTypes } from './';
 
 export interface ListButtonProps {
   icon: JSX.Element;
@@ -16,7 +16,7 @@ export const ListButton: React.FC<ListButtonProps> = ({ icon, type }) => {
       isActive={isActive}
       onClick={event => {
         event.preventDefault();
-        editor.exec({ type: ListCommands.ToggleList, list: { type } });
+        editor.toggleList(type);
       }}
       icon={icon}
       title={type === ListTypes.UL ? 'Bulleted list' : 'Numbered list'}

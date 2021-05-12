@@ -5,7 +5,9 @@ import {
   COLOR_MODE_FLAG,
   GRADIENT_MODE_FLAG,
 } from './../const/mode';
-import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/ui/lib/ImageUpload/defaultTranslations';
+import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib/ui/ImageUpload/defaultTranslations';
+import { lazyLoad } from '@react-page/editor';
+const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 
 export const defaultTranslations = {
   ...defaultImageUploadTranslations,
@@ -40,4 +42,5 @@ export const defaultSettings: Partial<BackgroundSettings> = {
   Controls: () => <> Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer; for this plugin was not provided </>,
   UploadImageField: () => <>Upload image field was not provided</>,
+  icon: <Icon />,
 };
