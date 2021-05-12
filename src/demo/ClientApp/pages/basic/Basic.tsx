@@ -12,7 +12,7 @@ import rules from '../../../../lib/common/components/slateRenderer/rules';
 import { Button } from 'guestbell-forms/build/components/button/Button';
 import migrations from '../../../../lib/common/slateMigrations/migrations';
 import Editor, { ValueWithLegacy } from '@react-page/editor';
-import { SlateValue } from 'build/common/types/slate/SlateValue';
+import { SlateValue } from '../../../../lib/common/types/slate/SlateValue';
 import BottomToolbar from '../../../../lib/common/components/bottomToolbar/BottomToolbar';
 import { Components } from '@react-page/editor/lib-es/core/types/components';
 

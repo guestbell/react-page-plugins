@@ -19,25 +19,28 @@ const SlateHtmlRenderer: React.FC<SlateRendererProps> = props => {
     ({ value }) => onChange({ value }),
     [onChange]
   );
-  return !(props.isEditMode && props.focused) ? (
+  return (
     <PaddingComponent state={props.data}>
-      <SlateRenderer
-        value={value}
-        nodeRule={rules.nodeRule}
-        textRule={rules.textRule}
-        version={version}
-        migrations={migrations}
-      />
+      {!props.isEditMode ? (
+        <SlateRenderer
+          value={value}
+          nodeRule={rules.nodeRule}
+          textRule={rules.textRule}
+          version={version}
+          migrations={migrations}
+        />
+      ) : (
+        <SlateEditor
+          value={props.data.value}
+          onChange={onChangeInternal}
+          version={version}
+          migrations={migrations}
+          toolbarButtons={toolbarButtons}
+          hoverButtons={hoverButtons}
+          hideToolbar={!props.focused}
+        />
+      )}
     </PaddingComponent>
-  ) : (
-    <SlateEditor
-      value={props.data.value}
-      onChange={onChangeInternal}
-      version={version}
-      migrations={migrations}
-      toolbarButtons={toolbarButtons}
-      hoverButtons={hoverButtons}
-    />
   );
 };
 

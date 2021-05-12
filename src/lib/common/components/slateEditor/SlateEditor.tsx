@@ -75,6 +75,7 @@ export interface SlateEditorCustomProps {
   extraHoverButtons?: JSX.Element;
   toolbarButtons?: ToolbarButtonTypes;
   hoverButtons?: HoverButtonTypes;
+  hideToolbar?: boolean;
 }
 
 const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
@@ -132,6 +133,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
       HoverButtonTypes.Underline |
       HoverButtonTypes.Color,
     className,
+    hideToolbar,
   } = props;
   const classes = useStyles();
   const editor = React.useMemo(
@@ -234,38 +236,42 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     <InputGroup title={props.title}>
       <Slate editor={editor} value={value} onChange={onChange}>
         <div className={classNames('slate-editor', className, classes.root)}>
-          <div className={classes.toolbar}>
-            {props.label && (
-              <div
-                className={classNames('slate-editor__label', classes.label, {
-                  'slate-editor__label--active': false,
-                  [classes.labelFocused]: false,
-                })}
-              >
-                {props.label}
-              </div>
-            )}
-            {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
-              <HeadingButtonCompact />
-            )}
-            {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
-              <FontSizeButton />
-            )}
-            {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
-              <ColorButton />
-            )}
-            {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
-              <AlignmentButtons />
-            )}
-            {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
-              <ListButtons />
-            )}
-            {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && <LinkButton />}
-            {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
-              <QuoteButton />
-            )}
-            {extraToolbarButtons}
-          </div>
+          {!hideToolbar && (
+            <div className={classes.toolbar}>
+              {props.label && (
+                <div
+                  className={classNames('slate-editor__label', classes.label, {
+                    'slate-editor__label--active': false,
+                    [classes.labelFocused]: false,
+                  })}
+                >
+                  {props.label}
+                </div>
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
+                <HeadingButtonCompact />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
+                <FontSizeButton />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
+                <ColorButton />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
+                <AlignmentButtons />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
+                <ListButtons />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && (
+                <LinkButton />
+              )}
+              {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
+                <QuoteButton />
+              )}
+              {extraToolbarButtons}
+            </div>
+          )}
           <Editable
             className={classNames('slate-editable', classes.editable)}
             renderLeaf={renderLeaf}

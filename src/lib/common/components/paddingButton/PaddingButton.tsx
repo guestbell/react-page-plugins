@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import PaddingSlider from './PaddingSlider';
-import { useUpdateCellData, useCell, useCellData } from '@react-page/editor';
+import { useDebouncedCellData, useCell } from '@react-page/editor';
 import { PaddingState } from '../../types/padding/PaddingState';
 import VerticalAlignCenterIcon from '@material-ui/icons/VerticalAlignCenter';
 
@@ -22,8 +22,7 @@ const dialogClasses = { paper: 'bottomToolbar__paddingModal' };
 export const PaddingButton: React.FC<PaddingButtonProps> = props => {
   const { nodeId } = props;
   const cell = useCell(nodeId);
-  const data = useCellData(nodeId);
-  const updater = useUpdateCellData(nodeId);
+  const [data, updater] = useDebouncedCellData(nodeId);
   const nodeAbove = (data as PaddingState)?.above;
   const nodeBelow = (data as PaddingState)?.below;
 
@@ -50,25 +49,25 @@ export const PaddingButton: React.FC<PaddingButtonProps> = props => {
   const onSpaceAboveChange = React.useCallback(
     val => {
       setSpaceAbove(val);
-      updater({ above: val });
+      updater({ above: val }, {});
     },
     [updater]
   );
   const onSpaceBelowChange = React.useCallback(
     val => {
       setSpaceBelow(val);
-      updater({ below: val });
+      updater({ below: val }, null);
     },
     [updater]
   );
 
   const onCancelClick = React.useCallback(() => {
     closeModal();
-    updater(initialState as { [key: string]: unknown });
+    updater(initialState as { [key: string]: unknown }, null);
   }, [closeModal, initialState, updater]);
   const onOkClick = React.useCallback(() => {
     const newState = { above: spaceAbove, below: spaceBelow };
-    updater(newState);
+    updater(newState, null);
     setInitialState({ ...newState });
     closeModal();
   }, [closeModal, updater, spaceAbove, spaceBelow]);
