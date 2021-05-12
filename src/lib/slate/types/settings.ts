@@ -1,4 +1,3 @@
-import { SlateProps } from './component';
 import { SlateRendererProps } from './renderer';
 import { Translations } from './translations';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
@@ -10,7 +9,7 @@ import {
 
 export interface SlateSettings {
   Renderer: React.ComponentType<SlateRendererProps>;
-  Controls?: React.ComponentType<SlateProps>;
+  // Controls?: React.ComponentType<SlateProps>;
   translations?: Translations;
 
   toolbarButtons?: ToolbarButtonTypes;

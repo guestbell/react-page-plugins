@@ -16,7 +16,7 @@ export const defaultTranslations = {
 
 export const defaultSettings: SlateSettings = {
   translations: defaultTranslations,
-  Controls: () => <>Controls for this plugin were not provided</>,
+  // Controls: () => <>Controls for this plugin were not provided</>,
   Renderer: () => <>Renderer for this plugin was not provided</>,
   toolbarButtons:
     ToolbarButtonTypes.Alignment |

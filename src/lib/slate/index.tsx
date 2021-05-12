@@ -12,9 +12,7 @@ const SlateDefaultRenderer = lazyLoad(() =>
   import('./Renderer/SlateHtmlRenderer')
 );
 
-export default (
-  settings?: MakeOptional<SlateSettings, 'Renderer' | 'Controls'>
-) => {
+export default (settings?: MakeOptional<SlateSettings, 'Renderer'>) => {
   const plugin = createPlugin({
     Renderer: SlateDefaultRenderer,
     // Controls: SlateDefaultControls,

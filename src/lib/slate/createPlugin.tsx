@@ -15,7 +15,7 @@ const createPlugin: (
   settings: SlateSettings
 ) => CellPlugin<SlateState> = settings => {
   const mergedSettings = { ...defaultSettings, ...settings };
-  const { Controls, Renderer, ...rest } = mergedSettings;
+  const { Renderer, ...rest } = mergedSettings;
   const createInitialState = () => ({
     version: SLATE_VERSION,
     value: slateEmptyValue(),
@@ -28,10 +28,10 @@ const createPlugin: (
     description: mergedSettings.translations.pluginDescription,
     Provider: props => <SlateProvider {...props} />,
     Renderer: props => <Renderer {...props} {...rest} />,
-    controls: {
+    /*controls: {
       type: 'custom',
       Component: props => <Controls {...props} {...rest} />,
-    },
+    },*/
     createInitialState,
     allowClickInside: true,
   } as CellPlugin<SlateState>;
