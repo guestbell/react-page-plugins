@@ -15,6 +15,10 @@ npm install
 npm start
 ```
 
+## Created and sponsored by
+
+- [GuestBell](https://guestbell.com/) - Customer centric online POS for Hotels and short terms stays.
+
 ## License
 
 MIT
