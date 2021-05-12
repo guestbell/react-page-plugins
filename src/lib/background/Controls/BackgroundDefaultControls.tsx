@@ -22,11 +22,6 @@ export interface BackgroundControlsState {
   mode: ModeEnum;
 }
 
-const containerStyles: React.CSSProperties = {
-  paddingLeft: 8,
-  paddingRight: 8,
-};
-
 const BackgroundControls: React.FC<BackgroundControlsProps> = props => {
   const [mode, setMode] = React.useState(props.defaultMode);
   const {
@@ -50,11 +45,11 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = props => {
     handleChangeLightenPreview,
     handleChangeModeSwitch,
   } = useBackgroundApi();
-  let darkenFinal =
+  const darkenFinal =
     previewState.darkenPreview !== undefined
       ? previewState.darkenPreview
       : darken;
-  let lightenFinal =
+  const lightenFinal =
     previewState.lightenPreview !== undefined
       ? previewState.lightenPreview
       : lighten;
@@ -157,7 +152,7 @@ const BackgroundControls: React.FC<BackgroundControlsProps> = props => {
     []
   );
   return (
-    <div className="backgroundControls" style={containerStyles}>
+    <div className="backgroundControls">
       <Tabs value={mode} onChange={handleChangeMode} centered={true}>
         {(props.enabledModes & ModeEnum.IMAGE_MODE_FLAG) > 0 && (
           <Tab

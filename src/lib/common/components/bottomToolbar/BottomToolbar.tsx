@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   childrenContainer: {
     // width: '100%',
     // overflow: 'auto',
+    '& > div > div': {
+      flex: 'initial !important',
+      overflow: 'initial !important',
+    },
   },
   paper: {
     pointerEvents: 'all',
