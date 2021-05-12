@@ -5,7 +5,7 @@ import {
   COLOR_MODE_FLAG,
   GRADIENT_MODE_FLAG,
 } from './../const/mode';
-import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib/ui/ImageUpload/defaultTranslations';
+import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib-es/ui/ImageUpload/defaultTranslations';
 import { lazyLoad } from '@react-page/editor';
 const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
 

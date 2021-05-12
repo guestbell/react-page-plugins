@@ -14,7 +14,7 @@ import migrations from '../../../../lib/common/slateMigrations/migrations';
 import Editor, { ValueWithLegacy } from '@react-page/editor';
 import { SlateValue } from 'build/common/types/slate/SlateValue';
 import BottomToolbar from '../../../../lib/common/components/bottomToolbar/BottomToolbar';
-import { Components } from '@react-page/editor/lib/core/types/components';
+import { Components } from '@react-page/editor/lib-es/core/types/components';
 
 if (
   process.env.NODE_ENV !== 'production' &&
