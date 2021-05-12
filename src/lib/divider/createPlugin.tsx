@@ -17,8 +17,9 @@ const createPlugin: (
       Component: props => <Controls {...props} {...rest} />,
     },
     id: 'ory/editor/core/content/divider',
+    title: mergedSettings.translations.pluginName,
     version: 1,
-    IconComponent: rest.icon,
+    icon: rest.icon,
     text: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
   };

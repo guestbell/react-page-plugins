@@ -1,9 +1,12 @@
+import { lazyLoad } from '@react-page/editor';
 import * as React from 'react';
 import {
   HoverButtonTypes,
   ToolbarButtonTypes,
 } from '../../common/components/slateEditor/SlateEditor';
 import { SlateSettings } from '../types/settings';
+
+const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
 
 export const defaultTranslations = {
   pluginName: 'Text',
@@ -26,4 +29,5 @@ export const defaultSettings: SlateSettings = {
     HoverButtonTypes.Italic |
     HoverButtonTypes.Underline |
     HoverButtonTypes.Color,
+  icon: <Subject />,
 };

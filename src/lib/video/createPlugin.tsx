@@ -40,7 +40,7 @@ const createPlugin: (
     },
     id: 'ory/editor/core/content/video',
     version: 1,
-    IconComponent: mergedSettings.icon,
+    icon: mergedSettings.icon,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
     isInlineable: true,

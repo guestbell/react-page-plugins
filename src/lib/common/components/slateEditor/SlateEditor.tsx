@@ -79,7 +79,7 @@ export interface SlateEditorCustomProps {
 
 const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
   toolbar: {
-    marginBottom: spacing(3),
+    // marginBottom: spacing(3),
     alignItems: 'center',
     backgroundColor: palette.background.paper,
   },
@@ -95,6 +95,7 @@ const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
   },
   editable: {
     padding: spacing(2),
+    paddingTop: spacing(4),
     // background: palette.grey[100],
   },
   characterCountContainer: {
