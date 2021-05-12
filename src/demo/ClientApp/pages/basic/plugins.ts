@@ -25,7 +25,7 @@ import background, { ModeEnum } from '../../../../lib/background/index';
 // The divider plugin
 import divider from '../../../../lib/divider';
 // The image plugin
-import { imagePlugin } from '../../../../lib/image/index';
+import image from '../../../../lib/image/index';
 // The spacer plugin
 import spacer from '../../../../lib/spacer/index';
 // The video plugin
@@ -45,7 +45,7 @@ export const cellPlugins: CellPlugin[] = [
       ModeEnum.GRADIENT_MODE_FLAG,
     theme: muiTheme,
   }),
-  imagePlugin({ theme: muiTheme }),
+  image({ theme: muiTheme }),
   spacer({ theme: muiTheme }),
   divider({ theme: muiTheme }),
   video({ theme: muiTheme }),
