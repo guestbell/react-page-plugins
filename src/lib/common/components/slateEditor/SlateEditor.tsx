@@ -230,106 +230,102 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     },
     [props.onChange, value]
   );
-  return (
-    value && (
-      <InputGroup title={props.title}>
-        <Slate editor={editor} value={value} onChange={onChange}>
-          <div className={classNames('slate-editor', className, classes.root)}>
-            <div className={classes.toolbar}>
-              {props.label && (
-                <div
-                  className={classNames('slate-editor__label', classes.label, {
-                    'slate-editor__label--active': false,
-                    [classes.labelFocused]: false,
-                  })}
-                >
-                  {props.label}
-                </div>
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
-                <HeadingButtonCompact />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
-                <FontSizeButton />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
-                <ColorButton />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
-                <AlignmentButtons />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
-                <ListButtons />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && (
-                <LinkButton />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
-                <QuoteButton />
-              )}
-              {extraToolbarButtons}
-            </div>
-            <Editable
-              className={classNames('slate-editable', classes.editable)}
-              renderLeaf={renderLeaf}
-              renderElement={renderElement}
-              onKeyDown={event => {
-                if (!allowNewChar) {
-                  if (!(event.keyCode === 8 || event.keyCode === 46)) {
-                    event.preventDefault();
-                    return;
-                  }
-                }
-                for (const hotkey in allHotkeys) {
-                  if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
-                    event.preventDefault();
-                    editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
-                  }
-                }
-                if (
-                  isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
-                ) {
-                  event.preventDefault();
-                  editor.insertText('\n');
-                }
-              }}
-            />
-            {props.maxChars && (
+  return value ? (
+    <InputGroup title={props.title}>
+      <Slate editor={editor} value={value} onChange={onChange}>
+        <div className={classNames('slate-editor', className, classes.root)}>
+          <div className={classes.toolbar}>
+            {props.label && (
               <div
-                className={classNames(
-                  'slate-editor__char-count',
-                  classes.characterCountContainer,
-                  {
-                    [classes.characterCountContainerWarning]: progress <= 10,
-                    'slate-editor__char-count--warning': progress <= 10,
-                    [classes.characterCountContainerError]: progress <= 0,
-                    'slate-editor__char-count--error': progress <= 0,
-                  }
-                )}
+                className={classNames('slate-editor__label', classes.label, {
+                  'slate-editor__label--active': false,
+                  [classes.labelFocused]: false,
+                })}
               >
-                {chars}/{props.maxChars}
+                {props.label}
               </div>
             )}
-            <HoveringToolbar>
-              {(hoverButtons & HoverButtonTypes.Bold) !== 0 && (
-                <EmphasizeButton type={EmphasizeTypes.Bold} />
-              )}
-              {(hoverButtons & HoverButtonTypes.Italic) !== 0 && (
-                <EmphasizeButton type={EmphasizeTypes.Italic} />
-              )}
-              {(hoverButtons & HoverButtonTypes.Underline) !== 0 && (
-                <EmphasizeButton type={EmphasizeTypes.Underline} />
-              )}
-              {(hoverButtons & HoverButtonTypes.Link) !== 0 && <LinkButton />}
-              {(hoverButtons & HoverButtonTypes.Color) !== 0 && <ColorButton />}
-              {props.extraHoverButtons}
-            </HoveringToolbar>
-            {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
+            {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
+              <HeadingButtonCompact />
+            )}
+            {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
+              <FontSizeButton />
+            )}
+            {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
+              <ColorButton />
+            )}
+            {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
+              <AlignmentButtons />
+            )}
+            {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
+              <ListButtons />
+            )}
+            {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && <LinkButton />}
+            {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
+              <QuoteButton />
+            )}
+            {extraToolbarButtons}
           </div>
-        </Slate>
-      </InputGroup>
-    )
-  );
+          <Editable
+            className={classNames('slate-editable', classes.editable)}
+            renderLeaf={renderLeaf}
+            renderElement={renderElement}
+            onKeyDown={event => {
+              if (!allowNewChar) {
+                if (!(event.keyCode === 8 || event.keyCode === 46)) {
+                  event.preventDefault();
+                  return;
+                }
+              }
+              for (const hotkey in allHotkeys) {
+                if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+                  event.preventDefault();
+                  editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
+                }
+              }
+              if (
+                isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
+              ) {
+                event.preventDefault();
+                editor.insertText('\n');
+              }
+            }}
+          />
+          {props.maxChars && (
+            <div
+              className={classNames(
+                'slate-editor__char-count',
+                classes.characterCountContainer,
+                {
+                  [classes.characterCountContainerWarning]: progress <= 10,
+                  'slate-editor__char-count--warning': progress <= 10,
+                  [classes.characterCountContainerError]: progress <= 0,
+                  'slate-editor__char-count--error': progress <= 0,
+                }
+              )}
+            >
+              {chars}/{props.maxChars}
+            </div>
+          )}
+          <HoveringToolbar>
+            {(hoverButtons & HoverButtonTypes.Bold) !== 0 && (
+              <EmphasizeButton type={EmphasizeTypes.Bold} />
+            )}
+            {(hoverButtons & HoverButtonTypes.Italic) !== 0 && (
+              <EmphasizeButton type={EmphasizeTypes.Italic} />
+            )}
+            {(hoverButtons & HoverButtonTypes.Underline) !== 0 && (
+              <EmphasizeButton type={EmphasizeTypes.Underline} />
+            )}
+            {(hoverButtons & HoverButtonTypes.Link) !== 0 && <LinkButton />}
+            {(hoverButtons & HoverButtonTypes.Color) !== 0 && <ColorButton />}
+            {props.extraHoverButtons}
+          </HoveringToolbar>
+          {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
+        </div>
+      </Slate>
+    </InputGroup>
+  ) : null;
 };
 
 export default SlateEditor;
