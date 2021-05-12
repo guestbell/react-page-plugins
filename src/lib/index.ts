@@ -5,3 +5,4 @@ export { default as video } from './video';
 export { default as divider } from './divider';
 export { default as slate } from './slate';
 export { default as BottomToolbar } from './common/components/bottomToolbar/BottomToolbar';
+export { default as SlateEditor } from './common/components/slateEditor/SlateEditor';

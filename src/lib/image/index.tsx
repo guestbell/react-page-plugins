@@ -25,24 +25,20 @@ import createPlugin from './createPlugin';
 import { lazyLoad } from '@react-page/editor';
 
 import ImageHtmlRenderer from './Renderer/ImageHtmlRenderer';
-import { ImageState } from './types/state';
 import { ImageSettings } from './types/settings';
-import { CellPlugin } from '@react-page/editor';
+import { MakeOptional } from '../common/types/makeOptional';
 
 const ImageDefaultControls = lazyLoad(() =>
   import('./Controls/ImageDefaultControls')
 );
 
-const imagePlugin: (
-  settings?: Partial<ImageSettings>
-) => CellPlugin<ImageState> = settings =>
-  createPlugin({
+export default (
+  settings?: MakeOptional<ImageSettings, 'Renderer' | 'Controls'>
+) => {
+  const plugin = createPlugin({
     Renderer: ImageHtmlRenderer,
     Controls: ImageDefaultControls,
     ...settings,
   });
-
-const image = imagePlugin();
-export default image;
-
-export { imagePlugin };
+  return plugin;
+};
