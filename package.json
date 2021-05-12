@@ -128,6 +128,9 @@
     "slate-react": "*"
   },
   "private": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/PeterKottas/guestbell-react-page-plugins.git"
@@ -145,12 +148,12 @@
     "create:patch": "npm run version:patch && npm run push:git",
     "deploy": ".env.bat && npm run build:gh-pages && npm run build:prod && npm run commit:build && npm publish && npm run create:patch",
     "generate-d-ts": "tsc -p src/lib && rimraf build/**/*.js && rimraf build/**/*.js.map",
+    "lint": "eslint \"./src/**/*.{js,ts,tsx}\" --quiet --fix",
     "push:git": "git push --tags origin master --quiet",
     "start": "yarn install && set NODE_ENV=local && webpack --config ./webpack/webpack.config.dev.js",
     "start-old": "yarn && set NODE_ENV=local && xcopy src\\demo\\ClientApp\\assets\\favicon\\icons src\\demo\\wwwroot\\dist\\icons /e /i /h /y && webpack-dev-server --config webpack/webpack.config.dev.js --content-base src/demo/wwwroot --hot --inline --open --history-api-fallback",
     "transpile": "babel ./src/lib --out-dir build --source-maps --copy-files --only **/*.ts,**/*.tsx --extensions .ts,.tsx --ignore **/*.d.ts && rimraf build/declarations && rimraf build/tsconfig.json",
-    "version:patch": "npm version patch",
-    "lint": "eslint \"./src/**/*.{js,ts,tsx}\" --quiet --fix"
+    "version:patch": "npm version patch"
   },
   "style": "build/dist/guestbell-react-page-plugins.min.css",
   "typings": "build/index.d.ts",
