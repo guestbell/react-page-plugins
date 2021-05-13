@@ -25,7 +25,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.58",
     "@material-ui/styles": "4.11.4",
-    "@react-page/editor": "2.1.4",
+    "@react-page/editor": "2.2.4",
     "@tippy.js/react": "3.1.1",
     "@types/classnames": "^2.2.10",
     "@types/react": "16.9.35",
