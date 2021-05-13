@@ -1012,38 +1012,36 @@ export const contents: ValueWithLegacy = {
                           version: '0.0.2',
                         },
                         state: {
-                          value: {
-                            version: 1,
-                            data: [
-                              {
-                                type: 'HEADING',
-                                children: [
-                                  {
-                                    text: 'React Plugin API',
-                                  },
-                                ],
-                                level: 2,
-                              },
-                              {
-                                type: 'PARAGRAPH',
-                                children: [
-                                  {
-                                    text:
-                                      "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
-                                  },
-                                ],
-                              },
-                              {
-                                type: 'PARAGRAPH',
-                                children: [
-                                  {
-                                    text:
-                                      'In fact, this section is rendered on top of an exemplary layout plugin!',
-                                  },
-                                ],
-                              },
-                            ],
-                          },
+                          version: 1,
+                          value: [
+                            {
+                              type: 'HEADING',
+                              children: [
+                                {
+                                  text: 'React Plugin API',
+                                },
+                              ],
+                              level: 2,
+                            },
+                            {
+                              type: 'PARAGRAPH',
+                              children: [
+                                {
+                                  text:
+                                    "You don't like our rich text solution, require custom layout components, need a twitter feed, want to contribute or even sell plugins? No problem with our easy-to-use React Plugin API!",
+                                },
+                              ],
+                            },
+                            {
+                              type: 'PARAGRAPH',
+                              children: [
+                                {
+                                  text:
+                                    'In fact, this section is rendered on top of an exemplary layout plugin!',
+                                },
+                              ],
+                            },
+                          ],
                         },
                       },
                     },
