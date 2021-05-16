@@ -36,6 +36,9 @@ import { ListButtons } from '../../../slate/plugins/lists/ListButtons';
 import { LinkButton } from '../../../slate/plugins/links/LinkButton';
 import { QuoteButton } from '../../../slate/plugins/quote/QuoteButton';
 import { renderElement, renderLeaf } from './Components';
+import { SelectionToolbar } from './SelectionToolbar';
+import Divider from '@material-ui/core/Divider/Divider';
+import Grid from '@material-ui/core/Grid/Grid';
 
 export type SlateEditorOnChangeHandler = (val: {
   value: SlateValue;
@@ -96,7 +99,6 @@ const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
   },
   editable: {
     padding: spacing(2),
-    paddingTop: spacing(4),
     // background: palette.grey[100],
   },
   characterCountContainer: {
@@ -248,28 +250,61 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                   {props.label}
                 </div>
               )}
-              {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
-                <HeadingButtonCompact />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
-                <FontSizeButton />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
-                <ColorButton />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
-                <AlignmentButtons />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
-                <ListButtons />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && (
-                <LinkButton />
-              )}
-              {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
-                <QuoteButton />
-              )}
-              {extraToolbarButtons}
+              <Grid container alignItems="center" className={classes.root}>
+                {(toolbarButtons & ToolbarButtonTypes.Heading) !== 0 && (
+                  <HeadingButtonCompact />
+                )}
+                {(toolbarButtons & ToolbarButtonTypes.FontSize) !== 0 && (
+                  <FontSizeButton />
+                )}
+                {(toolbarButtons & ToolbarButtonTypes.Color) !== 0 && (
+                  <ColorButton />
+                )}
+                {(toolbarButtons & ToolbarButtonTypes.Alignment) !== 0 && (
+                  <AlignmentButtons />
+                )}
+                {(toolbarButtons & ToolbarButtonTypes.Lists) !== 0 && (
+                  <ListButtons />
+                )}
+                {(toolbarButtons & ToolbarButtonTypes.Link) !== 0 && (
+                  <LinkButton />
+                )}
+                {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
+                  <QuoteButton />
+                )}
+                {extraToolbarButtons}
+                <SelectionToolbar>
+                  {enabled => (
+                    <>
+                      <Divider orientation="vertical" flexItem={true} />
+                      {(hoverButtons & HoverButtonTypes.Bold) !== 0 && (
+                        <EmphasizeButton
+                          type={EmphasizeTypes.Bold}
+                          disabled={!enabled}
+                        />
+                      )}
+                      {(hoverButtons & HoverButtonTypes.Italic) !== 0 && (
+                        <EmphasizeButton
+                          type={EmphasizeTypes.Italic}
+                          disabled={!enabled}
+                        />
+                      )}
+                      {(hoverButtons & HoverButtonTypes.Underline) !== 0 && (
+                        <EmphasizeButton
+                          type={EmphasizeTypes.Underline}
+                          disabled={!enabled}
+                        />
+                      )}
+                      {(hoverButtons & HoverButtonTypes.Link) !== 0 && (
+                        <LinkButton disabled={!enabled} />
+                      )}
+                      {(hoverButtons & HoverButtonTypes.Color) !== 0 && (
+                        <ColorButton disabled={!enabled} />
+                      )}
+                    </>
+                  )}
+                </SelectionToolbar>
+              </Grid>
             </div>
           )}
           <Editable
@@ -313,20 +348,22 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
               {chars}/{props.maxChars}
             </div>
           )}
-          <HoveringToolbar>
-            {(hoverButtons & HoverButtonTypes.Bold) !== 0 && (
-              <EmphasizeButton type={EmphasizeTypes.Bold} />
-            )}
-            {(hoverButtons & HoverButtonTypes.Italic) !== 0 && (
-              <EmphasizeButton type={EmphasizeTypes.Italic} />
-            )}
-            {(hoverButtons & HoverButtonTypes.Underline) !== 0 && (
-              <EmphasizeButton type={EmphasizeTypes.Underline} />
-            )}
-            {(hoverButtons & HoverButtonTypes.Link) !== 0 && <LinkButton />}
-            {(hoverButtons & HoverButtonTypes.Color) !== 0 && <ColorButton />}
-            {props.extraHoverButtons}
-          </HoveringToolbar>
+          {false && (
+            <HoveringToolbar>
+              {(hoverButtons & HoverButtonTypes.Bold) !== 0 && (
+                <EmphasizeButton type={EmphasizeTypes.Bold} />
+              )}
+              {(hoverButtons & HoverButtonTypes.Italic) !== 0 && (
+                <EmphasizeButton type={EmphasizeTypes.Italic} />
+              )}
+              {(hoverButtons & HoverButtonTypes.Underline) !== 0 && (
+                <EmphasizeButton type={EmphasizeTypes.Underline} />
+              )}
+              {(hoverButtons & HoverButtonTypes.Link) !== 0 && <LinkButton />}
+              {(hoverButtons & HoverButtonTypes.Color) !== 0 && <ColorButton />}
+              {props.extraHoverButtons}
+            </HoveringToolbar>
+          )}
           {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
         </div>
       </Slate>

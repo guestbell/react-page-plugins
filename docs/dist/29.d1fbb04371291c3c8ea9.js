@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[29],{1181:function(e,t,a){"use strict";var d=a(43),h=a(168);Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var v=h(a(0)),n=(0,d(a(167)).default)(v.createElement("path",{d:"M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"}),"TextFields");t.default=n}}]);

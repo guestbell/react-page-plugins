@@ -19,24 +19,32 @@ const SlateButton: React.FC<ToolbarButtonProps> = ({
   disabled = false,
   theme,
   title,
-}) => (
-  <Button
-    type="gray"
-    blank={true}
-    circular={true}
-    style={
-      isActive
-        ? { color: theme.palette.primary.main }
-        : { color: theme.palette.action.active }
-    }
-    buttonProps={{ onMouseDown: onClick }}
-    disabled={disabled}
-    tooltip={title}
-    noShadow={true}
-  >
-    {icon}
-  </Button>
-);
+}) => {
+  const onMouseDown = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (e.button === 0) {
+        onClick(e);
+      }
+    },
+    [onClick]
+  );
+  const buttonProps = React.useMemo(() => ({ onMouseDown }), [onMouseDown]);
+  return (
+    <Button
+      type={isActive ? 'primary' : 'gray'}
+      // blank={true}
+      circular={true}
+      buttonProps={buttonProps}
+      disabled={disabled}
+      tooltip={title}
+      noShadow={true}
+      text={true}
+    >
+      {icon}
+    </Button>
+  );
+};
 
 export default withTheme(SlateButton) as React.ComponentType<
   ToolbarButtonCustomProps

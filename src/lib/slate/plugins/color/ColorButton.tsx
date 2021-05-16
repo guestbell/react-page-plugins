@@ -11,7 +11,9 @@ import { ChromePicker, ColorResult, RGBColor } from 'react-color';
 import { Range } from 'slate';
 import { makeStyles } from '@material-ui/styles';
 
-export interface ColorButtonCustomProps {}
+export interface ColorButtonCustomProps {
+  disabled?: boolean;
+}
 
 const useStyles = makeStyles({
   chromePicker: {
@@ -29,7 +31,7 @@ const FormatColorTextIcon = lazyLoad(() =>
   import('@material-ui/icons/FormatColorText')
 );
 
-export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
+export const ColorButtonRaw: React.FC<ColorButtonProps> = ({ disabled }) => {
   const classes = useStyles();
   const editor = useSlate();
   const [open, setOpen] = React.useState(false);
@@ -78,6 +80,7 @@ export const ColorButtonRaw: React.FC<ColorButtonProps> = props => {
   return (
     <>
       <SlateButton
+        disabled={disabled}
         isActive={isActive}
         onClick={handleClickOpen}
         icon={<FormatColorTextIcon />}

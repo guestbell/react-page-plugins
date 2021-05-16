@@ -105,11 +105,11 @@ const BackgroundHtmlRenderer: React.FC<BackgroundRendererProps> = props => {
     },
   } = props;
   const previewState = useBackgroundPreviewState();
-  let darkenFinal =
+  const darkenFinal =
     previewState.darkenPreview !== undefined
       ? previewState.darkenPreview
       : darken;
-  let lightenFinal =
+  const lightenFinal =
     previewState.lightenPreview !== undefined
       ? previewState.lightenPreview
       : lighten;
@@ -118,11 +118,11 @@ const BackgroundHtmlRenderer: React.FC<BackgroundRendererProps> = props => {
     previewState,
   ]);
   return (
-    <PaddingComponent state={props.data}>
-      <div
-        className="ory-plugins-layout-background"
-        style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
-      >
+    <div
+      className="ory-plugins-layout-background"
+      style={{ ...containerStyles, ...(hasPadding ? {} : { padding: 0 }) }}
+    >
+      <PaddingComponent state={props.data}>
         <div
           className="ory-plugins-layout-background__backstretch"
           style={{
@@ -131,8 +131,8 @@ const BackgroundHtmlRenderer: React.FC<BackgroundRendererProps> = props => {
           }}
         />
         {children}
-      </div>
-    </PaddingComponent>
+      </PaddingComponent>
+    </div>
   );
 };
 

@@ -6,6 +6,7 @@ import { lazyLoad } from '@react-page/editor';
 
 export interface EmphasizeButtonProps {
   type: EmphasizeTypes;
+  disabled?: boolean;
 }
 
 const names = {
@@ -24,7 +25,10 @@ const icons = {
   [EmphasizeTypes.Underline]: <FormatUnderlined />,
 };
 
-export const EmphasizeButton: React.FC<EmphasizeButtonProps> = ({ type }) => {
+export const EmphasizeButton: React.FC<EmphasizeButtonProps> = ({
+  type,
+  disabled,
+}) => {
   const editor = useSlateStatic();
   return (
     <SlateButton
@@ -35,6 +39,7 @@ export const EmphasizeButton: React.FC<EmphasizeButtonProps> = ({ type }) => {
       }}
       icon={icons[type]}
       title={names[type]}
+      disabled={disabled}
     />
   );
 };

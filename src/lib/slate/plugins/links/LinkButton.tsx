@@ -10,11 +10,13 @@ import TextField from '@material-ui/core/TextField';
 import { Range } from 'slate';
 import { lazyLoad } from '@react-page/editor';
 
-export interface LinkButtonProps {}
+export interface LinkButtonProps {
+  disabled?: boolean;
+}
 
 const LinkIcon = lazyLoad(() => import('@material-ui/icons/Link'));
 
-export const LinkButton: React.FC<LinkButtonProps> = () => {
+export const LinkButton: React.FC<LinkButtonProps> = ({ disabled }) => {
   const editor = useSlate();
   const isActive = isLinkActive(editor);
   const [open, setOpen] = React.useState(false);
@@ -61,6 +63,7 @@ export const LinkButton: React.FC<LinkButtonProps> = () => {
   return (
     <>
       <SlateButton
+        disabled={disabled}
         isActive={isActive}
         onClick={handleClickOpen}
         icon={<LinkIcon />}

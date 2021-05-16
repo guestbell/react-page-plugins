@@ -15,6 +15,8 @@ import Editor, { ValueWithLegacy } from '@react-page/editor';
 import { SlateValue } from '../../../../lib/common/types/slate/SlateValue';
 import BottomToolbar from '../../../../lib/common/components/bottomToolbar/BottomToolbar';
 import { Components } from '@react-page/editor/lib-es/core/types/components';
+import OpenWithIcon from '@material-ui/icons/OpenWith';
+import withStyles from '@material-ui/styles/withStyles';
 
 if (
   process.env.NODE_ENV !== 'production' &&
@@ -30,10 +32,25 @@ if (
   return <Editor {...props} value={state} onChange={setState} />;
 };*/
 
+const MoveIcon = withStyles({
+  root: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    // background: 'transparent !important',
+    color: 'white',
+    // cursor: 'grab !important',
+    padding: 2,
+  },
+})(OpenWithIcon);
+
 export interface BasicProps {}
 
 const components: Components = {
   BottomToolbar: props => <BottomToolbar {...props} />,
+  EditModeResizeHandle: props => (
+    <MoveIcon className="react-page-cell-draggable-overlay-handle" {...props} />
+  ),
 };
 
 export const Basic: React.FC<BasicProps> = props => {
