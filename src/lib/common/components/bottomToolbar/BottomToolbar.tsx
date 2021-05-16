@@ -27,6 +27,7 @@ const drawerPaperProps: Partial<PaperProps> = {
     border: 'none',
     overflow: 'visible',
     pointerEvents: 'none',
+    zIndex: 1001,
   },
 };
 
