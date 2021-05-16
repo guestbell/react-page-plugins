@@ -8,7 +8,7 @@ const SpacerHtmlRenderer: React.FC<SpacerHtmlRendererProps> = props => {
   const { data: { height } = defaultSpacerState } = props;
   return (
     <PaddingComponent state={props.data}>
-      {props.isEditMode && props.focused ? (
+      {props.isEditMode ? (
         <SpacerResizable {...props} />
       ) : (
         <div style={{ height: `${(height || 0).toString()}px` }} />
