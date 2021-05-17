@@ -272,7 +272,6 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 {(toolbarButtons & ToolbarButtonTypes.Quote) !== 0 && (
                   <QuoteButton />
                 )}
-                {extraToolbarButtons}
                 <SelectionToolbar>
                   {enabled => (
                     <>
@@ -304,6 +303,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                     </>
                   )}
                 </SelectionToolbar>
+                {extraToolbarButtons}
               </Grid>
             </div>
           )}
