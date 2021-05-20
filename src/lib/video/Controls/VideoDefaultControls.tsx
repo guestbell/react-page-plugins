@@ -32,7 +32,6 @@ import UploadedIcon from '@material-ui/icons/PlayArrow';
 
 const Form: React.FC<VideoControlsProps> = props => {
   const {
-    focused,
     readOnly,
     onChange,
     data: {
@@ -80,7 +79,7 @@ const Form: React.FC<VideoControlsProps> = props => {
     [changeUploadedSrc]
   );
 
-  return !readOnly && focused ? (
+  return !readOnly ? (
     <>
       <Tabs value={type} onChange={handleTabTypeChange} centered={true}>
         {(props.enabledTypes & VideoTypeEnum.Embedded) > 0 && (

@@ -34,7 +34,7 @@ import { defaultVideoState } from '../default/state';
 // react player is big, better lazy load it.
 const ReactPlayer = lazyLoad(() => import('react-player'));
 
-const Display: React.SFC<VideoHtmlRendererProps> = props => {
+const Display: React.FC<VideoHtmlRendererProps> = props => {
   const {
     data: {
       type = props.defaultType,

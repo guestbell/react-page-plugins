@@ -33,17 +33,16 @@ const createPlugin: (
   const mergedSettings = { ...defaultSettings, ...settings };
   const { Renderer, Controls, ...rest } = mergedSettings;
   return {
-    Renderer,
+    Renderer: props => <Renderer {...rest} {...props} />,
     controls: {
       type: 'custom',
-      Component: props => <Controls {...rest} {...props} />,
+      Component: props => <Controls {...props} {...rest} />,
     },
     id: 'ory/editor/core/content/video',
     version: 1,
     icon: mergedSettings.icon,
     title: mergedSettings.translations.pluginName,
     description: mergedSettings.translations.pluginDescription,
-    isInlineable: true,
   };
 };
 
