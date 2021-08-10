@@ -7,4 +7,5 @@ export enum TagTypeEnum {
   Orderable = 32,
   OpeningHours = 64,
   Content = 128,
+  InventoryItem = 256,
 }
