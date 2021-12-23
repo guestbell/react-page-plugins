@@ -11,6 +11,8 @@ import { defaultConfig } from '../../../slate/plugins/fontSize/fontSizeConfig';
 import { LinkType } from '../../../slate/plugins/links/linkType';
 import { ColorType } from '../../../slate/plugins/color/colorType';
 import { addColorStyles } from '../../../slate/plugins/color';
+import { Link as RouterLink } from 'react-router-dom';
+import { isSamePageUrl } from '../../utils/urlUtil';
 
 const BLOCK_TAGS = {
   a: LinkType,
@@ -55,7 +57,11 @@ const BLOCK_RULE = (node: Element, children: JSX.Element) => {
   let comp: JSX.Element;
   switch (node.type) {
     case BLOCK_TAGS.a:
-      comp = <a href={node.url as string}>{children}</a>;
+      if (isSamePageUrl(node.url)) {
+        return <RouterLink to={node.url}>{children}</RouterLink>;
+      } else {
+        comp = <a href={node.url as string}>{children}</a>;
+      }
       break;
     case BLOCK_TAGS.p:
       comp = <p>{children}</p>;
