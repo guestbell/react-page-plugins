@@ -11,8 +11,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "deep-rename-keys": "^0.2.1",
-    "react-resizable": "^3.0.1",
-    "react-router-dom": "^6.0.0"
+    "react-resizable": "^3.0.1"
   },
   "description": "Plugins we use in GuestBell for working with amazing react-page package",
   "devDependencies": {
@@ -125,7 +124,8 @@
     "slate": "*",
     "slate-history": "*",
     "slate-hyperscript": "*",
-    "slate-react": "*"
+    "slate-react": "*",
+    "react-router-dom": "^6.0.0"
   },
   "private": false,
   "publishConfig": {
