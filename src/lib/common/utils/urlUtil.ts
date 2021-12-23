@@ -19,4 +19,4 @@ export const isExternalUrl = (urlStr: string) => {
 };
 
 export const getPathname = (urlStr: string) =>
-  urlStr?.replace(document.location.origin, '')?.replace('/', '');
+  urlStr?.replace(document.location.origin, '');
