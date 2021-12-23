@@ -57,8 +57,10 @@ export const LinkButton: React.FC<LinkButtonProps> = ({ disabled }) => {
   );
 
   React.useEffect(() => {
-    setUrl(storedUrl);
-  }, [storedUrl]);
+    if (!open) {
+      setUrl(storedUrl);
+    }
+  }, [storedUrl, open]);
 
   return (
     <>

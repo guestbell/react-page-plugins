@@ -8,7 +8,7 @@ import PaddingComponent from '../../common/utils/PaddingComponent';
 
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
-const ImageHtmlRenderer: React.SFC<ImageRendererProps> = props => {
+const ImageHtmlRenderer: React.FC<ImageRendererProps> = props => {
   const { isEditMode, data } = props;
   if (!data.image && !data.src) {
     return (

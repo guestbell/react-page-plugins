@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { ImageConstraintMode } from '../types/state';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
 
 type ImageControlsProps = ImageControlsCustomProps;
 
@@ -26,10 +27,18 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
     onChange,
     readOnly,
     focused,
-    data: { constraintMode = ImageConstraintMode.FullWidth },
+    data: { constraintMode = ImageConstraintMode.FullWidth, href = '' },
   } = props;
-  const onConstraintModeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    onChange({ constraintMode: Number(e.target.value) });
+  const onConstraintModeChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) =>
+      onChange({ constraintMode: Number(e.target.value) }),
+    [onChange]
+  );
+  const onHrefChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChange({ href: e.target.value }),
+    [onChange]
+  );
   return (
     <div className="imageControls ory-prevent-blur">
       {!readOnly && focused && (
@@ -41,13 +50,23 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
           />
           <FormControl>
             <InputLabel>Size mode</InputLabel>
-            <Select value={constraintMode} onChange={onConstraintModeChange}>
+            <Select
+              className="mb-1"
+              value={constraintMode}
+              onChange={onConstraintModeChange}
+            >
               {allModes.map((item, key) => (
                 <MenuItem key={key} value={item}>
                   {modeNames[item]}
                 </MenuItem>
               ))}
             </Select>
+            <TextField
+              className="mb-1"
+              label="Link url"
+              onChange={onHrefChange}
+              value={href}
+            />
           </FormControl>
         </>
       )}
