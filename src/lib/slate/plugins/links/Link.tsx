@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RenderElementProps } from 'slate-react';
-import { isSamePageUrl } from '../../../common/utils/urlUtil';
+import { getPathname, isSamePageUrl } from '../../../common/utils/urlUtil';
 import { LinkType } from './linkType';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export const Link: React.FC<RenderElementProps> = ({
     case LinkType:
       if (isSamePageUrl(element.url)) {
         return (
-          <RouterLink {...attributes} to={element.url}>
+          <RouterLink {...attributes} to={getPathname(element.url)}>
             {children}
           </RouterLink>
         );

@@ -5,7 +5,7 @@ import { lazyLoad } from '@react-page/editor';
 import classNames from 'classnames';
 import { ImageConstraintMode } from '../types/state';
 import PaddingComponent from '../../common/utils/PaddingComponent';
-import { isSamePageUrl } from '../../common/utils/urlUtil';
+import { getPathname, isSamePageUrl } from '../../common/utils/urlUtil';
 import { Link } from 'react-router-dom';
 
 const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
@@ -49,7 +49,7 @@ const ImageHtmlRenderer: React.FC<ImageRendererProps> = props => {
       <div className="ory-plugins-content-image__container">
         {data.href && !isEditMode ? (
           isSamePageUrl(data.href) ? (
-            <Link to={data.href}>{Image}</Link>
+            <Link to={getPathname(data.href)}>{Image}</Link>
           ) : (
             <a href={data.href}>{Image}</a>
           )
