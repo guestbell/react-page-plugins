@@ -56,7 +56,7 @@ const SlateRenderer: React.FC<SlateRendererProps> = props => {
     return migrationResult.migratedState;
   }, [props.value]);
   return (
-    <>
+    <div className="slateRenderer__container">
       {migratedValue &&
         Array.isArray(migratedValue) &&
         migratedValue.map((node, key) => (
@@ -68,7 +68,7 @@ const SlateRenderer: React.FC<SlateRendererProps> = props => {
           />
         ))}
       {/*<pre>{JSON.stringify(value, null, 1)}</pre>*/}
-    </>
+    </div>
   );
 };
 
