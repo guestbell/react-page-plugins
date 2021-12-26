@@ -8,6 +8,8 @@ import { ImageConstraintMode } from '../types/state';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 type ImageControlsProps = ImageControlsCustomProps;
 
@@ -27,7 +29,11 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
     onChange,
     readOnly,
     focused,
-    data: { constraintMode = ImageConstraintMode.FullWidth, href = '' },
+    data: {
+      constraintMode = ImageConstraintMode.FullWidth,
+      href = '',
+      hasMargin = true,
+    },
   } = props;
   const onConstraintModeChange = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -37,6 +43,11 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
   const onHrefChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
       onChange({ href: e.target.value }),
+    [onChange]
+  );
+  const handleChangeHasPadding = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChange({ hasMargin: e.target.checked }),
     [onChange]
   );
   return (
@@ -66,6 +77,12 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
               label="Link url"
               onChange={onHrefChange}
               value={href}
+            />
+            <FormControlLabel
+              control={
+                <Switch onChange={handleChangeHasPadding} checked={hasMargin} />
+              }
+              label="Use margin"
             />
           </FormControl>
         </>

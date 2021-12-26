@@ -15,4 +15,5 @@ export interface ImageState extends PaddingState {
   srcSet?: string;
   href?: string;
   constraintMode?: ImageConstraintMode;
+  hasMargin?: boolean;
 }

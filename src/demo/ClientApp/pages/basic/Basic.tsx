@@ -102,7 +102,7 @@ export const Basic: React.FC<BasicProps> = props => {
         allowResizeInEditMode={true}
         components={components}
       />
-      {false && (
+      {true && (
         <Editor cellPlugins={cellPlugins} value={content} readOnly={true} />
       )}
       {/*<pre>{JSON.stringify(content, null, 2)}</pre>*/}

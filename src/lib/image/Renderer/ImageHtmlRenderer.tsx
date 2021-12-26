@@ -12,6 +12,7 @@ const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
 
 const ImageHtmlRenderer: React.FC<ImageRendererProps> = props => {
   const { isEditMode, data } = props;
+  const { hasMargin = true } = data;
   if (!data.image && !data.src) {
     return (
       <div>
@@ -46,7 +47,10 @@ const ImageHtmlRenderer: React.FC<ImageRendererProps> = props => {
   }
   return (
     <PaddingComponent state={props.data}>
-      <div className="ory-plugins-content-image__container">
+      <div
+        className="ory-plugins-content-image__container"
+        style={hasMargin ? undefined : { padding: 0 }}
+      >
         {data.href && !isEditMode ? (
           isSamePageUrl(data.href) ? (
             <Link to={getPathname(data.href)}>{Image}</Link>

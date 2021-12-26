@@ -4,11 +4,13 @@ import Header from './components/header/Header';
 import { hot } from 'react-hot-loader';
 import { muiTheme } from './theme/theme';
 import { ThemeProvider } from '@material-ui/core/styles';
-
+import { BrowserRouter } from 'react-router-dom';
 const App = () => (
   <ThemeProvider theme={muiTheme}>
-    <Header />
-    <Basic />
+    <BrowserRouter>
+      <Header />
+      <Basic />
+    </BrowserRouter>
   </ThemeProvider>
 );
 
