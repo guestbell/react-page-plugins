@@ -80,7 +80,10 @@ const getStyles = (
         : modeStr,
     };
   }
-  if (modeFlag & ModeEnum.IMAGE_MODE_FLAG) {
+  if (
+    (modeFlag & ModeEnum.IMAGE_MODE_FLAG) !== 0 &&
+    (bgImage || props.data.bgSrc)
+  ) {
     const backgroundFinal = bgImage ? bgImage.src : props.data.bgSrc;
     const modeStr =
       `url('${backgroundFinal}') center / cover no-repeat` +
