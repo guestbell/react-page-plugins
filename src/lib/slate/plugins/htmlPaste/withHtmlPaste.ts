@@ -8,7 +8,7 @@ import { LinkType } from '../links/linkType';
 import { EmphasizeTypes } from '../emphasize/emphasizeTypes';
 
 const ELEMENT_TAGS = {
-  A: (el: Element) => ({ type: LinkType, url: el.getAttribute('href') }),
+  A: (el: HTMLElement) => ({ type: LinkType, url: el.getAttribute('href') }),
   BLOCKQUOTE: () => ({ type: QuoteType }),
   H1: () => ({ type: HeadingType, level: 1 }),
   H2: () => ({ type: HeadingType, level: 2 }),
@@ -68,7 +68,7 @@ export const deserialize = (el: Node) => {
 
   if (MARK_TAGS[nodeName]) {
     const attrs = MARK_TAGS[nodeName](el);
-    return jsx('text', attrs, children);
+    return children.map(child => jsx('text', attrs, child));
   }
 
   return children;
