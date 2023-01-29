@@ -31,9 +31,9 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) => ({
     paddingRight: '1.5rem',
   },
   switchImageButton: {
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     position: 'absolute !important' as any,
-    right: -spacing(1),
+    right: spacing(-1),
     top: '50%',
     transform: 'translateY(-50%)',
     color: palette.action.active + ' !important',
