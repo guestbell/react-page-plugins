@@ -4,16 +4,16 @@ import { AlignmentButton } from './AlignmentButton';
 import { AlignmentTypes } from './alignmentTypes';
 
 const AlignLeftIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignLeft')
+  import('@mui/icons-material/FormatAlignLeft')
 );
 const AlignCenterIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignCenter')
+  import('@mui/icons-material/FormatAlignCenter')
 );
 const AlignRightIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignRight')
+  import('@mui/icons-material/FormatAlignRight')
 );
 const AlignJustifyIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatAlignJustify')
+  import('@mui/icons-material/FormatAlignJustify')
 );
 
 export const AlignmentButtons: React.FC = () => (

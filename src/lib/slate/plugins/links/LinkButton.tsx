@@ -2,11 +2,11 @@ import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../../common/components/slateEditor/SlateButton';
 import { isLinkActive, getLinkUrl } from './withLinks';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { Range } from 'slate';
 import { lazyLoad } from '@react-page/editor';
 
@@ -14,7 +14,7 @@ export interface LinkButtonProps {
   disabled?: boolean;
 }
 
-const LinkIcon = lazyLoad(() => import('@material-ui/icons/Link'));
+const LinkIcon = lazyLoad(() => import('@mui/icons-material/Link'));
 
 export const LinkButton: React.FC<LinkButtonProps> = ({ disabled }) => {
   const editor = useSlate();

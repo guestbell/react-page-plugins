@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useSlate } from 'slate-react';
 import { FontSizePluginConfig, getActiveFontSizes, isFontSizeActive } from './';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@mui/material/MenuItem';
 import { lazyLoad } from '@react-page/editor';
 import SlateButton from '../../../common/components/slateEditor/SlateButton';
-import Menu from '@material-ui/core/Menu';
+import Menu from '@mui/material/Menu';
 
 export interface FontSizeButtonCustomProps {}
 
-const FormatSizeIcon = lazyLoad(() => import('@material-ui/icons/TextFields'));
+const FormatSizeIcon = lazyLoad(() => import('@mui/icons-material/TextFields'));
 
 type FontSizeButtonProps = FontSizeButtonCustomProps;
 

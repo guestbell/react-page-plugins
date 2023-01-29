@@ -15,8 +15,8 @@ import Editor, { ValueWithLegacy } from '@react-page/editor';
 import { SlateValue } from '../../../../lib/common/types/slate/SlateValue';
 import BottomToolbar from '../../../../lib/common/components/bottomToolbar/BottomToolbar';
 import { Components } from '@react-page/editor/lib-es/core/types/components';
-import OpenWithIcon from '@material-ui/icons/OpenWith';
-import withStyles from '@material-ui/styles/withStyles';
+import OpenWithIcon from '@mui/icons-material/OpenWith';
+import withStyles from '@mui/styles/withStyles';
 
 if (
   process.env.NODE_ENV !== 'production' &&

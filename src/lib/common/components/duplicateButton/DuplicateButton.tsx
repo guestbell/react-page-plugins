@@ -1,5 +1,5 @@
-import { IconButton } from '@material-ui/core';
-import Icon from '@material-ui/icons/FileCopy';
+import { IconButton } from '@mui/material';
+import Icon from '@mui/icons-material/FileCopy';
 import React from 'react';
 import { useDuplicateCell } from '@react-page/editor';
 
@@ -12,6 +12,7 @@ export const DuplicateButton: React.FC<{ nodeId: string }> = React.memo(
         aria-label="delete"
         color="default"
         className="bottomToolbar__duplicateButton"
+        size="large"
       >
         <Icon />
       </IconButton>

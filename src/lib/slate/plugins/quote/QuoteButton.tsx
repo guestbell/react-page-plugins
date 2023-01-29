@@ -7,7 +7,7 @@ import { lazyLoad } from '@react-page/editor';
 export interface QuoteButtonProps {}
 
 const FormatQuoteIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatQuote')
+  import('@mui/icons-material/FormatQuote')
 );
 
 export const QuoteButton: React.FC<QuoteButtonProps> = () => {

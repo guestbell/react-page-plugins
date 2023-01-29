@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@mui/material/Button';
+import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { RGBColor } from '@react-page/editor';
 
 import { ColorPicker } from '@react-page/editor';
@@ -54,10 +54,7 @@ class LinearGradientComponent extends React.Component<
     });
   };
 
-  handleChangeDegPreview = (index: number) => (
-    e: React.ChangeEvent,
-    value: number
-  ) => {
+  handleChangeDegPreview = (index: number) => (e: Event, value: number) => {
     this.props.onChangeGradientDegPreview &&
       this.props.onChangeGradientDegPreview(value, index);
   };
@@ -73,10 +70,7 @@ class LinearGradientComponent extends React.Component<
     });
   };
 
-  handleChangeOpacityPreview = (index: number) => (
-    e: React.ChangeEvent,
-    value: number
-  ) => {
+  handleChangeOpacityPreview = (index: number) => (e: Event, value: number) => {
     this.props.onChangeGradientOpacityPreview &&
       this.props.onChangeGradientOpacityPreview(value, index);
   };
@@ -244,6 +238,7 @@ class LinearGradientComponent extends React.Component<
                     <IconButton
                       aria-label="Delete"
                       onClick={this.removeColor(i, cpIndex)}
+                      size="large"
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -257,7 +252,11 @@ class LinearGradientComponent extends React.Component<
               >
                 Add color
               </Button>
-              <IconButton aria-label="Delete" onClick={this.removeGradient(i)}>
+              <IconButton
+                aria-label="Delete"
+                onClick={this.removeGradient(i)}
+                size="large"
+              >
                 <DeleteIcon />
               </IconButton>
             </div>

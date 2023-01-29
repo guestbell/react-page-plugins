@@ -7,7 +7,7 @@ import {
 } from './../const/mode';
 import { defaultTranslations as defaultImageUploadTranslations } from '@react-page/editor/lib-es/ui/ImageUpload/defaultTranslations';
 import { lazyLoad } from '@react-page/editor';
-const Icon = lazyLoad(() => import('@material-ui/icons/CropLandscape'));
+const Icon = lazyLoad(() => import('@mui/icons-material/CropLandscape'));
 
 export const defaultTranslations = {
   ...defaultImageUploadTranslations,

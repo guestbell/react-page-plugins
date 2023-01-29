@@ -6,7 +6,7 @@ import {
 } from '../../common/components/slateEditor/SlateEditor';
 import { SlateSettings } from '../types/settings';
 
-const Subject = lazyLoad(() => import('@material-ui/icons/Subject'));
+const Subject = lazyLoad(() => import('@mui/icons-material/Subject'));
 
 export const defaultTranslations = {
   pluginName: 'Text',

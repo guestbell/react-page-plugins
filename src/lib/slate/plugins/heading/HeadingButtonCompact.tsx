@@ -5,16 +5,17 @@ import {
   getActiveHeadings,
   isHeadingActive,
 } from './withHeadings';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@mui/material/MenuItem';
 import { lazyLoad } from '@react-page/editor';
 import SlateButton from '../../../common/components/slateEditor/SlateButton';
-import Menu from '@material-ui/core/Menu';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { makeStyles } from '@material-ui/core/styles';
+import Menu from '@mui/material/Menu';
+import { Theme } from '@mui/material/styles';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 export interface HeadingButtonCustomProps {}
 
-const TitleIcon = lazyLoad(() => import('@material-ui/icons/Title'));
+const TitleIcon = lazyLoad(() => import('@mui/icons-material/Title'));
 
 const useStyles = makeStyles(({ palette }: Theme) => ({
   selected: {

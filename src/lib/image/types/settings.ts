@@ -1,7 +1,7 @@
 import { ImageRendererProps } from './renderer';
 import { ImageControlsProps } from './controls';
 import { Translations } from './translations';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
 import { UploadImageField } from '../../common/components/uploadImageField/UploadImageField';
 
 export type ImageSettings = {

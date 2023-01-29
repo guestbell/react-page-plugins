@@ -20,15 +20,15 @@
  *
  */
 
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { defaultVideoState } from '../default/state';
 import { VideoControlsProps } from '../types/controls';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
-import EmbeddedIcon from '@material-ui/icons/YouTube';
-import UploadedIcon from '@material-ui/icons/PlayArrow';
+import EmbeddedIcon from '@mui/icons-material/YouTube';
+import UploadedIcon from '@mui/icons-material/PlayArrow';
 
 const Form: React.FC<VideoControlsProps> = props => {
   const {

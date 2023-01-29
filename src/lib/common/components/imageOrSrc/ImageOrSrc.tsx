@@ -1,14 +1,14 @@
 import * as React from 'react';
-import CreateIcon from '@material-ui/icons/Create';
-import ImageIcon from '@material-ui/icons/Image';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import CreateIcon from '@mui/icons-material/Create';
+import ImageIcon from '@mui/icons-material/Image';
+import { Theme } from '@mui/material/styles';
 import { UploadImageField } from '../uploadImageField/UploadImageField';
 import { Image } from '../../types/image/Image';
 import Text from 'guestbell-forms/build/components/text/Text';
-import WarningIcon from '@material-ui/icons/Warning';
-import yellow from '@material-ui/core/colors/yellow';
+import WarningIcon from '@mui/icons-material/Warning';
 import Button from 'guestbell-forms/build/components/button/Button';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@mui/styles';
+import { yellow } from '@mui/material/colors';
 
 export interface ImageOrSrcOryState {
   imageId?: number;
@@ -102,6 +102,7 @@ const ImageOrSrc: React.FC<ImageOrSrcProps> = props => {
                     <a
                       href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       Learn more about srcset
                     </a>

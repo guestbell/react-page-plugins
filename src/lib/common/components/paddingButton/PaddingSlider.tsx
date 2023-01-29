@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/Input';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Slider from '@material-ui/core/Slider';
-import debounce from '@material-ui/core/utils/debounce';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Input from '@mui/material/Input';
+import makeStyles from '@mui/styles/makeStyles';
+import Slider from '@mui/material/Slider';
+import { debounce } from '@mui/material/utils';
 
 export interface PaddingSliderProps {
   Icon?: JSX.Element;
@@ -42,7 +42,7 @@ const PaddingSlider: React.FC<PaddingSliderProps> = props => {
     [onValueChange]
   );
   const onSliderChange = React.useCallback(
-    (e: React.ChangeEvent, val: number) => {
+    (e: Event, val: number) => {
       onValueChangeDebounced(val);
       setInnerValue(val);
       setTextValue(val.toFixed());

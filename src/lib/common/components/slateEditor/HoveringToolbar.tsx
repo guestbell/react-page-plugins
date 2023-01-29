@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Portal from '@material-ui/core/Portal';
+import Paper from '@mui/material/Paper';
+import Portal from '@mui/material/Portal';
 import { ReactEditor, useSlate } from 'slate-react';
 import { Editor, Range } from 'slate';
 

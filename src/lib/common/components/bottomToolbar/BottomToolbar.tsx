@@ -1,20 +1,20 @@
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
-import Paper, { PaperProps } from '@material-ui/core/Paper';
-import Drawer from '@material-ui/core/Drawer';
+import { Theme } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+// import Typography from '@mui/material/Typography';
+import Paper, { PaperProps } from '@mui/material/Paper';
+import Drawer from '@mui/material/Drawer';
 import * as React from 'react';
 import { DraftSwitch } from '../draftSwitch/DraftSwitch';
 import { DuplicateButton } from '../duplicateButton/DuplicateButton';
-import { SlideProps } from '@material-ui/core/Slide';
+import { SlideProps } from '@mui/material/Slide';
 import { PaddingButton } from '../paddingButton/PaddingButton';
 import { SelectParentButton } from '../selectParentButton/SelectParentButton';
 import classNames from 'classnames';
 import DeleteButton from '../deleteButton/DeleteButton';
-import Portal from '@material-ui/core/Portal';
-import { makeStyles } from '@material-ui/core';
+import Portal from '@mui/material/Portal';
+import makeStyles from '@mui/styles/makeStyles';
 import { BottomToolbarProps, usePluginOfCell } from '@react-page/editor';
 
 const drawerSlideProps: Partial<SlideProps> = {

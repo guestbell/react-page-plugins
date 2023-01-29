@@ -17,10 +17,8 @@ import FontSizeButton from '../../../slate/plugins/fontSize/FontSizeButton';
 import { AlignmentButtons } from '../../../slate/plugins/alignment/AlignmentButtons';
 import { EmphasizeButton } from '../../../slate/plugins/emphasize/EmphasizeButton';
 import classNames from 'classnames';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
 import InputGroup from 'guestbell-forms/build/components/inputGroup';
-import yellow from '@material-ui/core/colors/yellow';
-import red from '@material-ui/core/colors/red';
 import { withHistory } from 'slate-history';
 import { SlateValue } from '../../types/slate/SlateValue';
 import { Migrator } from '../../slateMigrations/Migrator';
@@ -28,7 +26,7 @@ import { Migration } from '../../slateMigrations/Migration';
 import { slateEmptyValue } from './slateEmptyValue';
 import { withColors } from '../../../slate/plugins/color';
 import ColorButton from '../../../slate/plugins/color/ColorButton';
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 import { withHtml } from '../../../slate/plugins/htmlPaste/withHtmlPaste';
 import { withQuotes } from '../../../slate/plugins/quote';
 import HeadingButtonCompact from '../../../slate/plugins/heading/HeadingButtonCompact';
@@ -37,8 +35,10 @@ import { LinkButton } from '../../../slate/plugins/links/LinkButton';
 import { QuoteButton } from '../../../slate/plugins/quote/QuoteButton';
 import { renderElement, renderLeaf } from './Components';
 import { SelectionToolbar } from './SelectionToolbar';
-import Divider from '@material-ui/core/Divider/Divider';
-import Grid from '@material-ui/core/Grid/Grid';
+import Divider from '@mui/material/Divider/Divider';
+import Grid from '@mui/material/Grid/Grid';
+
+import { yellow, red } from '@mui/material/colors';
 
 export type SlateEditorOnChangeHandler = (val: {
   value: SlateValue;

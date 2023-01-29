@@ -1,7 +1,7 @@
 import { DividerProps } from './component';
 import { DividerRendererProps } from './renderer';
 import { Translations } from './translations';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
 import { ReactNode } from 'react';
 
 export interface DividerSettings {

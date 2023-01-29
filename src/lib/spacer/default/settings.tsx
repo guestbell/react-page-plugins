@@ -2,7 +2,7 @@ import { lazyLoad } from '@react-page/editor';
 import * as React from 'react';
 import { SpacerSettings } from '../types/settings';
 
-const AspectRatio = lazyLoad(() => import('@material-ui/icons/AspectRatio'));
+const AspectRatio = lazyLoad(() => import('@mui/icons-material/AspectRatio'));
 
 export const defaultTranslations = {
   pluginName: 'Spacer',

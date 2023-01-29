@@ -1,7 +1,7 @@
 import { VideoControlsProps } from './controls';
 import { VideoHtmlRendererProps } from './renderer';
 import { Translations } from './translations';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
 import { VideoTypeEnum } from './enum/VideoTypeEnum';
 
 export interface VideoSettings {

@@ -1,5 +1,5 @@
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import React from 'react';
 import { useCellProps, useSetDraft } from '@react-page/editor';
 

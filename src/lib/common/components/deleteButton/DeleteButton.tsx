@@ -1,6 +1,6 @@
 import * as React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import Delete from '@material-ui/icons/Delete';
+import IconButton from '@mui/material/IconButton';
+import Delete from '@mui/icons-material/Delete';
 import { useRemoveCell } from '@react-page/editor';
 
 export interface DeleteButtonProps {
@@ -16,6 +16,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ nodeId }) => {
       aria-label="delete"
       color="default"
       title="Delete"
+      size="large"
     >
       <Delete />
     </IconButton>

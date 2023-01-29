@@ -1,6 +1,6 @@
 import { SlateRendererProps } from './renderer';
 import { Translations } from './translations';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
 import { ReactNode } from 'react';
 import {
   HoverButtonTypes,

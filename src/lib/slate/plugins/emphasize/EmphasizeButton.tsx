@@ -14,10 +14,10 @@ const names = {
   [EmphasizeTypes.Italic]: 'Italic',
   [EmphasizeTypes.Underline]: 'Underline',
 };
-const ItalicIcon = lazyLoad(() => import('@material-ui/icons/FormatItalic'));
-const FormatBold = lazyLoad(() => import('@material-ui/icons/FormatBold'));
+const ItalicIcon = lazyLoad(() => import('@mui/icons-material/FormatItalic'));
+const FormatBold = lazyLoad(() => import('@mui/icons-material/FormatBold'));
 const FormatUnderlined = lazyLoad(() =>
-  import('@material-ui/icons/FormatUnderlined')
+  import('@mui/icons-material/FormatUnderlined')
 );
 const icons = {
   [EmphasizeTypes.Bold]: <FormatBold />,

@@ -1,18 +1,18 @@
 import * as React from 'react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import ColorComponent from './sub/Color';
 import LinearGradientComponent from './sub/LinearGradient';
 import ImageComponent from './sub/Image';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import ImageIcon from '@material-ui/icons/Landscape';
-import ColorIcon from '@material-ui/icons/ColorLens';
-import GradientIcon from '@material-ui/icons/Gradient';
-import Typography from '@material-ui/core/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import ImageIcon from '@mui/icons-material/Landscape';
+import ColorIcon from '@mui/icons-material/ColorLens';
+import GradientIcon from '@mui/icons-material/Gradient';
+import Typography from '@mui/material/Typography';
 import { ModeEnum } from '../types/ModeEnum';
 import { BackgroundControlsProps } from '../types/controls';
-import Slider from '@material-ui/core/Slider';
+import Slider from '@mui/material/Slider';
 import {
   useBackgroundApi,
   useBackgroundPreviewState,

@@ -3,7 +3,7 @@ import { BackgroundControlsProps } from './controls';
 import { ModeEnum } from './ModeEnum';
 import { BackgroundRendererProps } from './renderer';
 import { Translations } from './translations';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
 import { UploadImageField } from '../../common/components/uploadImageField/UploadImageField';
 import { CellPlugin } from '@react-page/editor';
 import { ReactNode } from 'react';

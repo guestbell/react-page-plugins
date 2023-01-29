@@ -4,10 +4,10 @@ import { ListButton } from './ListButton';
 import { ListTypes } from './listTypes';
 
 const ListIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatListBulleted')
+  import('@mui/icons-material/FormatListBulleted')
 );
 const OrderedListIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatListNumbered')
+  import('@mui/icons-material/FormatListNumbered')
 );
 export const ListButtons: React.FC = () => (
   <>

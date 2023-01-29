@@ -1,7 +1,5 @@
 import defaultTheme from './defaultTheme';
-import createMuiTheme, {
-  ThemeOptions,
-} from '@material-ui/core/styles/createMuiTheme';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -15,21 +13,27 @@ const themeOptions: ThemeOptions = {
       hover: defaultTheme.grayLighter,
     },
   },
-  overrides: {
+  components: {
     MuiCard: {
-      root: {
-        borderRadius: 0,
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        },
       },
     },
     MuiInput: {
-      input: {
-        paddingLeft: 6,
+      styleOverrides: {
+        input: {
+          paddingLeft: 6,
+        },
       },
     },
     MuiTableRow: {
-      root: {
-        '&$hover:hover': {
-          backgroundColor: defaultTheme.grayLighter,
+      styleOverrides: {
+        root: {
+          '&.MuiTableRow-hover:hover': {
+            backgroundColor: defaultTheme.grayLighter,
+          },
         },
       },
     },
@@ -64,13 +68,13 @@ const themeOptions: ThemeOptions = {
   },
 };
 
-export const muiTheme = createMuiTheme(themeOptions);
+export const muiTheme = createTheme(themeOptions);
 
-export const muiDarkTheme = createMuiTheme({
+export const muiDarkTheme = createTheme({
   ...themeOptions,
   palette: {
     ...(themeOptions && themeOptions.palette),
-    type: 'dark',
+    mode: 'dark',
   },
   typography: {},
 });

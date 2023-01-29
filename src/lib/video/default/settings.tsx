@@ -3,7 +3,7 @@ import { VideoSettings } from '../types/settings';
 import { lazyLoad } from '@react-page/editor';
 import { VideoTypeEnum } from '../types/enum/VideoTypeEnum';
 
-const PlayArrow = lazyLoad(() => import('@material-ui/icons/PlayArrow'));
+const PlayArrow = lazyLoad(() => import('@mui/icons-material/PlayArrow'));
 
 export const defaultTranslations = {
   pluginName: 'Video',

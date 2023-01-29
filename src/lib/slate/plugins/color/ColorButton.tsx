@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useSlate } from 'slate-react';
 import SlateButton from '../../../common/components/slateEditor/SlateButton';
 import { isColorActive, getActiveColors } from './withColors';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import { lazyLoad } from '@react-page/editor';
 import { ChromePicker, ColorResult, RGBColor } from 'react-color';
 import { Range } from 'slate';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@mui/styles';
 
 export interface ColorButtonCustomProps {
   disabled?: boolean;
@@ -28,7 +28,7 @@ const ChromePickerUntyped = ChromePicker as any;
 type ColorButtonProps = ColorButtonCustomProps;
 
 const FormatColorTextIcon = lazyLoad(() =>
-  import('@material-ui/icons/FormatColorText')
+  import('@mui/icons-material/FormatColorText')
 );
 
 export const ColorButtonRaw: React.FC<ColorButtonProps> = ({ disabled }) => {

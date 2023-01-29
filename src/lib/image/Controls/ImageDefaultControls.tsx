@@ -2,14 +2,14 @@ import * as React from 'react';
 
 import { ImageControlsProps as ImageControlsCustomProps } from '../types/controls';
 import ImageOrSrc from '../../common/components/imageOrSrc/ImageOrSrc';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { ImageConstraintMode } from '../types/state';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 type ImageControlsProps = ImageControlsCustomProps;
 
@@ -36,7 +36,7 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
     },
   } = props;
   const onConstraintModeChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) =>
+    (e: SelectChangeEvent) =>
       onChange({ constraintMode: Number(e.target.value) }),
     [onChange]
   );
@@ -63,7 +63,7 @@ const ImageDefaultControls: React.FC<ImageControlsProps> = props => {
             <InputLabel>Size mode</InputLabel>
             <Select
               className="mb-1"
-              value={constraintMode}
+              value={constraintMode?.toString()}
               onChange={onConstraintModeChange}
             >
               {allModes.map((item, key) => (

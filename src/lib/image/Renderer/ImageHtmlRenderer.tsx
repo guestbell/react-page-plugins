@@ -8,7 +8,7 @@ import PaddingComponent from '../../common/utils/PaddingComponent';
 import { getPathname, isSamePageUrl } from '../../common/utils/urlUtil';
 import { Link } from 'react-router-dom';
 
-const ImageIcon = lazyLoad(() => import('@material-ui/icons/Landscape'));
+const ImageIcon = lazyLoad(() => import('@mui/icons-material/Landscape'));
 
 const ImageHtmlRenderer: React.FC<ImageRendererProps> = props => {
   const { isEditMode, data } = props;

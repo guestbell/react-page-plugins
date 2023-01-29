@@ -3,12 +3,12 @@ import { lazyLoad } from '@react-page/editor';
 import { HeadingButton } from './HeadingButton';
 import { HeadingLevels } from './headingLevels';
 
-const H1Icon = lazyLoad(() => import('@material-ui/icons/LooksOne'));
-const H2Icon = lazyLoad(() => import('@material-ui/icons/LooksTwo'));
-const H3Icon = lazyLoad(() => import('@material-ui/icons/Looks3'));
-/*const H4Icon = lazyLoad(() => import('@material-ui/icons/Looks4'));
-const H5Icon = lazyLoad(() => import('@material-ui/icons/Looks5'));
-const H6Icon = lazyLoad(() => import('@material-ui/icons/Looks6'));*/
+const H1Icon = lazyLoad(() => import('@mui/icons-material/LooksOne'));
+const H2Icon = lazyLoad(() => import('@mui/icons-material/LooksTwo'));
+const H3Icon = lazyLoad(() => import('@mui/icons-material/Looks3'));
+/*const H4Icon = lazyLoad(() => import('@mui/icons-material/Looks4'));
+const H5Icon = lazyLoad(() => import('@mui/icons-material/Looks5'));
+const H6Icon = lazyLoad(() => import('@mui/icons-material/Looks6'));*/
 
 export const HeadingButtons: React.FC = () => (
   <>
