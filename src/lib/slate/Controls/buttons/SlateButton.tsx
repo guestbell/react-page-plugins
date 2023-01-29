@@ -27,8 +27,10 @@ const SlateButton: React.FC<ToolbarButtonProps> = ({
     circular={true}
     style={
       isActive
-        ? { color: theme.palette.primary.main }
-        : { color: theme.palette.action.active }
+        ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { color: (theme as any)?.palette?.primary?.main }
+        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { color: (theme as any)?.palette?.action?.active }
     }
     buttonProps={{ onMouseDown: onClick }}
     disabled={disabled}

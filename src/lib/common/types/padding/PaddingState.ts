@@ -1,4 +1,4 @@
-export interface PaddingState {
+export type PaddingState = {
   above?: number;
   below?: number;
-}
+};

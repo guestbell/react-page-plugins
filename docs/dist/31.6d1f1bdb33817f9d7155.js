@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[31],{1262:function(e,t,a){"use strict";var d=a(145);Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var o=d(a(146)),u=a(3),i=(0,o.default)((0,u.jsx)("path",{d:"M5 4v3h5.5v12h3V7H19V4z"}),"Title");t.default=i}}]);

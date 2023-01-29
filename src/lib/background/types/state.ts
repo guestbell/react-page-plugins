@@ -4,7 +4,7 @@ import { ModeEnum } from './ModeEnum';
 import { Image } from '../../common/types/image/Image';
 import { PaddingState } from '../../common/types/padding/PaddingState';
 
-export interface BackgroundState extends PaddingState {
+export type BackgroundState = PaddingState & {
   bgImageId?: number;
   bgImage?: Image;
   bgSrc?: string;
@@ -16,4 +16,4 @@ export interface BackgroundState extends PaddingState {
   darken: number;
   hasPadding: boolean;
   gradients: Gradient[];
-}
+};

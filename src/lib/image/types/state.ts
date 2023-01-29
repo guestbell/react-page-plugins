@@ -8,7 +8,7 @@ export enum ImageConstraintMode {
   SmallHeight = 3,
 }
 
-export interface ImageState extends PaddingState {
+export type ImageState = PaddingState & {
   imageId?: number;
   image?: Image;
   src?: string;
@@ -16,4 +16,4 @@ export interface ImageState extends PaddingState {
   href?: string;
   constraintMode?: ImageConstraintMode;
   hasMargin?: boolean;
-}
+};

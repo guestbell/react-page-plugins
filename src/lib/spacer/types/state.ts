@@ -1,5 +1,5 @@
 import { PaddingState } from '../../common/types/padding/PaddingState';
 
-export interface SpacerState extends PaddingState {
+export type SpacerState = PaddingState & {
   height: number;
-}
+};
