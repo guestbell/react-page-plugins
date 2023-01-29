@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 var isLocalBuild =
   process.env &&
   process.env.NODE_ENV &&
@@ -126,6 +126,7 @@ module.exports = {
   ],
 };
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 function DtsBundlePlugin() {}
 DtsBundlePlugin.prototype.apply = function(compiler) {
   compiler.plugin('done', function() {
