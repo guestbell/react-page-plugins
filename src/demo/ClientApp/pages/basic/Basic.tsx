@@ -18,14 +18,6 @@ import { Components } from '@react-page/editor/lib-es/core/types/components';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import withStyles from '@mui/styles/withStyles';
 
-if (
-  process.env.NODE_ENV !== 'production' &&
-  process.env.REACT_APP_TRACE_UPDATES
-) {
-  const { whyDidYouUpdate } = require('why-did-you-update');
-  whyDidYouUpdate(React);
-}
-
 // tslint:disable-next-line:no-any
 /*const KeepStateEditor = ({ value, ...props }: any) => {
   const [state, setState] = React.useState(value);

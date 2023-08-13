@@ -28,7 +28,13 @@ const SpacerDefaultControls: React.FC<SpacerControlsProps> = props => {
     },
     [onChange]
   );
-  const finalHeight = heightPreview ?? height;
+  React.useEffect(() => {
+    if (heightPreview !== height) {
+      setHeightPreview(height);
+      onChange({ height });
+    }
+  }, [height, commitHeight]);
+  const finalHeight = heightPreview ?? height ?? 0;
   return (
     <div
       className={classNames('ory-plugins-content-spacer', {

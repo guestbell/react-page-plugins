@@ -20,18 +20,32 @@
  *
  */
 
-import createPlugin from './createPlugin';
+import * as React from 'react';
+import { defaultSpacerState } from '../default/state';
+import { SpacerControlsProps } from '../types/controls';
+import Text from 'guestbell-forms/build/components/text';
 
-import SpacerHtmlRenderer from './Renderer/SpacerHtmlRenderer';
-import { SpacerSettings } from './types/settings';
-import { MakeOptional } from '../common/types/makeOptional';
-import SpacerDefaultControls from './Controls/SpacerDefaultControls';
+const Form: React.FC<SpacerControlsProps> = props => {
+  const {
+    readOnly,
+    onChange,
+    data: { height = 24 } = defaultSpacerState,
+  } = props;
 
-export default (settings?: MakeOptional<SpacerSettings, 'Renderer'>) => {
-  const plugin = createPlugin({
-    Renderer: SpacerHtmlRenderer,
-    Controls: SpacerDefaultControls,
-    ...settings,
-  });
-  return plugin;
+  const handleHeightChange = React.useCallback(
+    (height: number) => onChange({ height }),
+    [onChange]
+  );
+
+  return !readOnly ? (
+    <>
+      <Text
+        number={height}
+        label={props.translations.elementHeightLabel}
+        onNumberChange={handleHeightChange}
+      />
+    </>
+  ) : null;
 };
+
+export default Form;

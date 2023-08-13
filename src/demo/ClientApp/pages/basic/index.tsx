@@ -7,14 +7,6 @@ import { contents } from './contents';
 import { cellPlugins } from './plugins';
 // import './styles.css';
 
-if (
-  process.env.NODE_ENV !== 'production' &&
-  process.env.REACT_APP_TRACE_UPDATES
-) {
-  const { whyDidYouUpdate } = require('why-did-you-update');
-  whyDidYouUpdate(React);
-}
-
 // tslint:disable-next-line:no-any
 const KeepStateEditor = ({ value, ...props }: any) => {
   const [state, setState] = React.useState(value);

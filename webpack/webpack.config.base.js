@@ -81,7 +81,9 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,
-              plugins: loader => [require('autoprefixer')()],
+              postcssOptions: {
+                plugins: loader => [require('autoprefixer')()],
+              },
             },
           },
           {
@@ -96,7 +98,7 @@ module.exports = {
         test: /\.(svg)$/,
         use: {
           loader: 'svg-react-loader',
-          query: {
+          options: {
             props: {
               className: 'material-design-icon',
             },
@@ -128,8 +130,8 @@ module.exports = {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function DtsBundlePlugin() {}
-DtsBundlePlugin.prototype.apply = function(compiler) {
-  compiler.plugin('done', function() {
+DtsBundlePlugin.prototype.apply = function (compiler) {
+  compiler.plugin('done', function () {
     var dts = require('dts-bundle');
 
     dts.bundle({

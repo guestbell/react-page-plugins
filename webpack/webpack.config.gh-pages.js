@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 var isLocal = process.env.NODE_ENV === 'local';
-const merge = require('webpack-merge');
+const { mergeWithCustomize } = require('webpack-merge');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -16,7 +16,7 @@ let htmlPluginOptions = {
   template: './src/demo/ClientApp/index.template.ejs',
 };
 
-module.exports = merge({
+module.exports = mergeWithCustomize({
   customizeArray(a, b, key) {
     if (key === 'plugins') {
       a = _.remove(a, function(plugin) {

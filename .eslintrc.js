@@ -1,22 +1,31 @@
 module.exports = {
-  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
+  parser: '@typescript-eslint/parser',
+  // Specifies the ESLint parser
   parserOptions: {
-    ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module', // Allows for the use of imports
+    ecmaVersion: 2020,
+    // Allows for the parsing of modern ECMAScript features
+    sourceType: 'module',
+    // Allows for the use of imports
     ecmaFeatures: {
       jsx: true, // Allows for the parsing of JSX
     },
   },
+
   settings: {
     react: {
       version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
+
+  plugins: ['react-hooks'],
+
   extends: [
-    'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    'prettier', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
     'plugin:prettier/recommended',
+    'plugin:storybook/recommended',
+    'plugin:storybook/recommended',
   ],
   rules: {
     'react/no-children-prop': 'off',
@@ -30,7 +39,11 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
-      { vars: 'all', args: 'none', ignoreRestSiblings: false },
+      {
+        vars: 'all',
+        args: 'none',
+        ignoreRestSiblings: false,
+      },
     ],
     'prettier/prettier': [
       'error',
@@ -38,7 +51,13 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g.,
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['@mui/*/*/*'],
+      },
+    ],
+    'react-hooks/rules-of-hooks': 'error', // For checking rules of hooks
+    'react-hooks/exhaustive-deps': 'warn', // For checking hook dependencies
   },
 };

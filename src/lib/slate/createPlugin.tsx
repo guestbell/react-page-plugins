@@ -28,10 +28,6 @@ const createPlugin: (
     description: mergedSettings.translations.pluginDescription,
     Provider: props => <SlateProvider {...props} />,
     Renderer: props => <Renderer {...props} {...rest} />,
-    /*controls: {
-      type: 'custom',
-      Component: props => <Controls {...props} {...rest} />,
-    },*/
     createInitialState,
     allowClickInside: true,
   } as CellPlugin<SlateState>;
