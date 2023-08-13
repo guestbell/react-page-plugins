@@ -36,8 +36,8 @@ const Form: React.FC<VideoControlsProps> = props => {
     onChange,
     data: {
       type = props.defaultType,
-      embeddedSrc,
-      uploadedSrc,
+      embeddedSrc = '',
+      uploadedSrc = '',
     } = defaultVideoState,
   } = props;
 
