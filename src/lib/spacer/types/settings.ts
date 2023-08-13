@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 
 export interface SpacerSettings {
   Renderer: React.ComponentType<SpacerHtmlRendererProps>;
-  Controls: React.ComponentType<SpacerControlsProps>;
+  Controls?: React.ComponentType<SpacerControlsProps>;
   icon?: ReactNode;
   translations?: Translations;
   theme?: Theme;
