@@ -12,12 +12,12 @@ const BackgroundContext = React.createContext<
 export const BackgroundProvider: React.FC<BackgroundProps> = ({
   children,
   onChange,
-  data = {},
+  data,
   defaultHasPadding,
 }) => {
   const [state, setState] = React.useState<BackgroundPreviewState>({});
   const { darkenPreview, lightenPreview } = state;
-  const { hasPadding } = data;
+  const { hasPadding } = data ?? {};
   const handleChangeDarken = React.useCallback(() => {
     onChange({ darken: darkenPreview });
     setState(previousState => ({ ...previousState, darkenPreview: undefined }));

@@ -4,6 +4,7 @@ import { calculatePadding } from './PaddingUtils';
 
 export interface PaddingComponentProps {
   state: PaddingState;
+  children?: React.ReactNode;
 }
 
 const paddingComponentBaseClassName = 'paddingComponent';

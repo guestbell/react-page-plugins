@@ -4,7 +4,7 @@ import { DividerControlsProps as DividerControlsCustomProps } from '../types/con
 
 type DividerControlsProps = DividerControlsCustomProps;
 
-const DividerDefaultControls: React.SFC<DividerControlsProps> = props => {
+const DividerDefaultControls: React.FC<DividerControlsProps> = props => {
   return <div className="dividerControls ory-prevent-blur" />;
 };
 

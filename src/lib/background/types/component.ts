@@ -3,4 +3,6 @@ import { BackgroundSettings } from './settings';
 import { CellPluginComponentProps } from '@react-page/editor';
 
 export type BackgroundProps = CellPluginComponentProps<BackgroundState> &
-  Omit<BackgroundSettings, 'Renderer' | 'Controls'>;
+  Omit<BackgroundSettings, 'Renderer' | 'Controls'> & {
+    children?: React.ReactNode;
+  };

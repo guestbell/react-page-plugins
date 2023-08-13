@@ -4,7 +4,9 @@ import Portal from '@mui/material/Portal';
 import { ReactEditor, useSlate } from 'slate-react';
 import { Editor, Range } from 'slate';
 
-export const HoveringToolbar: React.FC = props => {
+export const HoveringToolbar: React.FC<{
+  children?: React.ReactNode;
+}> = props => {
   const ref = React.useRef<HTMLDivElement>();
   const editor = useSlate();
   React.useEffect(() => {

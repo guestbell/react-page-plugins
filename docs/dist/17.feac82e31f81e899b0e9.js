@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{1256:function(e,v,t){"use strict";var a=t(145);Object.defineProperty(v,"__esModule",{value:!0}),v.default=void 0;var d=a(t(146)),o=t(3),h=(0,d.default)((0,o.jsx)("path",{d:"M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z"}),"FormatAlignRight");v.default=h}}]);

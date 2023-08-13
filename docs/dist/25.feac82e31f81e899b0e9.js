@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[25],{1225:function(e,a,d){"use strict";var t=d(145);Object.defineProperty(a,"__esModule",{value:!0}),a.default=void 0;var n=t(d(146)),o=d(3),p=(0,n.default)((0,o.jsx)("path",{d:"m14 6-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"}),"Landscape");a.default=p}}]);

@@ -19,7 +19,7 @@ let htmlPluginOptions = {
 module.exports = mergeWithCustomize({
   customizeArray(a, b, key) {
     if (key === 'plugins') {
-      a = _.remove(a, function(plugin) {
+      a = _.remove(a, function (plugin) {
         // console.log(JSON.stringify(plugin));
         return !(plugin.options && plugin.options.filename === '[name].css');
       });
@@ -73,8 +73,6 @@ module.exports = mergeWithCustomize({
     minimizer: [
       new TerserPlugin({
         parallel: true,
-        sourceMap: isLocal,
-        cache: true,
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],

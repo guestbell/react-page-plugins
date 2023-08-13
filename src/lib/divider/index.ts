@@ -26,8 +26,8 @@ import { lazyLoad } from '@react-page/editor';
 import { MakeOptional } from '../common/types/makeOptional';
 import { DividerSettings } from './types/settings';
 
-const DividerDefaultControls = lazyLoad(() =>
-  import('./Controls/DividerDefaultControls')
+const DividerDefaultControls = lazyLoad(
+  () => import('./Controls/DividerDefaultControls')
 );
 
 export default (
