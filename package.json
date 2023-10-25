@@ -56,7 +56,7 @@
     "guestbell-forms": "3.0.82",
     "html-webpack-plugin": "5.5.0",
     "is-hotkey": "^0.1.6",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "material-design-icons": "3.0.1",
     "mini-css-extract-plugin": "2.7.6",
     "moment": "^2.25.3",
