@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Node, createEditor, Editor } from 'slate';
+import { Node, createEditor, Editor, Transforms } from 'slate';
 import { withFontSizes } from '../../../slate/plugins/fontSize/withFontSizes';
 import { withLists } from '../../../slate/plugins/lists/withLists';
 import { withHeadings } from '../../../slate/plugins/heading/withHeadings';
@@ -122,17 +122,18 @@ const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
 
 const resetEditor = <T extends Node = Node>(
   editor: Editor,
-  nodes?: T | T[]
+  nodes?: SlateValue
 ) => {
-  const { selection } = editor;
+  Editor.withoutNormalizing(editor, () => {
+    // Remove all nodes
+    editor.children = nodes ?? [];
 
-  editor.removeNodes({
-    at: { anchor: editor.start([]), focus: editor.end([]) },
+    // Reset the selection to the start of the document
+    Transforms.select(editor, [0, 0]);
+
+    // Normalize the editor state
+    editor.onChange();
   });
-
-  if (nodes) editor.insertNodes(Node.isNode(nodes) ? [nodes] : nodes);
-
-  editor.select(selection ?? editor.end([]));
 };
 
 const allHotkeys = { ...MARK_HOTKEYS };
