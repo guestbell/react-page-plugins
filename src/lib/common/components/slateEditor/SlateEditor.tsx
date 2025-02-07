@@ -120,6 +120,21 @@ const useStyles = makeStyles(({ spacing, palette, typography }: Theme) => ({
   },
 }));
 
+const resetEditor = <T extends Node = Node>(
+  editor: Editor,
+  nodes?: T | T[]
+) => {
+  const { selection } = editor;
+
+  editor.removeNodes({
+    at: { anchor: editor.start([]), focus: editor.end([]) },
+  });
+
+  if (nodes) editor.insertNodes(Node.isNode(nodes) ? [nodes] : nodes);
+
+  editor.select(selection ?? editor.end([]));
+};
+
 const allHotkeys = { ...MARK_HOTKEYS };
 
 type SlateEditorProps = SlateEditorCustomProps;
@@ -215,6 +230,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   React.useEffect(() => {
     if (value !== null && props.value !== value) {
       setValue(props.value);
+      resetEditor(editor, props.value);
     }
   }, [props.value]);
 
@@ -236,7 +252,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   );
   return value ? (
     <InputGroup title={props.title}>
-      <Slate editor={editor} value={value} onChange={onChange}>
+      <Slate editor={editor} initialValue={value} onChange={onChange}>
         <div className={classNames('slate-editor', className, classes.root)}>
           {!hideToolbar && (
             <div className={classes.toolbar}>
@@ -319,14 +335,12 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 }
               }
               for (const hotkey in allHotkeys) {
-                if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+                if (isHotkey(hotkey, event as unknown as KeyboardEvent)) {
                   event.preventDefault();
                   editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
                 }
               }
-              if (
-                isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
-              ) {
+              if (isHotkey('shift+enter', event as unknown as KeyboardEvent)) {
                 event.preventDefault();
                 editor.insertText('\n');
               }

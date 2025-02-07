@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_guestbell_react_page_plugins=self.webpackChunk_guestbell_react_page_plugins||[]).push([[165],{82165:(e,l,a)=>{var t=a(64836);Object.defineProperty(l,"__esModule",{value:!0}),l.default=void 0;var u=t(a(64938)),h=a(85893),s=(0,u.default)((0,h.jsx)("path",{d:"M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"}),"TextFields");l.default=s}}]);

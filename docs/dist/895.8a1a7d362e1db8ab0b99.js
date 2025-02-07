@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_guestbell_react_page_plugins=self.webpackChunk_guestbell_react_page_plugins||[]).push([[895],{94895:(e,a,l)=>{var u=l(64836);Object.defineProperty(a,"__esModule",{value:!0}),a.default=void 0;var t=u(l(64938)),s=l(85893);a.default=(0,t.default)((0,s.jsx)("path",{d:"M19 13H5v-2h14z"}),"Remove")}}]);

@@ -108,7 +108,7 @@ const SlateDefaultControls: React.FC<SlateControlsProps> = props => {
   return (
     <PaddingComponent state={props.data}>
       <div className="slateControls ory-prevent-blur">
-        <Slate editor={editor} value={value} onChange={stateChanged}>
+        <Slate editor={editor} initialValue={value} onChange={stateChanged}>
           <Editable
             readOnly={props.readOnly}
             placeholder={translations.textPlaceholder}
@@ -116,14 +116,12 @@ const SlateDefaultControls: React.FC<SlateControlsProps> = props => {
             renderElement={renderElement}
             onKeyDown={event => {
               for (const hotkey in allHotkeys) {
-                if (isHotkey(hotkey, (event as unknown) as KeyboardEvent)) {
+                if (isHotkey(hotkey, event as unknown as KeyboardEvent)) {
                   event.preventDefault();
                   editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
                 }
               }
-              if (
-                isHotkey('shift+enter', (event as unknown) as KeyboardEvent)
-              ) {
+              if (isHotkey('shift+enter', event as unknown as KeyboardEvent)) {
                 event.preventDefault();
                 editor.insertText('\n');
               }

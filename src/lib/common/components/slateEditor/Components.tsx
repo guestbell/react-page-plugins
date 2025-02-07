@@ -10,7 +10,7 @@ import { List } from '../../../slate/plugins/lists';
 import { Paragraph } from '../../../slate/plugins/paragraph/Paragraph';
 import { Quote } from '../../../slate/plugins/quote';
 
-export const renderElement: React.FC<RenderElementProps> = props => {
+export const renderElement = (props: RenderElementProps) => {
   const { element } = props;
   const editor = useSlate();
   const comp =
@@ -22,11 +22,11 @@ export const renderElement: React.FC<RenderElementProps> = props => {
   return addFontSizeStyles(
     editor.fontSizeConfig,
     element,
-    addAlignmentStyles(element, comp)
+    addAlignmentStyles(element, comp as JSX.Element)
   );
 };
 
-export const renderLeaf: React.FC<RenderLeafProps> = props => {
+export const renderLeaf = (props: RenderLeafProps) => {
   const { attributes, leaf } = props;
   const children = <span {...attributes}>{Emphasize(props)}</span>;
   return addColorStyles(leaf, children);
