@@ -68,7 +68,6 @@ export interface SlateEditorCustomProps {
   value: SlateValue;
   onChange: SlateEditorOnChangeHandler;
   className?: string;
-  placeholder?: string;
   label?: JSX.Element | string;
   title?: JSX.Element | string;
   maxChars?: number;
@@ -138,7 +137,10 @@ const resetEditor = <T extends Node = Node>(
 
 const allHotkeys = { ...MARK_HOTKEYS };
 
-type SlateEditorProps = SlateEditorCustomProps;
+type EditableProps = React.ComponentProps<typeof Editable>;
+
+type SlateEditorProps = SlateEditorCustomProps &
+  Omit<Partial<EditableProps>, 'onChange' | 'value'>;
 
 const SlateEditor: React.FC<SlateEditorProps> = props => {
   const {
@@ -152,6 +154,13 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
       HoverButtonTypes.Color,
     className,
     hideToolbar,
+    onChange,
+    value,
+    extraHoverButtons,
+    label,
+    maxChars,
+    title,
+    ...rest
   } = props;
   const classes = useStyles();
   const editor = React.useMemo(
@@ -180,7 +189,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   let chars = 0;
   let charsLeft = 0;
   let progress = 0;
-  if (props.maxChars) {
+  if (maxChars) {
     try {
       chars = Editor.string(editor, {
         anchor: Editor.start(editor, []),
@@ -189,37 +198,33 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
     } catch (error) {
       chars = 0;
     }
-    charsLeft = props.maxChars - chars;
-    progress = (charsLeft / props.maxChars) * 100;
+    charsLeft = maxChars - chars;
+    progress = (charsLeft / maxChars) * 100;
     if (charsLeft === 0) {
       allowNewChar = false;
     }
   }
 
-  const [value, setValue] = React.useState<SlateValue | null>(props.value);
+  const [_value, setValue] = React.useState<SlateValue | null>(value);
 
   // This is the initial check and/or migration
   React.useEffect(() => {
     let isDirty = false;
-    let newValue: SlateValue = props.value;
+    let newValue: SlateValue = value;
     if (
-      !value ||
-      !Array.isArray(value) ||
-      !value.every(node => Node.isNode(node))
+      !_value ||
+      !Array.isArray(_value) ||
+      !_value.every(node => Node.isNode(node))
     ) {
       newValue = slateEmptyValue();
       isDirty = true;
     } else {
-      const migrationResult = Migrator.migrateState(
-        version,
-        props.value,
-        migrations
-      );
+      const migrationResult = Migrator.migrateState(version, value, migrations);
       isDirty = migrationResult.changed;
       newValue = migrationResult.migratedState;
     }
     if (isDirty) {
-      props.onChange({
+      onChange({
         value: newValue,
         isValid: allowNewChar,
         isDirty,
@@ -229,42 +234,63 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
   }, []);
 
   React.useEffect(() => {
-    if (value !== null && props.value !== value) {
-      setValue(props.value);
-      resetEditor(editor, props.value);
+    if (_value !== null && value !== _value) {
+      setValue(value);
+      resetEditor(editor, value);
     }
-  }, [props.value]);
+  }, [value]);
 
-  const onChange = React.useCallback(
+  const _onChange = React.useCallback(
     (val: SlateValue) => {
       // This might possibly be stupid but right now, it triggers on every focus which causes
       // problems with re-rendering components and losing focus in modals (link, color)
-      if (JSON.stringify(value) !== JSON.stringify(val)) {
+      if (JSON.stringify(_value) !== JSON.stringify(val)) {
         const newValue: SlateValue = val;
         setValue(newValue);
-        props.onChange({
+        onChange({
           value: newValue,
           isValid: allowNewChar,
           isDirty: true,
         });
       }
     },
-    [props.onChange, value]
+    [onChange, _value]
   );
-  return value ? (
-    <InputGroup title={props.title}>
-      <Slate editor={editor} initialValue={value} onChange={onChange}>
+  const onKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!allowNewChar) {
+        if (!(event.keyCode === 8 || event.keyCode === 46)) {
+          event.preventDefault();
+          return;
+        }
+      }
+      for (const hotkey in allHotkeys) {
+        if (isHotkey(hotkey, event as unknown as KeyboardEvent)) {
+          event.preventDefault();
+          editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
+        }
+      }
+      if (isHotkey('shift+enter', event as unknown as KeyboardEvent)) {
+        event.preventDefault();
+        editor.insertText('\n');
+      }
+    },
+    [allowNewChar]
+  );
+  return _value ? (
+    <InputGroup title={title}>
+      <Slate editor={editor} initialValue={_value} onChange={_onChange}>
         <div className={classNames('slate-editor', className, classes.root)}>
           {!hideToolbar && (
             <div className={classes.toolbar}>
-              {props.label && (
+              {label && (
                 <div
                   className={classNames('slate-editor__label', classes.label, {
                     'slate-editor__label--active': false,
                     [classes.labelFocused]: false,
                   })}
                 >
-                  {props.label}
+                  {label}
                 </div>
               )}
               <Grid container alignItems="center" className={classes.root}>
@@ -325,29 +351,13 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
             </div>
           )}
           <Editable
+            {...rest}
             className={classNames('slate-editable', classes.editable)}
             renderLeaf={renderLeaf}
             renderElement={renderElement}
-            onKeyDown={event => {
-              if (!allowNewChar) {
-                if (!(event.keyCode === 8 || event.keyCode === 46)) {
-                  event.preventDefault();
-                  return;
-                }
-              }
-              for (const hotkey in allHotkeys) {
-                if (isHotkey(hotkey, event as unknown as KeyboardEvent)) {
-                  event.preventDefault();
-                  editor.toggleEmphasis(MARK_HOTKEYS[hotkey]);
-                }
-              }
-              if (isHotkey('shift+enter', event as unknown as KeyboardEvent)) {
-                event.preventDefault();
-                editor.insertText('\n');
-              }
-            }}
+            onKeyDown={onKeyDown}
           />
-          {props.maxChars && (
+          {maxChars && (
             <div
               className={classNames(
                 'slate-editor__char-count',
@@ -360,7 +370,7 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
                 }
               )}
             >
-              {chars}/{props.maxChars}
+              {chars}/{maxChars}
             </div>
           )}
           {false && (
@@ -376,10 +386,10 @@ const SlateEditor: React.FC<SlateEditorProps> = props => {
               )}
               {(hoverButtons & HoverButtonTypes.Link) !== 0 && <LinkButton />}
               {(hoverButtons & HoverButtonTypes.Color) !== 0 && <ColorButton />}
-              {props.extraHoverButtons}
+              {extraHoverButtons}
             </HoveringToolbar>
           )}
-          {/*<pre>{JSON.stringify(props.state.slateState, null, 2)}</pre>*/}
+          {/*<pre>{JSON.stringify(state.slateState, null, 2)}</pre>*/}
         </div>
       </Slate>
     </InputGroup>
