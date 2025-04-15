@@ -161,5 +161,5 @@
   },
   "style": "build/dist/guestbell-react-page-plugins.min.css",
   "typings": "build/index.d.ts",
-  "version": "2.0.8"
+  "version": "2.0.9"
 }
